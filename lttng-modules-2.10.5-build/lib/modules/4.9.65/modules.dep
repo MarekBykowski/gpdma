@@ -1,0 +1,52 @@
+extranet/bridge/br_netfilter.ko:
+extrafs/efivarfs/efivarfs.ko:
+extradrivers/video/backlight/lcd.ko:
+extracrypto/sha256_generic.ko:
+extracrypto/jitterentropy_rng.ko:
+extracrypto/hmac.ko:
+extracrypto/echainiv.ko:
+extracrypto/drbg.ko:
+extradrivers/char/hw_random/axxia-rng.ko:
+extra/tests/lttng-test.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/tests/lttng-clock-plugin-test.ko: extra/lttng-clock.ko
+extra/probes/lttng-probe-writeback.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-workqueue.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-vmscan.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-udp.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-timer.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-sunrpc.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-statedump.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-sock.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-skb.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-signal.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-scsi.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-sched.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-regulator.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-regmap.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-rcu.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-random.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-printk.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-power.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-net.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-napi.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-module.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-kvm.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-kmem.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-jbd2.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-irq.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-i2c.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-probe-gpio.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-ext4.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-compaction.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/probes/lttng-probe-block.ko: extra/lttng-tracer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lib/lttng-lib-ring-buffer.ko
+extra/probes/lttng-ftrace.ko:
+extra/lttng-tracer.ko: extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/lttng-statedump.ko:
+extra/lttng-ring-buffer-metadata-mmap-client.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/lttng-ring-buffer-metadata-client.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/lttng-clock.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko
+extra/lttng-ring-buffer-client-overwrite.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lttng-clock.ko
+extra/lttng-ring-buffer-client-mmap-overwrite.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lttng-clock.ko
+extra/lttng-ring-buffer-client-mmap-discard.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lttng-clock.ko
+extra/lttng-ring-buffer-client-discard.ko: extra/lttng-tracer.ko extra/lib/lttng-lib-ring-buffer.ko extra/probes/lttng-ftrace.ko extra/lttng-statedump.ko extra/lttng-clock.ko
+extra/lttng-clock.ko:
+extra/lib/lttng-lib-ring-buffer.ko:
