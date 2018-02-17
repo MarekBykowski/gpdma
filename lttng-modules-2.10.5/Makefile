@@ -100,7 +100,7 @@ else # KERNELRELEASE
 # base directory of the lttng-modules sources. It sets some environment and
 # calls the kernel build system to build the actual modules.
 
-KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+KERNELDIR ?= /workspace/sw/mbykowsx/lionfish/axxia_yocto_linux_4.1_private
 PWD := $(shell pwd)
 CFLAGS = $(EXTCFLAGS)
 
@@ -110,11 +110,12 @@ modules:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) CONFIG_LTTNG=m CONFIG_LTTNG_CLOCK_PLUGIN_TEST=m modules
 
 modules_install:
-	$(MAKE) INSTALL_MOD_PATH=/workspace/sw/mbykowsx/lionfish/lttng-modules-2.10.5-build \
+	$(MAKE) INSTALL_MOD_PATH=/workspace/sw/mbykowsx/lionfish/lttng/lttng-modules-2.10.5-build \
 	-C $(KERNELDIR) M=$(PWD) CONFIG_LTTNG=m CONFIG_LTTNG_CLOCK_PLUGIN_TEST=m modules_install
 
 clean:
-	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+	$(MAKE) INSTALL_MOD_PATH=/workspace/sw/mbykowsx/lionfish/lttng/lttng-modules-2.10.5-build \
+	-C $(KERNELDIR) M=$(PWD) clean
 
 %.i: %.c
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) CONFIG_LTTNG=m CONFIG_LTTNG_CLOCK_PLUGIN_TEST=m $@
