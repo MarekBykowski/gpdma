@@ -9,20 +9,19 @@ GCCINCLUDE=-I.
 
 all: hello
 
-hello-tp.o: hello-tp.c
-	$(GCC) -fpic $(GCCINCLUDE) $(GCCFLAGS) -c hello-tp.c
+netboot-tp.o: netboot-tp.c
+	$(GCC) -fpic $(GCCINCLUDE) $(GCCFLAGS) -c netboot-tp.c
 
 hello.o: hello.c
 	$(GCC) $(GCCINCLUDE) $(GCCFLAGS) -c hello.c
 
-libhello-tp.so: hello-tp.o
-	$(GCC) -shared -o libhello-tp.so $(GCCFLAGS) hello-tp.o -llttng-ust -ldl
+libnetboot-tp.so: netboot-tp.o
+	$(GCC) -shared -o libnetboot-tp.so $(GCCFLAGS) netboot-tp.o -llttng-ust -ldl
 
-#hello: hello.o libhello-tp.so
-hello: hello.o
+hello: hello.o libnetboot-tp.so
 	$(GCC) -o hello $(GCCINCLUDE) $(GCCFLAGS) hello.o -ldl
 
 
 .PHONY: clean
 clean:
-	rm hello.o hello hello-tp.o *.a *.so -rf
+	rm hello.o hello netboot-tp.o *.a *.so -rf

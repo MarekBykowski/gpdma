@@ -3,13 +3,12 @@ KBUILD_CFLAGS += -g
 
 all: kernel_modules
 
-#obj-m	:= sillymod.o
-obj-m	:= sillymod-event.o
+obj-m	:= netboot_module.o
 
 KDIR    := /workspace/sw/mbykowsx/lionfish/axxia_yocto_linux_4.1_private
 PWD    := $(shell pwd)
 
-CFLAGS_sillymod-event.o = -I$(src)
+CFLAGS_netboot_module.o = -I$(src)
 
 %.ko: %.o
 	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) $@

@@ -18,9 +18,9 @@ hello.o: hello.c
 libhello-tp.so: hello-tp.o
 	$(GCC) -shared -o libhello-tp.so $(GCCFLAGS) hello-tp.o -llttng-ust -ldl
 
-#hello: hello.o libhello-tp.so
-hello: hello.o
-	$(GCC) -o hello $(GCCINCLUDE) $(GCCFLAGS) hello.o -ldl
+hello: hello.o libhello-tp.so
+#hello: hello.o
+	$(GCC) -o hello $(GCCINCLUDE) $(GCCFLAGS) hello.o -ldl /workspace/sw/mbykowsx/lionfish/lttng/lttng-ust-space-app/libhello-tp.so
 
 
 .PHONY: clean

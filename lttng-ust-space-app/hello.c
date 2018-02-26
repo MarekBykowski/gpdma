@@ -2,45 +2,55 @@
 
 #define TRACEPOINT_DEFINE
 #define TRACEPOINT_PROBE_DYNAMIC_LINKAGE
-#include "hello-tp.h"
+#include "netboot-tp.h"
+
+typedef enum                             
+{                                        
+    NCP_HWIO_READ32 = 0,                 
+    NCP_HWIO_WRITE32,                    
+    NCP_HWIO_FILL32,                     
+    NCP_HWIO_CRBF,                       
+    NCP_HWIO_CRRMW,                      
+    NCP_HWIO_CRSW,                       
+    NCP_HWIO_CRBBW,                      
+    NCP_HWIO_CRBSW,                      
+    NCP_HWIO_CRBBF,                      
+    NCP_HWIO_CSMBR,                      
+    NCP_HWIO_CSMBW,                      
+    NCP_HWIO_USLEEP,                     
+    NCP_HWIO_RESET,                      
+    NCP_HWIO_POLL,                       
+    NCP_HWIO_POST_RESET,                 
+    NCP_HWIO_COMMENT,                    
+    NCP_HWIO_TRANS_START,                
+    NCP_HWIO_TRANS_UDELAY,               
+    NCP_HWIO_TRANS_STALL_2ND_PASS_POLL,  
+    NCP_HWIO_TRANS_END,                  
+    NCP_HWIO_READ16,                     
+    NCP_HWIO_WRITE16,                    
+    NCP_HWIO_READ8,                      
+    NCP_HWIO_WRITE8,                     
+    NCP_HWIO_READ64,                     
+    NCP_HWIO_WRITE64                     
+} ncp_hwio_type_t;                       
+
 
 int main(int argc, char *argv[])
 {
-    int x;
 
-    puts("Hello, World!\nPress Enter to continue...");
-
-    /*
-     * The following getchar() call is only placed here for the purpose
-     * of this demonstration, to pause the application in order for
-     * you to have time to list its tracepoints. It is not
-     * needed otherwise.
-     */
-    getchar();
-
-    /*
-     * A tracepoint() call.
-     *
-     * Arguments, as defined in hello-tp.h:
-     *
-     * 1. Tracepoint provider name   (required)
-     * 2. Tracepoint name            (required)
-     * 3. my_integer_arg             (first user-defined argument)
-     * 4. my_string_arg              (second user-defined argument)
-     *
-     * Notice the tracepoint provider and tracepoint names are
-     * NOT strings: they are in fact parts of variables that the
-     * macros in hello-tp.h create.
-     */
-    tracepoint(hello_world, my_first_tracepoint, 23, "hi there!");
-    tracepoint(hello_world, my_first_tracepoint, 23, "hi there!");
-
-    for (x = 0; x < argc; ++x) {
-        tracepoint(hello_world, my_first_tracepoint, x, argv[x]);
-    }
-
-    puts("Quitting now!");
-    tracepoint(hello_world, my_first_tracepoint, x * x, "x^2");
+	unsigned char value = 0x12;
+	tracepoint(kubus,
+           netboot_rw,    
+           NCP_HWIO_READ8,        
+           0/*devNum*/,                
+           11/*regionId*/,              
+           0x40000,                
+           (unsigned char *) &value, 
+           sizeof(unsigned char),   
+           1, /* count */         
+           0,                     
+           0 /* flags */          
+          );                      
 
     return 0;
 }

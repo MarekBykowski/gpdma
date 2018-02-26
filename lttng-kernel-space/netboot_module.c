@@ -2,16 +2,28 @@
 #include <linux/kthread.h>
 
 #define CREATE_TRACE_POINTS
-#include "silly-trace.h"
+#include "netboot-trace.h"
 
 static void silly_thread_func(void)
 {
 	static unsigned long count;
+	unsigned long long value = 0x1111111111111111;
 
 	set_current_state(TASK_INTERRUPTIBLE);
 	schedule_timeout(HZ);
 	printk("hello! %lu\n", count);
-	trace_me_silly(jiffies, count);
+	trace_netboot_kernel_rw(        
+           21/*NCP_HWIO_READ64*/,      
+           0/*devNum*/,               
+           123,             
+           0x40000,               
+           (unsigned char *) &value,
+           sizeof(unsigned long long), 
+           1, /* count */        
+           0,                    
+           0 /* flags */         
+          );                     
+
 	count++;
 }
 

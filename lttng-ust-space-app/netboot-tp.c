@@ -1,3 +1,3 @@
 #define TRACEPOINT_CREATE_PROBES
 
-#include "hello-tp.h"
+#include "netboot-tp.h"

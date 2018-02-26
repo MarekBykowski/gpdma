@@ -13,11 +13,11 @@
 #define CREATE_TRACE_POINTS
 #define TRACE_INCLUDE_PATH ../instrumentation/events/lttng-module
 
-#include "../instrumentation/events/lttng-module/silly.h"
+#include "../instrumentation/events/lttng-module/netboot.h"
 
 MODULE_LICENSE("GPL and additional rights");
 MODULE_AUTHOR("Marek Bykowski");
-MODULE_DESCRIPTION("LTTng sillymod tracepoint'ing");
+MODULE_DESCRIPTION("LTTng netboot trace'ing");
 MODULE_VERSION(__stringify(LTTNG_MODULES_MAJOR_VERSION) "."
     __stringify(LTTNG_MODULES_MINOR_VERSION) "."
     __stringify(LTTNG_MODULES_PATCHLEVEL_VERSION)
