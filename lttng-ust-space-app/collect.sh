@@ -38,8 +38,9 @@ lttng enable-event --kernel netboot_kernel_* --channel=kernel-channel
 
 
 lttng start
-LD_PRELOAD=${PRECEDING_DIR}/libnetboot-tp.so ncpCfgTool -rc /workspace/sw/mbykowsx/lionfish/netboot_xlf/config.cfg \
-	-O /workspace/sw/mbykowsx/lionfish/netboot_xlf/config.ovr
+LD_PRELOAD=${PRECEDING_DIR}/libnetboot-tp.so ncpCfgTool \
+	-rc ${PRECEDING_DIR}/../ASE_configs/config.cfg \
+	-O ${PRECEDING_DIR}/../ASE_configs/config.ovr
 lttng stop
 
 lttng destroy

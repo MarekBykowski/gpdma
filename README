@@ -1,16 +1,20 @@
+By Marek Bykowski
 
-This README is broken down to 2x parts:
+This README is a description of NetBoot trace production through "external lttng".
 1. Collection of the traces
 2. Incorporation fo the traces into Uboot
 
-This is a method for producing the NetBoot traces out of "external lttng".
-We assume the "external lttng" is in /workspace/sw/mbykowsx/lionfish/lttng.
+We assume:
+- "external lttng" is in /workspace/sw/mbykowsx/lionfish/lttng
+- board we capture the traces on must be running the kernel RTE and lttng are built against
+
+Test: to quickly test use Marek's lttng at /workspace/sw/mbykowsx/lionfish/lttng
 
 ===================================================
 
 1. Collection of the traces
 
-Check out kernel to build RTE to trace and lttng aginst. Set KERNELDIR
+Check out a kernel to build RTE to trace and lttng aginst. Set KERNELDIR
 in the topmost Makefile to the kernel checked out.
 
 Run make:
