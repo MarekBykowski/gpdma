@@ -1,0 +1,87 @@
+From ebbb1428385103abbcacb3fcaac1836360b081e6 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Sat, 17 Feb 2018 00:03:06 -0600
+Subject: [PATCH 1/2] netboot traces: Core ncp rte changes for the netboot
+ lttng to work.
+
+---
+ env/make.env.linux-arma53   | 3 ++-
+ env/make.flags.linux-arma53 | 4 ++--
+ rte/cli/ncpCfgTool/makefile | 4 ++--
+ 3 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/env/make.env.linux-arma53 b/env/make.env.linux-arma53
+index 0db8899..514ea6c 100644
+--- a/env/make.env.linux-arma53
++++ b/env/make.env.linux-arma53
+@@ -20,6 +20,7 @@ UBOOT_VERSION   =    u-boot_v2015.10_axxia_1.71_atf_84091c4_1.33_axxia-dev
+ 
+ # Path to linux kernel headers for the hardware platform.
+ BSP            ?=   /workspace/sw/gsudhir/builds/ncp/linux_4.9-arma53.$(KERNEL_VERSION)
++BSP=/workspace/sw/mbykowsx/lionfish/axxia_yocto_linux_4.1_private
+ 
+ BSP_ISS        ?=   /workspace/sw/gsudhir/builds/ncp/linux_4.9-arma53.$(SIM_KERNEL_VERSION)
+ 
+@@ -29,6 +30,7 @@ TC_PREFIX      ?=   aarch64-poky-linux
+ # The path to your compilation tools.
+ #
+ TOOLS_BASE_PATH ?=   /tools/AGRreleases/yocto/tools_jethro/armv8/axxia-image-large/sysroots/$(TC_PREFIX)
++TOOLS_BASE_PATH= /tools/AGRreleases/yocto/jethro_20Feb2017/axxia-arm64-x9/tools/sysroots/aarch64-poky-linux
+ 
+ TOOLCHAIN_PATH ?=   $(TOOLS_BASE_PATH)/../x86_64-pokysdk-linux/usr/bin/$(TC_PREFIX)
+ 
+@@ -103,7 +105,6 @@ include $(NCP_SRC)/env/make.flags.linux-arma53
+ # 
+ # Specific overrides here.
+ #
+-
+ override PLATFORM_CFLAGS +=   --sysroot=$(TOOLS_BASE_PATH)
+ 
+ export BSP BSP_ISS AR CC LD SIZE CROSS_COMPILE TC_PREFIX RTE_TARGET
+diff --git a/env/make.flags.linux-arma53 b/env/make.flags.linux-arma53
+index 6510b6f..bcdd6fd 100644
+--- a/env/make.flags.linux-arma53
++++ b/env/make.flags.linux-arma53
+@@ -15,7 +15,7 @@ endif
+ # LTTng userspace support requires the 'inline' keyword, which is not available
+ # under -ansi, so use the default in this case.
+ ifneq ($(NCP_LTTNG_USERSPACE),true)
+-    STDCFLAGS            =   -ansi
++#    STDCFLAGS            =   -ansi
+ endif
+ 
+ override PLATFORM_CFLAGS     +=   -DNCP_LINUX 
+@@ -39,7 +39,7 @@ override PLATFORM_CFLAGS     +=   -DPROC_ARMA53
+ #
+ # Processor specific flags passed to the compiler.
+ #
+-override PLATFORM_CFLAGS     +=   -march=armv8-a -mcpu=cortex-a53 
++override PLATFORM_CFLAGS     +=   -march=armv8-a -mcpu=cortex-a53 -ldl
+ override PLATFORM_CFLAGS     +=   -mlittle-endian
+ 
+ # Allow RTE to map the NVM region
+diff --git a/rte/cli/ncpCfgTool/makefile b/rte/cli/ncpCfgTool/makefile
+index 44f40ae..02bc4e0 100644
+--- a/rte/cli/ncpCfgTool/makefile
++++ b/rte/cli/ncpCfgTool/makefile
+@@ -34,7 +34,7 @@ ifeq ($(PLATFORM),linux)
+   NCPCFGTOOL_TARGETS := $(NCPCFGTOOL_OUTPUT_DIR)/ncpCfgTool$(EXE_EXT)
+   NCPCFGTOOL_LDFLAGS := $(PLATFORM_LDFLAGS) \
+                         -Wl,-rpath-link $(RTE_LIBDIR) -L$(RTE_LIBDIR) \
+-                        -lNcpApi -lNcpCliCommon -lrtecommon -lNcpSalIf \
++                        -lNcpApi -lNcpCliCommon -lrtecommon -lNcpSalIf -ldl \
+ 		        $(LTTNG_USERSPACE_LDFLAGS)
+ endif
+ 
+@@ -88,7 +88,7 @@ ncpcfgtool_clean:
+ $(NCPCFGTOOL_OUTPUT_DIR)/ncpCfgTool$(EXE_EXT): $(CLI_COMMON_INSTALL_TARGET)
+ $(NCPCFGTOOL_OUTPUT_DIR)/ncpCfgTool$(EXE_EXT): $(NCPCFGTOOL_OBJS)
+ $(NCPCFGTOOL_OUTPUT_DIR)/ncpCfgTool$(EXE_EXT): $(NCPCFGTOOL_TOOLS_OBJS)
+-	$(VERBOSE)$(LINKER) $(NCPCFGTOOL_CC) $(FLAGS) $(NCP_STRICT_CFLAGS) $(RTECFLAGS) \
++	$(LINKER) $(NCPCFGTOOL_CC) $(FLAGS) $(NCP_STRICT_CFLAGS) $(RTECFLAGS) \
+ 		$(CFLAGS) $(NCPCFGTOOL_INCLUDE) -o $@ $(NCPCFGTOOL_TOOLS_OBJS)   \
+ 		$(NCPCFGTOOL_OBJS) $(NCPCFGTOOL_LDFLAGS)
+ 
+-- 
+2.10.0.177.ge510a86
+

@@ -1,0 +1,62 @@
+
+This README is broken down to 2x parts:
+1. Collection of the traces
+2. Incorporation fo the traces into Uboot
+
+This is a method for producing the NetBoot traces out of "external lttng".
+We assume the "external lttng" is in /workspace/sw/mbykowsx/lionfish/lttng.
+
+===================================================
+
+1. Collection of the traces
+
+Check out kernel to build RTE to trace and lttng aginst. Set KERNELDIR
+in the topmost Makefile to the kernel checked out.
+
+Run make:
+# make
+
+Patch RTE to incorporate lttng into:
+# git apply 0001-netboot-traces-Core-ncp-rte-changes-for-the-netboot-.patch
+# git apply 0002-netboot-traces-Adding-the-trace-calls-for-user-and-k.patch
+
+With the second patch you may run into conflicts. It's easy to resolve them which
+should result in having all the trace calls applied to the code.
+
+Go to the Waco and run script "collect.sh" the traces:
+# cd /workspace/sw/mbykowsx/lionfish/lttng/lttng-ust-space-app
+# ./collect.sh
+
+Copy the traces (which should be in/root/lttng-trace) to your development directory.
+
+===================================================
+
+2. Incorporation of the traces to Uboot
+
+Copy the scripts to the directory with thelttng traces (eg. auto-20180302-043143):
+convert.py
+generate.sh
+parse_netboot.py
+kernel_traces_netboot.py
+VA2PA.patch
+
+Run "generate.sh" to produce the Uboot traces. What it does in detail is:
+- babeltraces them and converts to "old good" HW traces (as old ncpCfgTool
+with -n flag did)
+- as we may have the duplicates of the same traces called in user and kernel spaces
+it supresses such
+- converts the "old good" HW traces to Uboot traces
+- applies the convertion of the Virtual to Physical addresses (details below)
+- as a final step it produces "all.c" with the Uboot traces ready to be deployed to Uboot
+
+Copy all.c to Uboot at board/axxia/axc6700/ncatask/EIOA67xx/, build and try. 
+Quick try after getting to Uboot prompt:
+"setenv gmacport gmac48; setenv ethact LSI_EIOA; dhcp"
+
+Details on address translation: NetBoot uses SharedMemoryPool(2), and blocks within:
+64K | 16K | 2K | 256B. Each of the blocks is layed down in the memory and is used to
+accomodate the EIOA packets. The addresses of the blocks the RTE writes to the registers
+are Virtual ones. While kernel has the ability to translate these to the Physical ones
+Uboot doesn't so we must translate it for Uboot beforehand.
+NOTE: these memory block addresses are in config.xml ONLY after applying "Validate Configuration"
+and saving to the xml file in ASE. Then the VA2PA.patch must be changed upon it.
