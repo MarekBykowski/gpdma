@@ -4,7 +4,8 @@ AR=aarch64-poky-linux-gcc-ar
 #GCCFLAGS=-g --sysroot=/tools/AGRreleases/yocto/tools_jethro/armv8/axxia-image-large/sysroots/aarch64-poky-linux
 
 #GCCFLAGS=--sysroot=/tools/AGRreleases/yocto/jethro_20Feb2017/axxia-arm64-x9/tools/sysroots/aarch64-poky-linux
-GCCFLAGS=--sysroot=/tools/AGRreleases/yocto/jethro_20Feb2017/axxia-arm64-x9/tools/sysroots/aarch64-poky-linux
+#GCCFLAGS=--sysroot=/tools/AGRreleases/yocto/jethro_20Feb2017/axxia-arm64-x9/tools/sysroots/aarch64-poky-linux
+GCCFLAGS=--sysroot=/tools/AGRreleases/yocto/tools_jethro/armv8/axxia-image-large/sysroots/aarch64-poky-linux
 GCCINCLUDE=-I.
 
 all: hello

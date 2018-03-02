@@ -1,3 +1,5 @@
+KERNELDIR ?= /workspace/sw/mbykowsx/lionfish/kernel
+export KERNELDIR
 
 all:  
 	#build lttng netboot probes module and remaining of lttng

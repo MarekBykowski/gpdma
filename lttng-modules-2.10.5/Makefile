@@ -107,6 +107,7 @@ CFLAGS = $(EXTCFLAGS)
 default: modules
 
 modules:
+	@echo $(KERNELDIR)
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) CONFIG_LTTNG=m CONFIG_LTTNG_CLOCK_PLUGIN_TEST=m modules
 
 modules_install:
