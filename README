@@ -1,66 +1,86 @@
-By Marek Bykowski
+NetBoot trace generation. Any comments can be addressed at marekx.bykowski@intel.com
 
-This README is a description of NetBoot trace production through "external lttng".
-1. Collection of the traces
-2. Incorporation fo the traces into Uboot
+===================================================
 
-We assume:
-- "external lttng" is in /workspace/sw/mbykowsx/lionfish/lttng
-- board we capture the traces on must be running the kernel RTE and lttng are built against
+This facility offers a NetBoot trace production through "external lttng" in contrast to 
+LTTng "built in" RTE. The process can be broken down to 2x parts:
+1. Collection of the traces from RTE in the board
+2. Parsing, production and incorporation of the traces into Uboot
 
-Test: to quickly test use Marek's lttng at /workspace/sw/mbykowsx/lionfish/lttng
+Go with:
+1. Get a working copy of /workspace/sw/mbykowsx/lionfish/netboot_lttng
+2. Clone and checkout out a kernel (against which LTTNg modules and RTE will be built against)
+3. Patch RTE
+
+Wat 'netboot_lttng' is?
+'netboot_lttng' is a LTTng kernel modules 2.10 patched to provide the LTTng adaptation
+layer to kernel module RTE so that the trace calls in RTE can be exposed and callected by
+the user space LTTng daemon. It also includes the NetBoot traces for the user space and
+the scripts for trace production as well as trace conversion to Uboot ones ready to be
+deployed in Uboot.
 
 ===================================================
 
 1. Collection of the traces
 
-Check out a kernel to build RTE to trace and lttng aginst. Set KERNELDIR
-in the topmost Makefile to the kernel checked out.
+Check out a kernel to build RTE and lttng aginst. Go to netboot_lttng directory and
+set KERNELDIR in the topmost Makefile to the directory the kernel is.
 
 Run make:
 # make
 
-Patch RTE to incorporate lttng into:
+Patch RTE with NetBoot patches:
 # git apply 0001-netboot-traces-Core-ncp-rte-changes-for-the-netboot-.patch
 # git apply 0002-netboot-traces-Adding-the-trace-calls-for-user-and-k.patch
 
 With the second patch you may run into conflicts. It's easy to resolve them which
-should result in having all the trace calls applied to the code.
+should get you ended up in having all the tracepoints from the patch applied to RTE.
 
-Go to the Waco and run script "collect.sh" the traces:
-# cd /workspace/sw/mbykowsx/lionfish/lttng/lttng-ust-space-app
-# ./collect.sh
+Go to the board and run script "collect.sh" to collect the traces:
+# ./scripts/collect.sh
 
-Copy the traces (which should be in/root/lttng-trace) to your development directory.
+'collect.sh' expects in '$1' a directory in which the RTE built is.
+
+After the trace generation copy the traces (which you should be able to find in/root/lttng-trace)
+to your working directory with 'babeltrace' present (eg. you can install it
+with 'sudo apt-get install babeltrace' on Ubuntu).
 
 ===================================================
 
 2. Incorporation of the traces to Uboot
 
-Copy the scripts to the directory with thelttng traces (eg. auto-20180302-043143):
+Copy the scripts (from ./scripts) to the directory with the traces (eg. auto-20180302-043143):
 convert.py
 generate.sh
 parse_netboot.py
 kernel_traces_netboot.py
 VA2PA.patch
 
-Run "generate.sh" to produce the Uboot traces. What it does in detail is:
-- babeltraces them and converts to "old good" HW traces (as old ncpCfgTool
-with -n flag did)
-- as we may have the duplicates of the same traces called in user and kernel spaces
-it supresses such
+Run "generate.sh" to produce the Uboot traces.
+# ./generate.sh
+
+It should get you produced Uboot traces in 'all.c'. Copy it to Uboot at 
+'./board/axxia/axc6700/ncatask/EIOA67xx/'
+
+What 'generate.sh' does under the hood is:
+- babeltraces the LTTng traces and converts them to "old good" HW traces (old ncpCfgTool
+with -n flag was able to produce)
+- supresses the duplicates of the traces if it happenes the same traces were captured in user
+and kernel space
 - converts the "old good" HW traces to Uboot traces
 - applies the convertion of the Virtual to Physical addresses (details below)
-- as a final step it produces "all.c" with the Uboot traces ready to be deployed to Uboot
+- and as a final step it writes all to "all.c"
 
-Copy all.c to Uboot at board/axxia/axc6700/ncatask/EIOA67xx/, build and try. 
-Quick try after getting to Uboot prompt:
+To quickly test the traces in Uboot stop it in the prompt and run:
 "setenv gmacport gmac48; setenv ethact LSI_EIOA; dhcp"
 
 Details on address translation: NetBoot uses SharedMemoryPool(2), and blocks within:
-64K | 16K | 2K | 256B. Each of the blocks is layed down in the memory and is used to
+64K | 16K | 2K | 256B. Each of the blocks is layed down in the main memory and is used to
 accomodate the EIOA packets. The addresses of the blocks the RTE writes to the registers
 are Virtual ones. While kernel has the ability to translate these to the Physical ones
-Uboot doesn't so we must translate it for Uboot beforehand.
-NOTE: these memory block addresses are in config.xml ONLY after applying "Validate Configuration"
-and saving to the xml file in ASE. Then the VA2PA.patch must be changed upon it.
+Uboot doesn't so what we do we translate the Virtual to Physical addresses for Uboot before 
+Uboot gets to loading the traces which is before providing the final 'all.c'.
+NOTE: these memory block addresses are in config.xml present ONLY after applying 
+"Validate Configuration" and saving to the xml file in ASE. After each ASE release you should
+always check VA2PA.patch against the xml and change the addresses recpectively. 
+TODO???: If you want me to automate this step please let me know.
