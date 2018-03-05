@@ -2,11 +2,14 @@ KERNELDIR ?= /workspace/sw/mbykowsx/lionfish/kernel
 export KERNELDIR
 
 all:  
-	#build lttng netboot probes module and remaining of lttng
+	@echo -e "	#######################################################"
+	@echo -e "	Building netboot tracing against KERNELDIR=$(KERNELDIR)"
+	@echo -e "	#######################################################"
+	@#build lttng netboot probes module and remaining of lttng
 	make -C lttng-modules-2.10.5
-	#install modules
+	@#install modules
 	make -C lttng-modules-2.10.5 modules_install
-	#build userspace tracepoint provider
+	@#build userspace tracepoint provider
 	make -C lttng-ust-space-app
 
 .PHONY: clean
