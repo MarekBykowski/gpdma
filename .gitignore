@@ -3,3 +3,4 @@
 *.tgz
 *.o
 *.so
+lttng-ust-space-app/hello
