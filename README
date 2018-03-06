@@ -33,7 +33,7 @@ Run make:
 
 It should get you LTTng kernel module and UST tracpoint package provider built.
 
-Patch RTE with the tracepoints:
+Patch RTE with the patches found in RTE_patches:
 # git apply 0001-netboot-traces-Core-ncp-rte-changes-for-the-netboot-.patch
 # git apply 0002-netboot-traces-Adding-the-trace-calls-for-user-and-k.patch
 
