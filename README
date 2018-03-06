@@ -2,76 +2,88 @@ NetBoot trace generation. Any comments can be addressed at marekx.bykowski@intel
 
 ===================================================
 
-This facility offers a NetBoot trace production through "external lttng" in contrast to 
+For generation of the Uboot traces this facility uses an "external LTTng" in contrast to 
 LTTng "built in" RTE. The process can be broken down to 2x parts:
 1. Collection of the traces from RTE in the board
 2. Parsing, production and incorporation of the traces into Uboot
 
-Go with:
-1. Get a working copy of /workspace/sw/mbykowsx/lionfish/netboot_lttng
-2. Clone and checkout out a kernel (against which LTTNg modules and RTE will be built against)
-3. Patch RTE
+Get a working copy of 'netboot_tracing-netboot_tracing' through one of the two options:
+- copy /workspace/sw/mbykowsx/lionfish/netboot_tracing-netboot_tracing into yours
+- clone it from TeamForge:
+  # git clone ssh://mbykowsx@git-ger-3.devtools.intel.com:29418/netboot_tracing-netboot_tracing 
+  (I must add your account to the project members. Let me know at marekx.bykowski@intel.com)
 
-Wat 'netboot_lttng' is?
-'netboot_lttng' is a LTTng kernel modules 2.10 patched to provide the LTTng adaptation
-layer to kernel module RTE so that the trace calls in RTE can be exposed and callected by
-the user space LTTng daemon. It also includes the NetBoot traces for the user space and
-the scripts for trace production as well as trace conversion to Uboot ones ready to be
-deployed in Uboot.
+What 'netboot_tracing-netboot_tracing' is?
+'netboot_tracing-netboot_tracing' is a LTTng kernel modules 2.10 patched to provide
+the LTTng adaptation layer to kernel module RTE so that the tracepoints in RTE can be
+exposed and callected by the user space LTTng daemon. It also includes the NetBoot traces
+for the user space and the scripts for trace production as well as its conversion to
+Uboot traces ready to be deployed in Uboot.
 
 ===================================================
 
 1. Collection of the traces
 
-Check out a kernel to build RTE and lttng aginst. Go to netboot_lttng directory and
-set KERNELDIR in the topmost Makefile to the directory the kernel is.
+For that you must have a kernel checked out RTE and LTTng will be built aginst. 
+In the topmost Makefile of the 'netboot_tracing-netboot_tracing' set KERNELDIR 
+to the location your kernel is.
 
 Run make:
 # make
 
-Patch RTE with NetBoot patches:
+It should get you LTTng kernel module and UST tracpoint package provider built.
+
+Patch RTE with the tracepoints:
 # git apply 0001-netboot-traces-Core-ncp-rte-changes-for-the-netboot-.patch
 # git apply 0002-netboot-traces-Adding-the-trace-calls-for-user-and-k.patch
 
 With the second patch you may run into conflicts. It's easy to resolve them which
 should get you ended up in having all the tracepoints from the patch applied to RTE.
 
+Build RTE:
+# source src.env #set up environment                                   
+# export NCP_MULTI_BUILDS=true                                         
+# make -f make.unix rte-base -j 24                                     
+# make -f make.linux-arma53 clobber release install idsprototype -j 24 
+
 Go to the board and run script "collect.sh" to collect the traces:
-# ./scripts/collect.sh
+# ./scripts/collect.sh ${RTE_DIR}
 
-'collect.sh' expects in '$1' a directory in which the RTE built is.
+'collect.sh' will load ncpDriver from ${RTE_DIR}. If you neglect giving ${RTE_DIR} it will
+try to load my RTE (probably collection will fail the kernel not matching).
 
-After the trace generation copy the traces (which you should be able to find in/root/lttng-trace)
-to your working directory with 'babeltrace' present (eg. you can install it
-with 'sudo apt-get install babeltrace' on Ubuntu).
+After generating the traces copy them from /root/lttng-trace (most likely) to your
+working directory in which the 'babeltrace' must be present (eg. on Ubuntu you can install it
+with 'sudo apt-get install babeltrace').
 
 ===================================================
 
 2. Incorporation of the traces to Uboot
 
-Copy the scripts (from ./scripts) to the directory with the traces (eg. auto-20180302-043143):
+Copy the following scripts (from ./scripts) to the directory you copied the traces in the step 
+before:
 convert.py
 generate.sh
 parse_netboot.py
 kernel_traces_netboot.py
 VA2PA.patch
 
-Run "generate.sh" to produce the Uboot traces.
+Run "generate.sh":
 # ./generate.sh
 
-It should get you produced Uboot traces in 'all.c'. Copy it to Uboot at 
-'./board/axxia/axc6700/ncatask/EIOA67xx/'
+It should get you Uboot traces written to 'all.c'. Copy it to Uboot at 
+'./board/axxia/axc6700/ncatask/EIOA67xx/', build Uboot and try.
 
 What 'generate.sh' does under the hood is:
-- babeltraces the LTTng traces and converts them to "old good" HW traces (old ncpCfgTool
-with -n flag was able to produce)
-- supresses the duplicates of the traces if it happenes the same traces were captured in user
+- babeltraces the LTTng traces and converts them to "old" HW traces (from the time the HWIO
+traces could be captured in user space)
+- supresses the duplicates of the traces if it happens the same traces were captured in user
 and kernel space
 - converts the "old good" HW traces to Uboot traces
 - applies the convertion of the Virtual to Physical addresses (details below)
-- and as a final step it writes all to "all.c"
+- writes its all to "all.c"
 
-To quickly test the traces in Uboot stop it in the prompt and run:
+To quickly test the traces in Uboot stop Uboot in the prompt and run eg.:
 "setenv gmacport gmac48; setenv ethact LSI_EIOA; dhcp"
 
 Details on address translation: NetBoot uses SharedMemoryPool(2), and blocks within:
