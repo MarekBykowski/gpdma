@@ -1,17 +1,17 @@
-From ebbb1428385103abbcacb3fcaac1836360b081e6 Mon Sep 17 00:00:00 2001
+From 3c792eba1bc701d92a6fe33372d63606f64ca0a0 Mon Sep 17 00:00:00 2001
 From: Marek Bykowski <marek.bykowski@gmail.com>
 Date: Sat, 17 Feb 2018 00:03:06 -0600
 Subject: [PATCH 1/2] netboot traces: Core ncp rte changes for the netboot
  lttng to work.
 
 ---
- env/make.env.linux-arma53   | 3 ++-
+ env/make.env.linux-arma53   | 2 +-
  env/make.flags.linux-arma53 | 4 ++--
  rte/cli/ncpCfgTool/makefile | 4 ++--
- 3 files changed, 6 insertions(+), 5 deletions(-)
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/env/make.env.linux-arma53 b/env/make.env.linux-arma53
-index 0db8899..514ea6c 100644
+index 0db8899..2a25270 100644
 --- a/env/make.env.linux-arma53
 +++ b/env/make.env.linux-arma53
 @@ -20,6 +20,7 @@ UBOOT_VERSION   =    u-boot_v2015.10_axxia_1.71_atf_84091c4_1.33_axxia-dev
@@ -22,15 +22,7 @@ index 0db8899..514ea6c 100644
  
  BSP_ISS        ?=   /workspace/sw/gsudhir/builds/ncp/linux_4.9-arma53.$(SIM_KERNEL_VERSION)
  
-@@ -29,6 +30,7 @@ TC_PREFIX      ?=   aarch64-poky-linux
- # The path to your compilation tools.
- #
- TOOLS_BASE_PATH ?=   /tools/AGRreleases/yocto/tools_jethro/armv8/axxia-image-large/sysroots/$(TC_PREFIX)
-+TOOLS_BASE_PATH= /tools/AGRreleases/yocto/jethro_20Feb2017/axxia-arm64-x9/tools/sysroots/aarch64-poky-linux
- 
- TOOLCHAIN_PATH ?=   $(TOOLS_BASE_PATH)/../x86_64-pokysdk-linux/usr/bin/$(TC_PREFIX)
- 
-@@ -103,7 +105,6 @@ include $(NCP_SRC)/env/make.flags.linux-arma53
+@@ -103,7 +104,6 @@ include $(NCP_SRC)/env/make.flags.linux-arma53
  # 
  # Specific overrides here.
  #
