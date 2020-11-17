@@ -1,0 +1,69 @@
+Tests: memcpy memcpy_read dma_read memcpy_write dma_write ep2ep_read ep2ep_write mem2mem
+burst set to 0 -- 3 = 64B, 5 = 128B, ...
+testing memcpy
+memcpy 64 bytes (overhead) 33 ns crc32 0x8a729cc9 pass
+testing memcpy_read
+memcpy_read 64 bytes (overhead) 6424 ns crc32 0x8a729cc9 pass
+testing dma_read
+dma_read 64 bytes (overhead) 17264 ns crc32 0x8a729cc9 pass
+testing memcpy_write
+memcpy_write 64 bytes (overhead) 47 ns crc32 0x8a729cc9 pass
+testing dma_write
+dma_write 64 bytes (overhead) 15198 ns crc32 0x8a729cc9 pass
+testing ep2ep_read
+ep2ep_read 64 bytes (overhead) 18043 ns crc32 0x8a729cc9 pass
+testing ep2ep_write
+ep2ep_write 64 bytes (overhead) 17845 ns crc32 0x8a729cc9 pass
+testing mem2mem
+mem2mem 64 bytes (overhead) 17821 ns crc32 0x8a729cc9 pass
+burst set to 3 -- 3 = 64B, 5 = 128B, ...
+testing memcpy
+memcpy 64 bytes (overhead) 34 ns crc32 0xe9d3cdaa pass
+testing memcpy_read
+memcpy_read 64 bytes (overhead) 6528 ns crc32 0x8a729cc9 pass
+testing dma_read
+dma_read 64 bytes (overhead) 18222 ns crc32 0x8a729cc9 pass
+testing memcpy_write
+memcpy_write 64 bytes (overhead) 37 ns crc32 0x8a729cc9 pass
+testing dma_write
+dma_write 64 bytes (overhead) 16583 ns crc32 0x8a729cc9 pass
+testing ep2ep_read
+ep2ep_read 64 bytes (overhead) 17949 ns crc32 0x8a729cc9 pass
+testing ep2ep_write
+ep2ep_write 64 bytes (overhead) 18073 ns crc32 0x8a729cc9 pass
+testing mem2mem
+mem2mem 64 bytes (overhead) 16634 ns crc32 0x8a729cc9 pass
+burst set to 5 -- 3 = 64B, 5 = 128B, ...
+testing memcpy
+memcpy 64 bytes (overhead) 33 ns crc32 0xfa41edec pass
+testing memcpy_read
+memcpy_read 64 bytes (overhead) 6562 ns crc32 0x8a729cc9 pass
+testing dma_read
+dma_read 64 bytes (overhead) 18427 ns crc32 0x8a729cc9 pass
+testing memcpy_write
+memcpy_write 64 bytes (overhead) 39 ns crc32 0x8a729cc9 pass
+testing dma_write
+dma_write 64 bytes (overhead) 16644 ns crc32 0x8a729cc9 pass
+testing ep2ep_read
+ep2ep_read 64 bytes (overhead) 19159 ns crc32 0x8a729cc9 pass
+testing ep2ep_write
+ep2ep_write 64 bytes (overhead) 16273 ns crc32 0x8a729cc9 pass
+testing mem2mem
+mem2mem 64 bytes (overhead) 17648 ns crc32 0x8a729cc9 pass
+burst set to 7 -- 3 = 64B, 5 = 128B, ...
+testing memcpy
+memcpy 64 bytes (overhead) 34 ns crc32 0x68290d16 pass
+testing memcpy_read
+memcpy_read 64 bytes (overhead) 6522 ns crc32 0x8a729cc9 pass
+testing dma_read
+dma_read 64 bytes (overhead) 16969 ns crc32 0x8a729cc9 pass
+testing memcpy_write
+memcpy_write 64 bytes (overhead) 36 ns crc32 0x8a729cc9 pass
+testing dma_write
+dma_write 64 bytes (overhead) 16664 ns crc32 0x8a729cc9 pass
+testing ep2ep_read
+ep2ep_read 64 bytes (overhead) 16512 ns crc32 0x8a729cc9 pass
+testing ep2ep_write
+ep2ep_write 64 bytes (overhead) 22396 ns crc32 0x8a729cc9 pass
+testing mem2mem
+mem2mem 64 bytes (overhead) 17238 ns crc32 0x8a729cc9 pass

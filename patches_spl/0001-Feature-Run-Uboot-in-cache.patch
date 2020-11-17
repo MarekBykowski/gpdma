@@ -1,0 +1,116 @@
+From e4219297d89bc7606ddb958af42bf3c9d4343cc6 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Mon, 12 Jun 2017 08:02:48 -0500
+Subject: [PATCH 1/4] Feature: Run Uboot in cache
+
+Flow: SPL (EL3), Uboot (EL3), ATF (EL3), Uboot (EL2)
+
+What happens when:
+SPL loads Uboot to cache then branches over, Uboot runs in
+cache, initializes the main memory and flushes the caches.
+Then it branches over to ATF that returns to Uboot switching
+the Exception Level from 3 to 2 (EL3 to EL2). Then the system
+boots as usual.
+
+In this flavour ATF is linked in to Uboot through the linker script.
+
+Note: this ATF requires a matching Uboot from the Uboot repo from
+the branch with the same name.
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ bl31/aarch64/bl31_entrypoint.S     | 16 +++++++++++++++-
+ plat/intel/axxia/bl31_plat_setup.c | 29 +++++++++++++++++++++++++++--
+ 2 files changed, 42 insertions(+), 3 deletions(-)
+
+diff --git a/bl31/aarch64/bl31_entrypoint.S b/bl31/aarch64/bl31_entrypoint.S
+index 1c8eed9dfd..c9024cc8f6 100644
+--- a/bl31/aarch64/bl31_entrypoint.S
++++ b/bl31/aarch64/bl31_entrypoint.S
+@@ -33,7 +33,9 @@
+ #include <el3_common_macros.S>
+ 
+ 	.globl	bl31_entrypoint
+-
++	.long __return_addr_for_el3
++	.long __sp_addr_for_el3
++	.long __vbar3_to_migrate
+ 
+ 	/* -----------------------------------------------------
+ 	 * bl31_entrypoint() is the cold boot entrypoint,
+@@ -42,6 +44,18 @@
+ 	 */
+ 
+ func bl31_entrypoint
++	/*Save lr entered with */
++	adr x19, __return_addr_for_el3
++	str x30, [x19]
++	/*Save sp entered in*/
++	adr x19, __sp_addr_for_el3
++	mov x20, sp
++	str x20, [x19]
++	/*Save VBAR_EL3 entered in*/
++	adr x19, __vbar3_to_migrate
++	mrs x20, vbar_el3
++	str x20, [x19]
++
+ #if !RESET_TO_BL31
+ 	/* ---------------------------------------------------------------
+ 	 * Preceding bootloader has populated x0 with a pointer to a
+diff --git a/plat/intel/axxia/bl31_plat_setup.c b/plat/intel/axxia/bl31_plat_setup.c
+index 457dc259d4..07d9a0609f 100644
+--- a/plat/intel/axxia/bl31_plat_setup.c
++++ b/plat/intel/axxia/bl31_plat_setup.c
+@@ -47,6 +47,27 @@
+ 
+ axxia_configuration_t axxia_configuration;
+ 
++unsigned long  __return_addr_for_el3 __section(".data");
++unsigned long  __sp_addr_for_el3 __section(".data");
++unsigned long  __vbar3_to_migrate __section(".data");
++
++void *
++get_return_addr_for_el3(void)
++{
++	return &__return_addr_for_el3;
++}
++
++void *
++get_sp_addr_for_el3(void)
++{
++	return &__sp_addr_for_el3;
++}
++
++void *
++get_vbar3_to_migrate(void)
++{
++	return &__vbar3_to_migrate;
++}
+ /*******************************************************************************
+  * Cortex-A57 doesn't have the Cache Protection enabled by default. Query
+  * whether the Cache Protection was enabled in BL2 (u-boot-spl) by cpu0.
+@@ -156,6 +177,8 @@ void syscache_only_mode(void)
+ 	isb();
+ 
+ 	display_mapping(0);
++	return;
++
+ 
+ 	/* Jump at 0 address. */
+ 	entry = (void (*)(void *, void *)) 0;
+@@ -180,8 +203,10 @@ entry_point_info_t *bl31_plat_get_next_image_ep_info(uint32_t type)
+ 
+ 	next_image_info = (type == NON_SECURE) ? &bl33_ep_info : &bl32_ep_info;
+ 
+-	/* Use bl33 (u-boot) pre-loaded in RAM */
+-	bl33_ep_info.pc = 0x00000000;
++	/* Return to the location U-Boot entered Secure Monitor from */
++	bl33_ep_info.pc = *(uintptr_t*) get_return_addr_for_el3();
++	INFO("We entered TF with Uboot's sp = 0x%lx and vbar = 0x%lx\n",
++	 *(uintptr_t*) get_sp_addr_for_el3(), *(uintptr_t*) get_vbar3_to_migrate());
+ 
+ 	/* Modifed to unmask IRQ, FIQ, ABT, DBG */
+ 	bl33_ep_info.spsr = SPSR_64(MODE_EL2, MODE_SP_ELX, 0);
+-- 
+2.16.2
+

@@ -1,0 +1,1450 @@
+From 019b91c30ab2128b3efe2d397d4d2d48d4d2fab5 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Wed, 11 Jan 2017 08:21:03 -0600
+Subject: [PATCH 02/13] Feature: Run Uboot in cache
+
+Flow: SPL (EL3), Uboot (EL3), ATF (EL3), Uboot (EL2)
+
+What happens when:
+SPL loads Uboot to cache then branches over, Uboot runs in
+cache, initializes the main memory and flushes the caches.
+Then it branches over to ATF that returns to Uboot switching
+the Exception Level from 3 to 2 (EL3 to EL2). Then the system
+boots as usual.
+
+In this flavour ATF is linked in to Uboot through the linker script.
+
+Note: this Uboot requires amended ATF that can be found in the ATF
+git repo on the same branch name.
+
+To build all in one (SPL, Uboot with ATF in) run:
+./scripts/scripts/build_uboot_run_in_cache.sh
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ arch/arm/cpu/armv8/cache_v8.c                      |  72 +++++++++
+ arch/arm/cpu/armv8/start.S                         |  25 +++
+ arch/arm/cpu/armv8/u-boot.lds                      |  12 ++
+ arch/arm/include/asm/armv8/mmu.h                   |   3 +
+ arch/arm/include/asm/system.h                      |   1 +
+ arch/arm/lib/relocate_64.S                         |   2 -
+ board/axxia/axc6700/Makefile                       |   4 +-
+ board/axxia/axc6700/l3_coherency.c                 | 119 ++++++++++++++
+ .../axxia/axc6700/ncatask/include/uboot/ncp_pvt.h  |   1 +
+ board/axxia/axc6700/u-boot-spl.lds                 |  16 +-
+ board/axxia/common/Makefile                        |   9 +-
+ board/axxia/common/axxia.c                         |   9 +-
+ board/axxia/common/lowlevel.S                      |  35 +++--
+ board/axxia/common/ncr.c                           |  72 +++++++--
+ board/axxia/common/outer_cache.S                   |  22 ++-
+ board/axxia/common/parameters.c                    |  14 +-
+ board/axxia/common/spl.c                           | 173 ++++++++++++++++++++-
+ board/axxia/common/sysmem_asic.c                   |  13 +-
+ common/board_f.c                                   | 120 ++++++++++++++
+ common/board_r.c                                   |  22 ++-
+ include/configs/axc6700.h                          |   2 +-
+ include/configs/axxia.h                            |  12 +-
+ lib/Makefile                                       |   4 +-
+ scripts/build_uboot_run_in_cache.sh                |  67 ++++++++
+ 24 files changed, 756 insertions(+), 73 deletions(-)
+ create mode 100644 board/axxia/axc6700/l3_coherency.c
+ mode change 100644 => 100755 board/axxia/common/spl.c
+ create mode 100755 scripts/build_uboot_run_in_cache.sh
+
+diff --git a/arch/arm/cpu/armv8/cache_v8.c b/arch/arm/cpu/armv8/cache_v8.c
+index 17847e4d3e..1b42d2842b 100644
+--- a/arch/arm/cpu/armv8/cache_v8.c
++++ b/arch/arm/cpu/armv8/cache_v8.c
+@@ -79,6 +79,78 @@ static void mmu_setup(void)
+ 	set_sctlr(get_sctlr() | CR_M);
+ }
+ 
++
++
++void mmu_configure(u64 *addr, int flags)
++{
++	u64 *page_table = addr, i, j;
++	int el, tcr_flags;
++	uint32_t sctlr = get_sctlr();;
++
++	/* Setup an identity-mapping for all spaces */
++	for (i = 0; i < (PGTABLE_SIZE >> 3); i++) {
++		set_pgtable_section(page_table, i, i << SECTION_SHIFT,
++				    MT_DEVICE_NGNRNE, PMD_SECT_NON_SHARE);
++	}
++
++	ulong start = 0;
++	ulong end = 0x40000000;
++	for (j = start >> SECTION_SHIFT;
++		 j < end >> SECTION_SHIFT; j++) {
++         set_pgtable_section(page_table, j, j << SECTION_SHIFT,
++					MT_NORMAL, PMD_SECT_NON_SHARE);
++	}
++
++
++	/*
++	   Atrribute memory in LSM to non-cacheble.
++  	   Minumum page granule supported by this Uboot is 512MB.
++	   Far too far overlapping Devices. Should get fixed but
++       isn't worth the time as this is for Nokia that runs
++       Uboot 2017 with page granule 4K.
++
++	   LSM sits in between the start end of below.
++     */
++#if 0
++	start = 0x8020000000;
++	end = 0x8040000000;
++	for (j = start >> SECTION_SHIFT;
++		 j < end >> SECTION_SHIFT; j++) {
++		set_pgtable_section(page_table, j, j << SECTION_SHIFT,
++					MT_NORMAL_NC, PMD_SECT_NON_SHARE);
++	}
++#endif
++
++	/* load TTBR0 */
++	el = current_el();
++	if (el == 1) {
++		set_ttbr_tcr_mair(el, (u64)addr,
++				  TCR_EL1_RSVD | TCR_FLAGS | TCR_EL1_IPS_BITS,
++				  MEMORY_ATTRIBUTES);
++	} else if (el == 2) {
++		set_ttbr_tcr_mair(el, (u64)addr,
++				  TCR_EL2_RSVD | TCR_FLAGS | TCR_EL2_IPS_BITS,
++				  MEMORY_ATTRIBUTES);
++	} else {
++		tcr_flags = TCR_FLAGS & ~(0x3<<12); /*clear bits 12 and 13 (non-sharable)*/
++#if 0
++		tcr_flags &= ~(0x3<<8); /*clear bits 8 and 9 (inner non-cacheable)*/
++		/*TCR_FLAGS has already outer WB-WA. All together should lead to location request
++ 		  ending up in L3 right away.*/
++#endif
++		set_ttbr_tcr_mair(el, (u64)addr,
++				  TCR_EL3_RSVD | tcr_flags | TCR_EL3_IPS_BITS,
++				  MEMORY_ATTRIBUTES);
++	}
++
++	if (flags == DISABLE_DCACHE)
++		sctlr &= ~CR_C;
++	else
++		sctlr |= CR_C;
++
++	/* enable the mmu */
++	set_sctlr(get_sctlr() | CR_M);
++}
+ /*
+  * Performs a invalidation of the entire data cache at all levels
+  */
+diff --git a/arch/arm/cpu/armv8/start.S b/arch/arm/cpu/armv8/start.S
+index b0d23acaf8..e3cab16177 100644
+--- a/arch/arm/cpu/armv8/start.S
++++ b/arch/arm/cpu/armv8/start.S
+@@ -42,7 +42,32 @@ _bss_start_ofs:
+ _bss_end_ofs:
+ 	.quad	__bss_end - _start
+ 
++
++/*
++	JTAG workround for XLF A0:
++	writel(0xab, (SYSCON + 0x2000));
++	writel(0x4700000, (SYSCON + 0x2008));
++	writel(0, (SYSCON + 0x2000));
++
++	rewritten to armasm:
++	really I should use mov/movk... laziness...
++*/
++jtag:
++	ldr x0, =(SYSCON + 0x2000)
++	mov w1, #0xab
++	str w1, [x0]
++	ldr x0, =(SYSCON + 0x2008)
++	ldr w1, =0x4700000
++	str w1, [x0]
++	ldr x0, =(SYSCON + 0x2000)
++	ldr w1, =0x0
++	str w1, [x0]
++	ret
++
+ reset:
++#ifdef CONFIG_SPL_BUILD
++	/* bl jtag */
++#endif
+ 	/*
+ 	 * Could be EL3/EL2/EL1, Initial State:
+ 	 * Little Endian, MMU Disabled, i/dCache Disabled
+diff --git a/arch/arm/cpu/armv8/u-boot.lds b/arch/arm/cpu/armv8/u-boot.lds
+index 9e66f5479b..043b3b4f4e 100644
+--- a/arch/arm/cpu/armv8/u-boot.lds
++++ b/arch/arm/cpu/armv8/u-boot.lds
+@@ -21,6 +21,18 @@ SECTIONS
+ 		*(.__image_copy_start)
+ 		CPUDIR/start.o (.text*)
+ 		*(.text*)
++
++		. = ALIGN(8);
++		__monitor_parameters = .;
++		. += 256;
++
++		/* Include Secure Monitor.
++		   Align it to a page boundery.
++		 */
++		. = ALIGN(4096);
++		_bl31_start = .;
++		KEEP(bl31.o (.monitor));
++		_bl31_end = .;
+ 	}
+ 
+ 	. = ALIGN(8);
+diff --git a/arch/arm/include/asm/armv8/mmu.h b/arch/arm/include/asm/armv8/mmu.h
+index 587ee39909..b240a70cb8 100644
+--- a/arch/arm/include/asm/armv8/mmu.h
++++ b/arch/arm/include/asm/armv8/mmu.h
+@@ -114,6 +114,9 @@
+ #define TCR_EL2_RSVD		(1 << 31 | 1 << 23)
+ #define TCR_EL3_RSVD		(1 << 31 | 1 << 23)
+ 
++/* Flags to override the default values */
++#define DISABLE_DCACHE      (1 << 0)
++
+ #ifndef __ASSEMBLY__
+ 
+ void set_pgtable_section(u64 *page_table, u64 index,
+diff --git a/arch/arm/include/asm/system.h b/arch/arm/include/asm/system.h
+index cfc7834ed9..f6bc1d3dc8 100644
+--- a/arch/arm/include/asm/system.h
++++ b/arch/arm/include/asm/system.h
+@@ -72,6 +72,7 @@ static inline void set_sctlr(unsigned int val)
+ }
+ 
+ void __asm_flush_dcache_all(void);
++void __asm_flush_dcache_level(int, int);
+ void __asm_invalidate_dcache_all(void);
+ void __asm_flush_dcache_range(u64 start, u64 end);
+ void __asm_invalidate_tlb_all(void);
+diff --git a/arch/arm/lib/relocate_64.S b/arch/arm/lib/relocate_64.S
+index 7ed414e3cc..5c51cae8ab 100644
+--- a/arch/arm/lib/relocate_64.S
++++ b/arch/arm/lib/relocate_64.S
+@@ -71,9 +71,7 @@ relocate_done:
+ 	ic	iallu		/* i-cache invalidate all */
+ 	isb	sy
+ 4:	ldp	x0, x1, [sp, #16]
+-#ifndef SYSCACHE_ONLY_MODE
+ 	bl	__asm_flush_dcache_range
+-#endif
+ 5:	ldp	x29, x30, [sp],#16
+ 	ret
+ ENDPROC(relocate_code)
+diff --git a/board/axxia/axc6700/Makefile b/board/axxia/axc6700/Makefile
+index 8da20b9810..dfb1fc0e50 100644
+--- a/board/axxia/axc6700/Makefile
++++ b/board/axxia/axc6700/Makefile
+@@ -34,7 +34,7 @@ else
+ ################################################################################
+ ## SPL Build
+ 
+-obj-y += secure.o ncp_l3lock_region_init.o
++obj-y += secure.o ncp_l3lock_region_init.o secure.o
+ 
+ ifdef CONFIG_AXXIA_EMU
+ obj-y += sysmem_emulation.o
+@@ -45,4 +45,4 @@ endif
+ ################################################################################
+ ## All Builds
+ 
+-obj-y += failure.o version.o spi.o
++obj-y += ncp_l3lock_region_init.o failure.o version.o spi.o l3_coherency.o
+diff --git a/board/axxia/axc6700/l3_coherency.c b/board/axxia/axc6700/l3_coherency.c
+new file mode 100644
+index 0000000000..1c712f8db2
+--- /dev/null
++++ b/board/axxia/axc6700/l3_coherency.c
+@@ -0,0 +1,119 @@
++#include <config.h>
++#include <common.h>
++#include <asm/io.h>
++
++static int number_of_clusters;
++static int bit_by_cluster[12];	/* Last 4 are DSP on XLF */
++
++extern int is_xlf_a0(void);
++
++static int
++initialize_cluster_info(void)
++{
++	number_of_clusters = 12;
++
++	if (is_xlf_a0()) {
++			bit_by_cluster[0]  = 11;
++			bit_by_cluster[1]  = 12;
++			bit_by_cluster[2]  = 17;
++			bit_by_cluster[3]  = 18;
++			bit_by_cluster[4]  = 29;
++			bit_by_cluster[5]  = 30;
++			bit_by_cluster[6]  = 35;
++			bit_by_cluster[7]  =  0;
++			bit_by_cluster[8]  = 14;
++			bit_by_cluster[9]  = 15;
++			bit_by_cluster[10] = 32;
++			bit_by_cluster[11] = 33;
++	} else {
++			bit_by_cluster[0]  = 32;
++			bit_by_cluster[1]  = 29;
++			bit_by_cluster[2]  = 18;
++			bit_by_cluster[3]  = 14;
++			bit_by_cluster[4]  = 12;
++			bit_by_cluster[5]  = 11;
++			bit_by_cluster[6]  =  0;
++			bit_by_cluster[7]  = 35;
++			bit_by_cluster[8]  = 33;
++			bit_by_cluster[9]  = 30;
++			bit_by_cluster[10] = 17;
++			bit_by_cluster[11] = 15;
++	}
++
++	return 0;
++}
++
++static unsigned long
++get_bit_by_cluster(unsigned long cluster)
++{
++	return bit_by_cluster[cluster];
++}
++
++
++int
++set_cluster_coherency(unsigned cluster, unsigned state)
++{
++	unsigned int sdcr_offsets[] = {
++		0x00,		/* This is the DVM */
++		0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27
++	};
++	int i;
++	int retries;
++	unsigned int mask;
++	int upper_half = 0;
++	unsigned int value;
++	unsigned long shelley_base;
++
++	printf("%s cluster %u %s the coherency domain.\n",
++		state == 1 ? "Adding" : "Removing",
++		cluster,
++		state == 1 ? "to" : "from");
++
++	shelley_base = DICKENS;
++
++	initialize_cluster_info();
++
++	if (cluster >= number_of_clusters)
++		return -1;
++
++	if (31 < get_bit_by_cluster(cluster)) {
++		mask = (1 << (get_bit_by_cluster(cluster) - 32));
++		upper_half = 1;
++	} else {
++		mask = (1 << get_bit_by_cluster(cluster));
++	}
++
++	for (i = 0; i < (sizeof(sdcr_offsets) / sizeof(unsigned int)); ++i) {
++		unsigned long offset;
++
++		offset = (shelley_base | (sdcr_offsets[i] << 16));
++
++		if (0 != upper_half)
++			offset += 4;
++
++		if (0 == state)
++			writel((unsigned int)mask, offset + 0x220);
++		else
++			writel((unsigned int)mask, offset + 0x210);
++
++		retries = 1000;
++
++		do {
++			--retries;
++			value = readl(offset + 0x200);
++
++			if (0 == state) {
++				if (0 == (mask & value))
++					break;
++			} else {
++				if (mask == (mask & value))
++					break;
++			}
++		} while (0 < retries);
++
++		if (0 == retries)
++			return -1;
++	}
++
++	return 0;
++}
+diff --git a/board/axxia/axc6700/ncatask/include/uboot/ncp_pvt.h b/board/axxia/axc6700/ncatask/include/uboot/ncp_pvt.h
+index 7361f88bb4..1270f12d7c 100644
+--- a/board/axxia/axc6700/ncatask/include/uboot/ncp_pvt.h
++++ b/board/axxia/axc6700/ncatask/include/uboot/ncp_pvt.h
+@@ -383,6 +383,7 @@ NCP_API ncp_bool_t ncp_dev_initialized;
+         ncp_comment( log_msg );                 \
+     } while( 0 );
+ #else
++#undef NCP_COMMENT
+ #define NCP_COMMENT( format, args... )          \
+     do {                                        \
+         char log_msg[128];                      \
+diff --git a/board/axxia/axc6700/u-boot-spl.lds b/board/axxia/axc6700/u-boot-spl.lds
+index 1f23190e00..e4faa9cf3a 100644
+--- a/board/axxia/axc6700/u-boot-spl.lds
++++ b/board/axxia/axc6700/u-boot-spl.lds
+@@ -15,14 +15,6 @@ arch/arm/cpu/armv8/start.o (.text*)
+ __monitor_parameters = .;
+ . += 256;
+ 
+-/*
+-	Include the secure monitor.
+-*/
+-. = ALIGN(4096);
+-_bl31_start = .;
+-KEEP(bl31.o (.monitor*))
+-_bl31_end = .;
+-
+ *(.text*)
+ }
+ . = ALIGN(4);
+@@ -52,6 +44,14 @@ __bss_start = .;
+ . = ALIGN(4);
+ __bss_end = .;
+ }
++
++. = ALIGN(0x10000);
++__page_tables : 
++{
++	_pgt_start = .;
++	*(__page_tables)
++	_pgt_end = .;
++}
+ .dynsym _image_binary_end : { *(.dynsym) }
+ .dynbss : { *(.dynbss) }
+ .dynstr : { *(.dynstr*) }
+diff --git a/board/axxia/common/Makefile b/board/axxia/common/Makefile
+index 6474d6eb17..2b21fb823c 100644
+--- a/board/axxia/common/Makefile
++++ b/board/axxia/common/Makefile
+@@ -35,12 +35,11 @@ else
+ ################################################################################
+ ## SPL Build
+ 
+-obj-y += sysmem_reset.o spl.o axxia_initialize.o sysmem_bist.o cmem_bist.o
++obj-y += sysmem_reset.o spl.o 
+ 
+ ifndef CONFIG_AXXIA_EMU
+-obj-y += ncp_sm_denali_2041_init_56xx.o ncp_sysmem_init_synopphy.o
+-obj-y += ncp_cm_ctrl_init_56xx.o ncp_treemem_init_synopphy.o ncp_elm.o
+-obj-y += sysmem_asic.o voltage.o
++obj-y += ncp_cm_ctrl_init_56xx.o ncp_treemem_init_synopphy.o 
++obj-y += voltage.o
+ endif
+ 
+ ifdef CONFIG_AXXIA_SPL_DIAGNOSTICS
+@@ -52,8 +51,10 @@ endif
+ ################################################################################
+ ## All Builds
+ 
++obj-y += sysmem_bist.o cmem_bist.o axxia_initialize.o
+ obj-y += lsi.o ncr.o sysmem_size.o parameters.o sbb.o axxia_clocks.o
+ obj-y += cache.o outer_cache.o gpdma.o lowlevel.o
++obj-y += ncp_elm.o ncp_sm_denali_2041_init_56xx.o ncp_sysmem_init_synopphy.o sysmem_asic.o 
+ 
+ ifdef CONFIG_HW_WATCHDOG
+ obj-y += watchdog.o
+diff --git a/board/axxia/common/axxia.c b/board/axxia/common/axxia.c
+index 12f0ff46a4..2999891170 100644
+--- a/board/axxia/common/axxia.c
++++ b/board/axxia/common/axxia.c
+@@ -70,7 +70,6 @@ board_init(void)
+ 	}
+ #endif
+ #endif
+-
+ 	return 0;
+ }
+ 
+@@ -189,11 +188,7 @@ board_get_usable_ram_top(ulong total_size)
+ 		osmemory_value = simple_strtoul(osmemory_string, NULL, 0);
+ 		osmemory_value *= (1024 * 1024);
+ 	} else {
+-#ifdef SYSCACHE_ONLY_MODE
+-		osmemory_value = (phys_size_t)SYSCACHE_SIZE;
+-#else
+ 		osmemory_value = OSMEMORY_DEFAULT;
+-#endif
+ 	}
+ 
+ 	return osmemory_value;
+@@ -250,6 +245,7 @@ arch_early_init_r
+ Called just after the heap has been initialized.
+ */
+ 
++extern int do_read_parameters;
+ int
+ arch_early_init_r(void)
+ {
+@@ -260,6 +256,9 @@ arch_early_init_r(void)
+ 	printf("Sysmem Size: %llu MB\n",
+ 	       (sysmem_size() / (1024ULL * 1024ULL)));
+ 	printf("Relocation Address: 0x%lx\n", gd->relocaddr);
++	debug("is parameters.c:do_read_parameters available? addr %p val %d\n",
++				&do_read_parameters, do_read_parameters);
++	do_read_parameters = 0;
+ 
+ 	return 0;
+ }
+diff --git a/board/axxia/common/lowlevel.S b/board/axxia/common/lowlevel.S
+index 05648f9fb4..500e8d6042 100644
+--- a/board/axxia/common/lowlevel.S
++++ b/board/axxia/common/lowlevel.S
+@@ -1,6 +1,8 @@
+ #include <config.h>
+ #include <asm/armv8/mmu.h>
+ #include <asm/system.h>
++#include <asm/macro.h>
++#include <linux/linkage.h>
+ 
+ 	/*
+ 	 * Set up page tables for U-Boot in Memory (SYSCACHE).  Space
+@@ -37,22 +39,19 @@ end_set_region:
+ 	ret
+ 
+ do_sctrl:
+-
+-	adr	x0, __PGT__
++	adrp	x0, __PGT__
+ 	msr	ttbr0_el3, x0
+-	ldr	x0, =0x0000000080837516
++	ldr x0, =(TCR_EL3_RSVD | TCR_FLAGS | TCR_EL3_IPS_BITS)
+ 	msr	tcr_el3, x0
+-	ldr	x0, =0x000000FF440C0400
++	ldr x0, =MEMORY_ATTRIBUTES
+ 	msr	mair_el3, x0
+ 	dsb	sy
+ 	tlbi	alle3
+ 	dsb	sy
+ 	isb
+-
+ 	ret
+ 
+-do_mmu:
+-
++__asm_do_mmu:
+ 	/*
+ 	 * x1 - page table entry
+ 	 * x2 - iterate until x2
+@@ -60,7 +59,7 @@ do_mmu:
+ 	 * x4 - mem ranges from 0 to x4
+ 	 */
+ 
+-	adr	x0, __PGT__
++	adrp	x0, __PGT__
+ 	mov	x1, #0
+ 	ldr	x2, =PGTABLE_SIZE
+ 	lsr	x2, x2, #3
+@@ -79,7 +78,6 @@ do_mmu:
+ 	bl	do_sctrl
+ 
+ 	mov	x30, x29	/* Restore LR */
+-
+ 	ret
+ 
+ #endif /* SYSCACHE_ONLY_MODE && !CONFIG_SPL_BUILD */
+@@ -89,12 +87,23 @@ do_mmu:
+ lowlevel_init:
+ 
+     /*
+-     * Do MMU for U-Boot
++     * Do MMU for U-Boot running in Cache
+      */
+ 
+-#if defined(SYSCACHE_ONLY_MODE) && !defined(CONFIG_SPL_BUILD)
++
++	/* 
++	   Don't do the MMU now. Use what SPL did before branching over.
++	   We observed that if the SPL atributes LSM to Device then
++       we do not have to re-configure the page tables for Uboot in cache.
++	   If we have LSM attributed to non-cacheable memory then
++       re-configuration turns necessary. Probably the page granule (512M)
++	   is an issue.
++     */
++#define DO_MMU_IN_CACHE 0
++
++#if DO_MMU_IN_CACHE && defined(SYSCACHE_ONLY_MODE) && !defined(CONFIG_SPL_BUILD)
+ 	mov x28, x30 /* Save LR */
+-	bl do_mmu
++	bl __asm_do_mmu
+ #endif
+ 
+ 	/*
+@@ -113,7 +122,7 @@ lowlevel_init:
+ 	mov	x0, #0
+ 	msr	OSLAR_EL1, x0
+ 
+-#if defined(SYSCACHE_ONLY_MODE) && !defined(CONFIG_SPL_BUILD)
++#if DO_MMU_IN_CACHE && defined(SYSCACHE_ONLY_MODE) && !defined(CONFIG_SPL_BUILD)
+ 	mov x30, x28 /*Restore LR */
+ #endif
+ 
+diff --git a/board/axxia/common/ncr.c b/board/axxia/common/ncr.c
+index 09eea8affb..25b131e332 100644
+--- a/board/axxia/common/ncr.c
++++ b/board/axxia/common/ncr.c
+@@ -59,7 +59,7 @@ ncr_fail(const char *file, const char *function, const int line)
+ {
+ 	if (1 == ncr_sysmem_mode_disabled)
+ 		return -1;
+-	
++
+ 	printf("Config Ring Access Failed: 0x%08lx 0x%08lx\n",
+ 	       (unsigned long)ncr_register_read(POINTER(NCA + NCP_NCA_CFG_RING_ERROR_STAT_R0)),
+ 	       (unsigned long)ncr_register_read(POINTER(NCA + NCP_NCA_CFG_RING_ERROR_STAT_R1)));
+@@ -627,7 +627,7 @@ ncr_apb2ser_indirect_setup(ncp_uint32_t regionId,
+ 
+ 	*indirectOffset = ((baseId + tgtId) * 0x10000);
+ 	udelay(10);
+-	
++
+ 	return 0;
+ }
+ 
+@@ -673,7 +673,7 @@ ncr_apb2ser_indirect_access(ncp_uint32_t offset,
+     if (loop_count == 0)
+         return -1;
+ 
+-    if (!isWrite) 
++    if (!isWrite)
+ 	    *buffer = readl(POINTER(APB2_SER0_BASE + indirectOffset +
+ 				    NCP_APB2SER_INDIRECT_READ_DATA_0));
+ 
+@@ -1647,28 +1647,78 @@ ncr_modify32( ncp_uint32_t region, ncp_uint32_t offset,
+ */
+ 
+ void
+-ncr_l3tags(void)
++ncr_l3tags(ncp_uint32_t address)
+ {
+ 	int i;
+-	ncp_uint32_t address;
++	unsigned int el, val;
++	asm volatile("mrs %0, CurrentEL" : "=r" (el) : : "cc");
++	el >>= 2;
++
++	printf("l3_init() through %s() at EL%u: addr %lx to %lx\n",
++			__func__, el, (unsigned long)address, (unsigned long)(address+SYSCACHE_SIZE));
+ 
+ 	/*
+ 	  Set up cdar_memory
+ 	*/
+-
+-	for (i = 0; i < 64; ++i)
+-		writel(i, POINTER(NCA + NCP_NCA_CDAR_MEMORY_BASE + (i * 4)));
++	for (i = 0; i < 64; ++i) {
++#if !defined(CONFIG_AXXIA_XLF)
++			writel(i, POINTER(NCA + NCP_NCA_CDAR_MEMORY_BASE + (i * 4)));
++#else
++			out_be32(POINTER(NCA + NCP_NCA_CDAR_MEMORY_BASE + (i * 4)), i);
++#endif
++	}
+ 
+ 	/*
+ 	  Write it
+ 	*/
++	for (i = 0; i < (SYSCACHE_SIZE) / 256; ++i, address += 256)
++			ncr_write(NCP_REGION_ID(0x200, 1), 0, address, 256, NULL);
+ 
+-	address = 0;
++	for (i = 0; i < 32; i++) {
++		ncr_read32(NCP_REGION_ID(0x200, 1), i*4, &val);
++		printf("mb: val %u\t", val);
++		if (i % 4) printf("\n");
++	}
+ 
+-	for (i = 0; i < (8 * 1024 * 1024) / 256; ++i, address += 256)
+-		ncr_write(NCP_REGION_ID(0x200, 1), 0, address, 256, NULL);
+ 
+ 	return;
+ }
+ 
++void
++l3_init_dma(ncp_uint32_t addr)
++{
++	unsigned int buffer[64] __attribute__ ((aligned(16)));
++	unsigned long output = (unsigned long) addr;
++	int ret = 0;
++
++	unsigned int el;
++	asm volatile("mrs %0, CurrentEL" : "=r" (el) : : "cc");
++	el >>= 2;
++
++	printf("Validate l3 through %s() at EL%u (secure %u): 0x%lx-0x%lx\n",
++			__func__, el, (unsigned)el==3?1:0, (unsigned long)addr,
++			(unsigned long)(addr+SYSCACHE_SIZE));
++
++	memset(buffer, 0x0, sizeof(buffer));
++
++	while (SYSCACHE_SIZE > output) {
++		ret = gpdma_xfer((void *)output, (void *)buffer, 256, el==3?1:0);
++
++		if (ret != 0) {
++				printf("gpdma_xfer failed %d\n", ret);
++				break;
++		}
++
++		if (output % SZ_2M == 0)
++			putc('.');
++
++		output += 256;
++	}
++
++	printf("OK\n");
++
++	return;
++}
++
++
+ #endif
+diff --git a/board/axxia/common/outer_cache.S b/board/axxia/common/outer_cache.S
+index 8d93789ef7..7f3aa0c4e8 100644
+--- a/board/axxia/common/outer_cache.S
++++ b/board/axxia/common/outer_cache.S
+@@ -27,18 +27,34 @@ set_outer_cache_state:
+ 	mov	x10, 0x20
+ 1:	mov	x11, 0x10000
+ 	mul	x11, x10, x11
+-	ldr	x12, =(DICKENS + 0x10)
++	mov x12, #0x10
++#if defined(CONFIG_AXXIA_XLF)
++	movk x12, #0x40, lsl #32 /*40_0000_0000*/
++#elif defined(CONFIG_AXXIA_56XX)
++	movk x12, #0x80, lsl #32 /*80_0000_0000*/
++#else
++#error "CCN doesn't support this architecture"
++#endif
+ 	add	x11, x11, x12
+ 	str	w0, [x11]
+ 	add	w10, w10, 1
+ 	cmp	w10, 0x27
+ 	ble	1b
++	dsb sy
++	isb
+ 
+ 	/* Wait for completion. */
+ 	mov	x10, 0x20
+ 1:	mov	x11, 0x10000
+ 	mul	x11, x10, x11
+-	ldr	x12, =(DICKENS + 0x18)
++	mov x12, #0x18
++#if defined(CONFIG_AXXIA_XLF)
++	movk x12, #0x40, lsl #32 /*40_0000_0000*/
++#elif defined(CONFIG_AXXIA_56XX)
++	movk x12, #0x80, lsl #32 /*80_0000_0000*/
++#else
++#error "CCN doesn't support this architecture"
++#endif
+ 	add	x11, x11, x12
+ 2:	ldr	w13, [x11]
+ 	and 	w13, w13, 0xf
+@@ -48,6 +64,8 @@ set_outer_cache_state:
+ 	add	x10, x10, 1
+ 	cmp	x10, 0x27
+ 	ble	1b
++	dsb sy
++	isb
+ 	b	set_outer_cache_state_succeeded
+ 
+ set_outer_cache_state_failed:
+diff --git a/board/axxia/common/parameters.c b/board/axxia/common/parameters.c
+index 1c74f9535c..5597faf228 100644
+--- a/board/axxia/common/parameters.c
++++ b/board/axxia/common/parameters.c
+@@ -43,7 +43,7 @@
+ 
+ static void *parameters __attribute__ ((section("data")));
+ static int copy_in_use __attribute__ ((section("data")));
+-static int do_read = 1;
++int do_read_parameters = 1;
+ 
+ #if defined(CONFIG_AXXIA_PPC)
+ /*
+@@ -163,14 +163,14 @@ read_parameters(void)
+ 	int b_sequence = 0;
+ #endif	/* CONFIG_REDUNDANT_PARAMETERS */
+ 
+-	if (0 == do_read)
++	if (0 == do_read_parameters)
+ 		return 0;
+ 
+-#ifdef CONFIG_SPL_BUILD
+-	if (1 == do_read)
++#ifdef CONFIG_SPL_BUILD 
++	if (1 == do_read_parameters)
+ 		parameters = (void *)PARAMETERS_ADDRESS;
+ #else
+-	if (1 == do_read) {
++	if (1 == do_read_parameters) {
+ 		parameters = malloc(PARAMETERS_SIZE);
+ 		memset(parameters, 0, PARAMETERS_SIZE);
+ 	}
+@@ -361,8 +361,6 @@ read_parameters(void)
+ parameters_read:
+ #endif
+ 
+-	do_read = 0;
+-
+ #ifdef CONFIG_AXXIA_ARM
+ 	buffer = parameters;
+ 
+@@ -452,7 +450,7 @@ write_parameters(void)
+ 	int i;
+ 	int rc = -1;
+ 
+-	if (1 == do_read) {
++	if (1 == do_read_parameters) {
+ 		printf("Parameters haven't been read!\n");
+ 		return -1;
+ 	}
+diff --git a/board/axxia/common/spl.c b/board/axxia/common/spl.c
+old mode 100644
+new mode 100755
+index 029fb79698..e21710307e
+--- a/board/axxia/common/spl.c
++++ b/board/axxia/common/spl.c
+@@ -28,9 +28,11 @@
+ #include <spi_flash.h>
+ #include <watchdog.h>
+ #include <asm/io.h>
++#include <asm/armv8/mmu.h> /* For DISABLE_DCACHE */
+ 
+ DECLARE_GLOBAL_DATA_PTR;
+ 
++
+ /*
+   ==============================================================================
+   ==============================================================================
+@@ -859,6 +861,48 @@ jtag_jump_to_monitor(void)
+ */
+ 
+ #ifdef SYSCACHE_ONLY_MODE
++static __attribute__((noclone)) void display_mapping(unsigned long address);
++void static
++display_mapping(unsigned long address)
++{
++    unsigned long par_el1;
++
++    printf("----- Translating VA 0x%lx\n", address);
++    __asm__ __volatile__ ("at s1e3r, %0" : : "r" (address));
++    __asm__ __volatile__ ("mrs %0, PAR_EL1\n" : "=r" (par_el1));
++
++    if (0 != (par_el1 & 1)) {
++        printf("Address Translation Failed: 0x%lx\n"
++              "    FSC: 0x%lx\n"
++              "    PTW: 0x%lx\n"
++              "      S: 0x%lx\n",
++              address,
++              (par_el1 & 0x7e) >> 1,
++              (par_el1 & 0x100) >> 8,
++              (par_el1 & 0x200) >> 9);
++    } else {
++        printf("Address Translation Succeeded: 0x%lx\n"
++              "  SH: 0x%lx\n"
++              "  NS: 0x%lx\n"
++              "  PA: 0x%lx\n"
++              "ATTR: 0x%lx\n",
++              address,
++              (par_el1 & 0x180) >> 7,
++              (par_el1 & 0x200) >> 9,
++              par_el1 & 0xfffffffff000,
++              (par_el1 & 0xff00000000000000) >> 56);
++    }
++
++    return;
++}
++
++extern void mmu_configure(u64 *, unsigned int flags);
++extern int set_cluster_coherency(unsigned cluster, unsigned state);
++
++
++extern void ncr_l3tags(ncp_uint32_t address);
++extern void l3_init_dma(ncp_uint32_t addr);
++void (*l3_validate)(ncp_uint32_t address);
+ 
+ static void
+ load_image(void)
+@@ -866,7 +910,7 @@ load_image(void)
+ 	struct spi_flash *flash;
+ 	struct image_header header;
+ 	unsigned int bytes_written = 0;
+-	/* 
++	/*
+  	  GPDMA requires 16 byte alignment for a source address.
+  	*/
+ 	unsigned int buffer[64] __attribute__ ((aligned(16)));
+@@ -923,6 +967,57 @@ load_image(void)
+ 		output += 256;
+ 		offset += 256;
+ 	}
++	return;
++}
++
++void
++load_image_using_cpu(unsigned int offset)
++{
++	struct spi_flash *flash;
++	struct image_header header;
++	unsigned int size;
++
++	flash = spi_flash_probe(CONFIG_SPL_SPI_BUS, CONFIG_SPL_SPI_CS,
++				CONFIG_SF_DEFAULT_SPEED,
++				CONFIG_SF_DEFAULT_MODE);
++
++	if (!flash) {
++		puts("SPI probe failed.\n");
++		hang();
++	}
++
++	spi_flash_read(flash, offset, sizeof(struct image_header), &header);
++	spl_parse_image_header(&header);
++
++	if (!image_check_magic(&header)) {
++		puts("\tBad Magic!\n");
++		hang();
++	}
++
++	if (!image_check_target_arch(&header)) {
++		puts("\tWrong Architecture!\n");
++		hang();
++	}
++
++	offset += sizeof(struct image_header);
++	size = spl_image.size - sizeof(struct image_header);
++
++	/* A read to address 0 is implemeted as a read to /dev/null
++	   So we need to split up and move first part */
++	spi_flash_read(flash, offset, 4, (void*)0x100);
++	*(uint32_t *)0 = *(uint32_t *)0x100;
++	spi_flash_read(flash, offset+4, size-4, (void*)4);
++
++	if (IH_COMP_GZIP == image_get_comp(&header)) {
++		printf("Unpacking the image with gzip... ");
++
++		memmove((void*)0x400000, (void*)0, 0x200000);
++		if (gunzip((void *)0x0, 0x200000, (void *)0x400000, (unsigned long*)(volatile unsigned long)size)) {
++			printf("ERROR!\n");
++		}
++
++		printf("OK\n");
++	}
+ 
+ 	return;
+ }
+@@ -1193,6 +1288,20 @@ display_l3_lock(void)
+ 
+   Replaces the weakly defined board_init_f in arch/arm/lib/spl.c.
+ */
++void
++pt_walk(uint64_t address, uint64_t size)
++{
++        unsigned long i;
++
++        address &= ~(SZ_4K - 1);
++        for (i=0; i<size; i+=SZ_4K) {
++                __asm__ __volatile__ ("at s1e3r, %0" : : "r" (address));
++                address += SZ_4K;
++        }
++        return;
++}
++
++
+ 
+ void
+ board_init_f(ulong dummy)
+@@ -1244,7 +1353,7 @@ board_init_f(ulong dummy)
+ 
+ 	/*
+ 	 * if this is a power-up/pin reset then initialize
+-	 * persistent registers 
++	 * persistent registers
+ 	 */
+ 
+ 	if ((value & 0x00000001))
+@@ -1599,11 +1708,63 @@ board_init_f(ulong dummy)
+ 	writel(value, (PERIPH_SCB + 0x44108));
+ 
+ #ifdef SYSCACHE_ONLY_MODE
+-	if (0 != setup_security())
++	{
++		void (*entry)(void *, void *);
++		extern unsigned long *_pgt_start;
++		unsigned long *pgt = (unsigned long*) &_pgt_start;
++
++		if (0 != setup_security())
++			acp_failure(__FILE__, __func__, __LINE__);
++
++		l3_validate = l3_init_dma;
++		(*l3_validate)(0);
++
++		asm volatile("adr x24, l3_validate\n"
++			"ldr x25, [x24]\n");
++
++		/*
++		   Do not enformce HW coherency.
++		   Rely soley on SW CMO.
++		 */
++#if 0
++		if (0 != set_cluster_coherency(1, 1))
++	        acp_failure(__FILE__, __func__, __LINE__);
++#endif
++
++		printf("TTBR0_EL3 %p\n", (void*) pgt);
++
++		mmu_configure((u64*)pgt, DISABLE_DCACHE);
++		display_mapping(0);
++		/* Now cache selected page entries to tlb:
++ 		   - a53 is up to 512 entries
++		   - a57 is 1024
++		   Cache with 4K step granule */
++		pt_walk(0ULL, (uint64_t)16 * SZ_1G);
++		pt_walk(DICKENS, 8);
++		pt_walk(0x8001000000ULL, 8);
++		pt_walk(UART0_ADDRESS, 8);
++		pt_walk(AXXIA_USB0_BASE, 8);
++		pt_walk(LSM, SZ_256K);
++
++		/* Enabling D-caching */
++		set_sctlr(get_sctlr() | CR_C);
++		display_mapping(0);
++
++		/* load primary Uboot from CONFIG_UBOOT_OFFSET in flash */
++		load_image_using_cpu(CONFIG_UBOOT_OFFSET);
++
++		printf("U-Boot Loaded in System Cache, Jumping to U-Boot\n");
++		entry = (void (*)(void *, void *))0x0;
++
++		/* For self-modyfying code in which code gets loaded by cpu
++		   (eg. in contrast to being put to L3 through GP DMA):
++ 	       - Clean&Invalidate L1 data cache by set/way to PoU
++		   - Invalidate instruction L1 cache */
++		__asm_flush_dcache_level(0/*L1-Data*/,0/*clean&inval*/);
++		__asm_invalidate_icache_all();
++		(*entry)(NULL, NULL);
+ 		acp_failure(__FILE__, __func__, __LINE__);
+-	load_image();
+-	printf("U-Boot Loaded in System Cache, Jumping to Monitor\n");
+-	jump_to_monitor((void *)0x8031001000);
++	}
+ #endif	/* SYSCACHE_ONLY_MODE */
+ 
+ 	if (0 != (global->flags & PARAMETERS_GLOBAL_RUN_SMEM_BIST)) {
+diff --git a/board/axxia/common/sysmem_asic.c b/board/axxia/common/sysmem_asic.c
+index 1aa8f840b9..e5fe476ef4 100644
+--- a/board/axxia/common/sysmem_asic.c
++++ b/board/axxia/common/sysmem_asic.c
+@@ -394,8 +394,11 @@ sysmem_init(void)
+ #else
+ 	unsigned sm_nodes[] = {0x22, 0xf, 0x23, 0x24};
+ #endif
++
++#if 0
+ #if defined(CONFIG_AXXIA_XLF_EMU) || defined(CONFIG_AXXIA_XLF)
+ 	ncp_l3lock_region_info_t *ncp_l3lock_region_info;
++#endif
+ #endif
+ 	int i;
+ 	ncp_uint32_t version_save;
+@@ -435,8 +438,10 @@ sysmem_init(void)
+ 		return -1;
+ 	}
+ 
++#ifndef SYSCACHE_ONLY_MODE
+ 	/* Disable System Cache */
+ 	__asm_disable_l3_cache();
++#endif
+ 
+ 	/* Initialize Memory */
+ #ifdef CONFIG_AXXIA_ANY_56XX
+@@ -498,7 +503,10 @@ sysmem_init(void)
+ 			return -1;
+ 		}
+ 	}
+-
++ 	/* 
++	   Don't do L3 LockDown. This may affect Uboot booting from cache. 
++	 */
++#if 0
+ #if defined(CONFIG_AXXIA_XLF_EMU) || defined(CONFIG_AXXIA_XLF)
+ 	ncp_l3lock_region_info = (ncp_l3lock_region_info_t *)
+ 		&sysmem->total_l3_locked_size;
+@@ -514,9 +522,12 @@ sysmem_init(void)
+ 	if (NCP_ST_SUCCESS != rc)
+ 		printf("Locking L3 Cache Failed!\n");
+ #endif
++#endif
+ 
++#ifndef SYSCACHE_ONLY_MODE
+ 	/* Re-enable the L3 cache. */
+ 	__asm_enable_l3_cache();
++#endif
+ 
+ 	/*
+ 	  Restore the version of the parameter subsection.
+diff --git a/common/board_f.c b/common/board_f.c
+index 5a6bceade1..2fd9168374 100644
+--- a/common/board_f.c
++++ b/common/board_f.c
+@@ -42,7 +42,9 @@
+ 
+ #include <os.h>
+ #include <post.h>
++#include <spl.h>
+ #include <spi.h>
++#include <spi_flash.h>
+ #include <status_led.h>
+ #include <trace.h>
+ #include <watchdog.h>
+@@ -759,7 +761,125 @@ __weak int arch_cpu_init_dm(void)
+ 	return 0;
+ }
+ 
++#ifdef SYSCACHE_ONLY_MODE
++#include "../board/axxia/common/ncp_sysmem_ext.h"
++extern int sysmem_init(void);
++int do_heap(void)
++{
++	/* sysmem_size() from init_mem_axxia() uses malloc so that servicing it here */
++	mem_malloc_init(map_sysmem(0x300000/*malloc_start*/, TOTAL_MALLOC_LEN), TOTAL_MALLOC_LEN);
++	return 0;
++}
++
++int init_mem_axxia(void)
++{
++	int rc = 0;
++
++	/* get parameters.bin off flash. Malloc must be before */
++	(void)sysmem_size();
++
++	if (0 != sysmem_init())
++		acp_failure(__FILE__, __FUNCTION__, __LINE__);
++
++	gd->bd->bi_dram[0].start = 0;
++	gd->bd->bi_dram[0].size = ((phys_size_t)1 << 30);
++
++	return rc;
++}
++
++int flush_all(void)
++{
++	flush_dcache_all();
++	invalidate_icache_all();
++	return 0;
++}
++
++typedef enum {
++	AXXIA_5600 = 0,
++	AXXIA_6700 = 1
++} axxia_target_t;
++
++typedef enum {
++	AXXIA_SIM = 0,
++	AXXIA_EMU = 1,
++	AXXIA_HW = 2
++} axxia_platform_t;
++
++typedef enum {
++	AXXIA_NONE = 0,
++	AXXIA_SYSCACHE_ONLY = 1
++} axxia_option_t;
++
++typedef struct axxia_configuration {
++	axxia_target_t target;
++	axxia_platform_t platform;
++	axxia_option_t option;
++	unsigned int per_clock_hz;
++	unsigned int baud_rate;
++} axxia_configuration_t;
++
++/* These are defined in the linker script */
++extern void *__monitor_parameters;
++extern unsigned long _bl31_start, _bl31_end;
++
++int switch_to_EL2_non_secure(void)
++{
++	void (*entry)(void *, void *);
++	axxia_configuration_t *axxia_configuration;
++
++	axxia_configuration = (axxia_configuration_t *)&__monitor_parameters;
++#if defined(CONFIG_AXXIA_56XX)
++	axxia_configuration->target = AXXIA_5600;
++	axxia_configuration->platform = AXXIA_HW;
++#elif defined(CONFIG_AXXIA_XLF)
++	axxia_configuration->target = AXXIA_6700;
++	axxia_configuration->platform = AXXIA_HW;
++#endif
++	axxia_configuration->option = AXXIA_NONE;
++
++	if (0 != acp_clock_get(clock_peripheral,
++			       &axxia_configuration->per_clock_hz))
++		acp_failure(__FILE__, __func__, __LINE__);
++
++	axxia_configuration->per_clock_hz *= 1000;
++	axxia_configuration->baud_rate = gd->baudrate;
++
++	/*
++	   Move monitor to LSM+0x1000, '0x1000' is a so called page boundery
++       though this is not true for Axxia's Uboot (2015) where pages are 512M.
++	   It is true for Nokia's Uboot (2017) though.
++	 */
++	memmove((void*) LSM+0x1000, (void*)&_bl31_start,
++			(size_t)(&_bl31_end) - (size_t)(&_bl31_start));
++	entry = (void (*)(void *, void *))(LSM+0x1000);
++	cleanup_before_linux();
++	asm volatile (
++		"str x18, [sp, #-8]!\n" /* Store global data to the stack */
++		"mov x22, sp\n"  /* Migrate SP */
++		"msr sp_el2, x22\n"
++		"mrs x22, vbar_el3\n" /* Migrate VBAR */
++		"msr vbar_el2, x22\n"
++	);
++	entry(NULL, axxia_configuration);
++	asm volatile("ldr x18, [sp], #8\n"); /*Restore global data from the stack */
++
++	/*
++	   We are now at EL2, non-secure state.
++	   Override the RNI to output non-secure transations.
++     */
++    writel(0, (MMAP_SCB + 0x42800));
++
++	return 0;
++}
++#endif
++
+ static init_fnc_t init_sequence_f[] = {
++#ifdef SYSCACHE_ONLY_MODE
++	do_heap,
++	init_mem_axxia,
++	flush_all,
++	switch_to_EL2_non_secure,
++#endif
+ #ifdef CONFIG_SANDBOX
+ 	setup_ram_buf,
+ #endif
+diff --git a/common/board_r.c b/common/board_r.c
+index 74f31643e6..d978e50dd0 100644
+--- a/common/board_r.c
++++ b/common/board_r.c
+@@ -260,7 +260,7 @@ static int initr_barrier(void)
+ #endif
+ 	return 0;
+ }
+-
++unsigned long* final_malloc;
+ static int initr_malloc(void)
+ {
+ 	ulong malloc_start;
+@@ -273,6 +273,14 @@ static int initr_malloc(void)
+ 	malloc_start = gd->relocaddr - TOTAL_MALLOC_LEN;
+ 	mem_malloc_init(map_sysmem(malloc_start, TOTAL_MALLOC_LEN),
+ 			TOTAL_MALLOC_LEN);
++	
++	{
++		final_malloc = (unsigned long*) malloc(sizeof(int));
++		*final_malloc = 0x12344321U;
++		debug("mb: operational malloc is working: malloced 4 bytes %08x at %p\n",
++				(unsigned)(*final_malloc), (void*) final_malloc);
++	}
++	
+ 	return 0;
+ }
+ 
+@@ -678,6 +686,18 @@ static int run_main_loop(void)
+ 	return 0;
+ }
+ 
++#if 0
++static
++int switch_to_EL2_non_secure(void)
++{
++	asm volatile(" kot: b kot\n");
++	flush_dcache_all();
++	invalidate_icache_all();
++    writel(0, (MMAP_SCB + 0x42800));
++	armv8_switch_to_el2();
++	return 0;
++}
++#endif
+ /*
+  * Over time we hope to remove these functions with code fragments and
+  * stub funtcions, and instead call the relevant function directly.
+diff --git a/include/configs/axc6700.h b/include/configs/axc6700.h
+index e568999450..1261bd5bc4 100644
+--- a/include/configs/axc6700.h
++++ b/include/configs/axc6700.h
+@@ -355,7 +355,7 @@
+   ==============================================================================
+ */
+ 
+-/*#define SYSCACHE_ONLY_MODE*/
++#define SYSCACHE_ONLY_MODE
+ #define CONFIG_ANY_XLF
+ 
+ /*
+diff --git a/include/configs/axxia.h b/include/configs/axxia.h
+index b9cf791a93..b59fd48796 100644
+--- a/include/configs/axxia.h
++++ b/include/configs/axxia.h
+@@ -4136,7 +4136,7 @@ void ncr_disable( void );
+ 
+ #define WATCHDOG_TIMEOUT_SECS 16
+ #ifndef CONFIG_TARGET_EMULATION
+-#define CONFIG_HW_WATCHDOG
++/*#define CONFIG_HW_WATCHDOG*/
+ #endif
+ /*#define LEAVE_WATCHDOG_ON*/
+ /*#define MAKE_WATCHDOG_PERMANENT*/
+@@ -4281,11 +4281,7 @@ unsigned int set_watchdog_timeout(unsigned int);
+   of system memory.
+ */
+ 
+-#ifdef SYSCACHE_ONLY_MODE
+-#define CONFIG_UBOOT_MAX_MEM ((phys_size_t) SYSCACHE_SIZE)
+-#else
+ #define CONFIG_UBOOT_MAX_MEM ((phys_size_t)1 << 30)
+-#endif
+ 
+ /*
+   Define the following to add a hook to the SPL that allows diagnostic
+@@ -4317,7 +4313,6 @@ int pei_init(unsigned int);
+ /*#define NCR_TRACER*/
+ /*#define NCR_TRACER_RV*/
+ 
+-#ifdef CONFIG_SPL_BUILD
+ #ifdef NCR_TRACER
+ #define NCR_TRACE( format, args... ) do { \
+ if( 0 != ncr_tracer_is_enabled( ) ) { \
+@@ -4333,7 +4328,6 @@ printf( "# " format "\n", ##args ); \
+ #define NCR_TRACE( format, args... )
+ #define NCP_COMMENT( format, args... )
+ #endif
+-#endif
+ 
+ #ifndef __ASSEMBLY__
+ enum bist_type {addr, data};
+@@ -4357,6 +4351,10 @@ void __asm_disable_l3_cache(void);
+ void __asm_enable_l3_cache(void);
+ #endif	/* __ASSEMBLY__ */
+ 
++#ifndef __ASSEMBLY__
++void __asm_do_mmu(void);
++#endif
++
+ #ifndef __ASSEMBLY__
+ int handle_cmem_mpr(int, int);
+ int handle_smem_mpr(int, int);
+diff --git a/lib/Makefile b/lib/Makefile
+index 3eecefaa79..a35ee446e4 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -5,13 +5,14 @@
+ # SPDX-License-Identifier:	GPL-2.0+
+ #
+ 
++obj-$(CONFIG_ZLIB) += zlib/
++obj-$(CONFIG_GZIP) += gunzip.o
+ ifndef CONFIG_SPL_BUILD
+ 
+ obj-$(CONFIG_EFI) += efi/
+ obj-$(CONFIG_RSA) += rsa/
+ obj-$(CONFIG_LZMA) += lzma/
+ obj-$(CONFIG_LZO) += lzo/
+-obj-$(CONFIG_ZLIB) += zlib/
+ obj-$(CONFIG_BZIP2) += bzip2/
+ obj-$(CONFIG_TIZEN) += tizen/
+ obj-$(CONFIG_OF_LIBFDT) += libfdt/
+@@ -29,7 +30,6 @@ obj-$(CONFIG_FIT) += fdtdec_common.o
+ obj-$(CONFIG_$(SPL_)OF_CONTROL) += fdtdec_common.o
+ obj-$(CONFIG_$(SPL_)OF_CONTROL) += fdtdec.o
+ obj-$(CONFIG_TEST_FDTDEC) += fdtdec_test.o
+-obj-$(CONFIG_GZIP) += gunzip.o
+ obj-$(CONFIG_GZIP_COMPRESSED) += gzip.o
+ obj-y += initcall.o
+ obj-$(CONFIG_LMB) += lmb.o
+diff --git a/scripts/build_uboot_run_in_cache.sh b/scripts/build_uboot_run_in_cache.sh
+new file mode 100755
+index 0000000000..c8bd9e663e
+--- /dev/null
++++ b/scripts/build_uboot_run_in_cache.sh
+@@ -0,0 +1,67 @@
++#!/bin/bash
++
++#Mareks ATF and Uboot
++ATF_DIR=/workspace/sw/mbykowsx/lionfish/axxia_atf_private
++UBOOT_DIR=/workspace/sw/mbykowsx/lionfish/axxia_u-boot_private
++ATF_DIR=
++UBOOT_DIR=
++MKIMAGE=${UBOOT_DIR}/tools/mkimage
++
++test -n "$ATF_DIR" || { echo "Give ATF directory"; exit 0; }
++test -n "$UBOOT_DIR" || { echo "Give Uboot directory"; exit 0; }
++
++atf_nokia() {
++		echo "Building atf"
++        test -n $1 || { return 127; }
++        set -x
++        BOARD="${1}=1"
++        test -z $2 && TYPE="" || TYPE="${2}=1"
++        pushd .
++        local rc=0
++        # clean uboot
++        { cd $UBOOT_DIR && make distclean; } 
++        # create spl dir in uboot for copying bl31 onto
++        test -d $UBOOT_DIR || { rm -rf $UBOOT_DIR; mkdir -p $UBOOT_DIR; }
++        cd $ATF_DIR
++        if make distclean && make -j 24 PLAT=axxia USE_COHERENT_MEM=0 DEBUG=1 bl31; then
++                ${CROSS_COMPILE}objcopy -I binary -O elf64-littleaarch64 -B aarch64 \
++                    --rename-section .data=.monitor  \
++					build/axxia/debug/bl31.bin build/axxia/debug/bl31.o
++        else
++                rc=127
++        fi
++        popd
++        set +x
++        return $rc
++}
++
++uboot_nokia() {
++		echo "Building Uboot and SPL"
++        test -n "$1" || { return 127; }
++        local rc=0
++        UBOOT=$1
++        pushd .
++        set +x
++        cd $UBOOT_DIR
++        if make distclean && cp ${ATF_DIR}/build/axxia/debug/bl31.o . && make ${UBOOT}_defconfig && make -j 24; then
++                # for emulation -e 0x00027001. For simulation or hardware, -e 0x00197001
++                $MKIMAGE -A arm64 -T firmware -C none -a 0 -e 0x00197001 -n XLOADER -d spl/u-boot-spl.bin spl/u-boot-spl.img
++                $MKIMAGE -A arm64 -T firmware -C none -a 0 -e 0 -n XLOADER -d u-boot.bin u-boot.img
++
++: << EOM
++tftp aus-labsrv2 << TFTP
++put u-boot.img mbu-boot.img
++put spl/u-boot-spl.img mbu-boot-spl.img
++TFTP
++EOM
++
++        else
++               return 127
++        fi
++        set +x
++        popd
++        return 0
++
++}
++
++atf_nokia AXC6700 && uboot_nokia axc6700
+-- 
+2.16.2
+

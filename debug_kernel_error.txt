@@ -1,0 +1,41 @@
+aarch64-axxia-linux-objdump -dSlr pcitest.ko > see
+
+mb: testsize 16384                                                              
+mb: dest_pa 000000c004000000                                                    
+mb: dest_va ffffff8008056000 to dest_pa 000000c004000000                        
+mb: buf_va ffffffc073c88000                                                     
+mb: doing crc32 on dest (ffffff8008056000,0x1000)                               
+mb: dest_va ffffff8008058000 to dest_pa 000000c004001000                        
+mb: buf_va ffffffc073c89000                                                     
+mb: doing crc32 on dest (ffffff8008058000,0x1000)                               
+mb: dest_va ffffff800805a000 to dest_pa 000000c004002000                        
+mb: buf_va ffffffc073c8a000                                                     
+mb: doing crc32 on dest (ffffff800805a000,0x1000)                               
+mb: dest_va ffffff800805c000 to dest_pa 000000c004003000                        
+mb: buf_va ffffffc073c8b000                                                     
+mb: doing crc32 on dest (ffffff800805c000,0x1000)                               
+dma_read 16384 bytes 130566                                                     
+------------[ cut here ]------------                                            
+kernel BUG at mm/slub.c:3942!                                                   
+Internal error: Oops - BUG: 0 [#1] PREEMPT SMP                                  
+Modules linked in: pcitest(O) [last unloaded: pcitest]                          
+CPU: 0 PID: 3638 Comm: dmatest_full.sh Tainted: G           O    4.9.82-rt61
+#1 
+Hardware name: Lionfish (DT)                                                    
+task: ffffffc073cc0000 task.stack: ffffffc073ca0000                             
+PC is at kfree+0x230/0x278                                                      
+LR is at test_dma+0x3a8/0x5c8 [pcitest]
+pc : [<ffffff8008223818>] lr : [<ffffff80007c7748>] pstate: 40000145            
+sp : ffffffc073ca3c00                                                           
+
+
+Where PC is?
+ffffff80082234e8 T kfree
+kfree+0x230=FFFFFF8008223718
+
+where LR is?
+00000000000003a0 <test_dma>
+3a0+3a8=0x748
+mbykowsx@txasoft15:asic-1.1/pcitest$ aarch64-axxia-linux-addr2line -e pcitest.ko 0x748                    
+/workspace/sw/mbykowsx/lionfish/perf/trunk/nuevo/peripherals/pcie/axm6732/asic-1.1/pcitest/pcitest.c:386  
+

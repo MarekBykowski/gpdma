@@ -1,0 +1,206 @@
+From 3367b477b663421185f82379561e28167ae06a59 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Sun, 11 Mar 2018 13:25:07 -0500
+Subject: [PATCH 04/13] run in cache: Straighten out the inconsistencies with
+ shareability attribute in MMU.
+
+Shareability attribute only matters for Normal Cacheable Memories. In other cases
+it is set to Outer-Shereable. Set TCR following the page descriptor, that is:
+- TCR sets inner-shareability if memory is cacheable and inner-shareabile
+- TCR sets non-shareability if memory is cacheable and non-shareable
+- for ohter cases TCR sets outer-shareability
+
+As a side note: memory can be also attributed to outer-shareable. However this system
+as most of the others doesn't use it.
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ arch/arm/cpu/armv8/cache_v8.c       | 75 +++++++++++++++++++++++--------------
+ board/axxia/common/ncr.c            |  2 +-
+ scripts/build_uboot_run_in_cache.sh |  2 -
+ 3 files changed, 48 insertions(+), 31 deletions(-)
+
+diff --git a/arch/arm/cpu/armv8/cache_v8.c b/arch/arm/cpu/armv8/cache_v8.c
+index e4a39d6617..4008204819 100644
+--- a/arch/arm/cpu/armv8/cache_v8.c
++++ b/arch/arm/cpu/armv8/cache_v8.c
+@@ -17,9 +17,17 @@ inline void set_pgtable_section(u64 *page_table, u64 index, u64 section,
+ {
+ 	u64 value;
+ 
+-	value = section | PMD_TYPE_SECT | PMD_SECT_INNER_SHARE | PMD_SECT_AF;
++	value = section | PMD_TYPE_SECT | PMD_SECT_AF;
+ 	value |= PMD_ATTRINDX(memory_type);
+-	value |= share;
++
++	/* The shareability field is only relevant if the memory is a Normal Cacheable
++	   memory type. All Device and Normal Non Cacheable Memories
++	   are always treated as Outer Shareable, regardless of the translation table
++	   shareability attribute.
++	 */
++	if (memory_type == MT_NORMAL)
++		value |= share;
++
+ 	page_table[index] = value;
+ }
+ 
+@@ -35,8 +43,9 @@ inline void set_pgtable_table(u64 *page_table, u64 index, u64 *table_addr)
+ static void mmu_setup(void)
+ {
+ 	bd_t *bd = gd->bd;
+-	u64 *page_table = (u64 *)gd->arch.tlb_addr, i, j;
++	u64 *page_table = (u64 *)gd->arch.tlb_addr, i, j, share = PMD_SECT_INNER_SHARE;
+ 	int el;
++	u32 tcr_flags = TCR_FLAGS; 
+ 
+ 	/* Setup an identity-mapping for all spaces */
+ 	for (i = 0; i < (PGTABLE_SIZE >> 3); i++) {
+@@ -49,30 +58,34 @@ static void mmu_setup(void)
+ 		ulong start = bd->bi_dram[i].start;
+ #ifndef CONFIG_AXXIA_EIOA
+ 		ulong end = bd->bi_dram[i].start + bd->bi_dram[i].size;
+-#else 
++#else
+ 		ulong end = bd->bi_dram[i].start + EIOA_SYSTEM_MEMORY;
+ #endif
+ 
+ 		for (j = start >> SECTION_SHIFT;
+ 		     j < end >> SECTION_SHIFT; j++) {
+ 			set_pgtable_section(page_table, j, j << SECTION_SHIFT,
+-					    MT_NORMAL, PMD_SECT_NON_SHARE);
++					    MT_NORMAL, share);
+ 		}
+ 	}
+ 
+ 	/* load TTBR0 */
+ 	el = current_el();
++
++	if (PMD_SECT_NON_SHARE == share)
++		tcr_flags = TCR_FLAGS & ~(0x3<<12); /*clear bits 12 and 13 (non-sharable)*/
++
+ 	if (el == 1) {
+ 		set_ttbr_tcr_mair(el, gd->arch.tlb_addr,
+-				  TCR_EL1_RSVD | TCR_FLAGS | TCR_EL1_IPS_BITS,
++				  TCR_EL1_RSVD | tcr_flags | TCR_EL1_IPS_BITS,
+ 				  MEMORY_ATTRIBUTES);
+ 	} else if (el == 2) {
+ 		set_ttbr_tcr_mair(el, gd->arch.tlb_addr,
+-				  TCR_EL2_RSVD | TCR_FLAGS | TCR_EL2_IPS_BITS,
++				  TCR_EL2_RSVD | tcr_flags | TCR_EL2_IPS_BITS,
+ 				  MEMORY_ATTRIBUTES);
+ 	} else {
+ 		set_ttbr_tcr_mair(el, gd->arch.tlb_addr,
+-				  TCR_EL3_RSVD | TCR_FLAGS | TCR_EL3_IPS_BITS,
++				  TCR_EL3_RSVD | tcr_flags | TCR_EL3_IPS_BITS,
+ 				  MEMORY_ATTRIBUTES);
+ 	}
+ 	/* enable the mmu */
+@@ -83,16 +96,16 @@ static void mmu_setup(void)
+ 
+ void mmu_configure(u64 *addr, int flags)
+ {
+-	u64 *page_table = addr, i, j;
+-	int el, tcr_flags;
+-	uint32_t sctlr = get_sctlr();;
+-    	
+-
+-	/* TODO: In the Proof-Of-Concept for Nokia the memory is attributed 
+-       to non-shareble but booting from cache should work
+-	   equally well with memory attributed to inner-shareable (Default in this Uboot) 
+-	   with Fully Coherent Master Devices (Cluseters) NOT being part of
+-	   Snoop Domain. 
++	u64 *page_table = addr, i, j, share = PMD_SECT_NON_SHARE;
++	int el;
++	u32 sctlr = get_sctlr(), tcr_flags = TCR_FLAGS;
++
++
++	/* TODO: In the Proof-Of-Concept for Nokia the memory is attributed
++	   to non-shareble but booting from cache should work
++	   equally well with memory set to inner-shareable (Default in this Uboot)
++	   provided the Fully Coherent Master Devices (Clusters) are NOT being part of
++	   Snoop Domain.
+ 	 */
+ 
+ 	/* Setup an identity-mapping for all spaces */
+@@ -106,7 +119,7 @@ void mmu_configure(u64 *addr, int flags)
+ 	for (j = start >> SECTION_SHIFT;
+ 		 j < end >> SECTION_SHIFT; j++) {
+          set_pgtable_section(page_table, j, j << SECTION_SHIFT,
+-					MT_NORMAL, PMD_SECT_NON_SHARE);
++					MT_NORMAL, share);
+ 	}
+ 
+ 
+@@ -119,7 +132,7 @@ void mmu_configure(u64 *addr, int flags)
+ 
+ 	   LSM sits in between the start-end of below.
+      */
+-#if ATTRIBUTE_LSM_TO_MEMORY_NC
++#if ATTRIBUTE_LSM_TO_MEMORY_NON_CACHEABLE
+ 	start = 0x8020000000;
+ 	end = 0x8040000000;
+ 	for (j = start >> SECTION_SHIFT;
+@@ -131,21 +144,27 @@ void mmu_configure(u64 *addr, int flags)
+ 
+ 	/* load TTBR0 */
+ 	el = current_el();
++
++	/* Shareability attribute is set in two places: in a page descriptor and TCR.
++	   The settings in the two ONLY for Normal Cacheable Memories should get aligned,
++	   that is:
++	   - set memory to non-shareable in the page descriptor and TCR
++	   - set memory to inner shareable in the page descriptor and TCR
++	   There is a third option that is unused here (almost nver used):
++	   - memory is set to outer-shareable
++	 */
++	if (PMD_SECT_NON_SHARE == share)
++		tcr_flags = TCR_FLAGS & ~(0x3<<12); /*clear bits 12 and 13 (non-sharable)*/
++
+ 	if (el == 1) {
+ 		set_ttbr_tcr_mair(el, (u64)addr,
+-				  TCR_EL1_RSVD | TCR_FLAGS | TCR_EL1_IPS_BITS,
++				  TCR_EL1_RSVD | tcr_flags | TCR_EL1_IPS_BITS,
+ 				  MEMORY_ATTRIBUTES);
+ 	} else if (el == 2) {
+ 		set_ttbr_tcr_mair(el, (u64)addr,
+-				  TCR_EL2_RSVD | TCR_FLAGS | TCR_EL2_IPS_BITS,
++				  TCR_EL2_RSVD | tcr_flags | TCR_EL2_IPS_BITS,
+ 				  MEMORY_ATTRIBUTES);
+ 	} else {
+-		tcr_flags = TCR_FLAGS & ~(0x3<<12); /*clear bits 12 and 13 (non-sharable)*/
+-#if 0
+-		tcr_flags &= ~(0x3<<8); /*clear bits 8 and 9 (inner non-cacheable)*/
+-		/*TCR_FLAGS has already outer WB-WA. All together should lead to location request
+- 		  ending up in L3 right away.*/
+-#endif
+ 		set_ttbr_tcr_mair(el, (u64)addr,
+ 				  TCR_EL3_RSVD | tcr_flags | TCR_EL3_IPS_BITS,
+ 				  MEMORY_ATTRIBUTES);
+diff --git a/board/axxia/common/ncr.c b/board/axxia/common/ncr.c
+index 25b131e332..bc9a0e1c31 100644
+--- a/board/axxia/common/ncr.c
++++ b/board/axxia/common/ncr.c
+@@ -1695,7 +1695,7 @@ l3_init_dma(ncp_uint32_t addr)
+ 	asm volatile("mrs %0, CurrentEL" : "=r" (el) : : "cc");
+ 	el >>= 2;
+ 
+-	printf("Validate l3 through %s() at EL%u (secure %u): 0x%lx-0x%lx\n",
++	printf("Validate l3 through %s() at EL%u (secure %u): 0x%lx-0x%lx",
+ 			__func__, el, (unsigned)el==3?1:0, (unsigned long)addr,
+ 			(unsigned long)(addr+SYSCACHE_SIZE));
+ 
+diff --git a/scripts/build_uboot_run_in_cache.sh b/scripts/build_uboot_run_in_cache.sh
+index df6d0c9041..f679393ff8 100755
+--- a/scripts/build_uboot_run_in_cache.sh
++++ b/scripts/build_uboot_run_in_cache.sh
+@@ -1,7 +1,5 @@
+ #!/bin/bash
+ 
+-set -x
+-
+ #Mareks ATF and Uboot
+ ATF_DIR=/workspace/sw/mbykowsx/lionfish/axxia_atf_private
+ UBOOT_DIR=/workspace/sw/mbykowsx/lionfish/axxia_u-boot_private
+-- 
+2.16.2
+

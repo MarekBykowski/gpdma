@@ -1,0 +1,187 @@
+From b07d54aaa1c551ec44daa73acfa0a19380a92149 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Tue, 17 Jul 2018 08:13:13 -0500
+Subject: [PATCH 2/4] GPDMA: GPDAM to L3 locked/unlocked Updated
+ dma_map|unmap_*() routines to support ioremap_cached()
+
+---
+ arch/arm64/mm/dma-mapping.c | 65 +++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/dma-mapping.h | 41 ++++++++++++++++++++++++++++
+ lib/swiotlb.c               |  1 +
+ 3 files changed, 107 insertions(+)
+
+diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
+index cab3574ab7d9..3dd29db01622 100644
+--- a/arch/arm64/mm/dma-mapping.c
++++ b/arch/arm64/mm/dma-mapping.c
+@@ -217,6 +217,69 @@ static dma_addr_t __swiotlb_map_page(struct device *dev, struct page *page,
+ 	return dev_addr;
+ }
+ 
++static inline unsigned long
++virtual2physical(struct device *dev, unsigned long address, size_t size, enum dma_data_direction dir) {
++	unsigned long par_el1;
++	dma_addr_t dev_addr;
++
++#if 0
++	pr_info("----- Translating VA 0x%lx\n", address);
++#endif
++	__asm__ __volatile__ ("at s1e1r, %0" : : "r" (address));
++	__asm__ __volatile__ ("mrs %0, PAR_EL1\n" : "=r" (par_el1));
++
++#if 0
++	if (0 != (par_el1 & 1)) {
++		pr_info("Address Translation Failed: 0x%lx\n"
++			  "    FSC: 0x%lx\n"
++			  "    PTW: 0x%lx\n"
++			  "      S: 0x%lx\n",
++			  address,
++			  (par_el1 & 0x7e) >> 1,
++			  (par_el1 & 0x100) >> 8,
++			  (par_el1 & 0x200) >> 9);
++	} else {
++		pr_info("Address Translation Succeeded: 0x%lx\n"
++			  "  SH: 0x%lx\t(b11 -> Innnershareable)\n"
++			  "  NS: 0x%lx\t(unknown for non-secure)\n"
++			  "  PA: 0x%lx\t(bits[47:12] of PA)\n"
++			  "ATTR: 0x%lx\t(bits[7:4]11RW -> Outer WBNT,bits[3:0]11RW -> Inner WBNT)\n",
++			  address,
++			  (par_el1 & 0x180) >> 7,
++			  (par_el1 & 0x200) >> 9,
++			  par_el1 & 0xfffffffff000,
++			  (par_el1 & 0xff00000000000000) >> 56);
++	}
++#endif
++
++
++	dev_addr = par_el1 & 0xfffffffff000;
++	return (unsigned long) dev_addr;
++}
++
++static dma_addr_t __swiotlb_map_page_par_l1(struct device *dev,
++				     unsigned long addr, size_t size,
++				     enum dma_data_direction dir)
++{
++	dma_addr_t dev_addr;
++
++	dev_addr = virtual2physical(dev, addr, size, dir);
++	if (!is_device_dma_coherent(dev))
++		__dma_map_area((void*) addr, size, dir);
++
++	return dev_addr;
++}
++
++static void __swiotlb_unmap_page_par_l1(struct device *dev, dma_addr_t dev_addr,
++				 size_t size, enum dma_data_direction dir,
++				 unsigned long attrs)
++{
++	if (!is_device_dma_coherent(dev))
++		__dma_unmap_area((void*)attrs/*virt*/, size, dir);
++	attrs = 0; /*unused below but make it explicit here*/
++	swiotlb_unmap_page(dev, dev_addr, size, dir, attrs);
++}
++
+ 
+ static void __swiotlb_unmap_page(struct device *dev, dma_addr_t dev_addr,
+ 				 size_t size, enum dma_data_direction dir,
+@@ -365,7 +428,9 @@ static struct dma_map_ops swiotlb_dma_ops = {
+ 	.mmap = __swiotlb_mmap,
+ 	.get_sgtable = __swiotlb_get_sgtable,
+ 	.map_page = __swiotlb_map_page,
++	.map_page_par_l1 = __swiotlb_map_page_par_l1,
+ 	.unmap_page = __swiotlb_unmap_page,
++	.unmap_page_par_l1 = __swiotlb_unmap_page_par_l1,
+ 	.map_sg = __swiotlb_map_sg_attrs,
+ 	.unmap_sg = __swiotlb_unmap_sg_attrs,
+ 	.sync_single_for_cpu = __swiotlb_sync_single_for_cpu,
+diff --git a/include/linux/dma-mapping.h b/include/linux/dma-mapping.h
+index 704caae69c42..1120a66c12d7 100644
+--- a/include/linux/dma-mapping.h
++++ b/include/linux/dma-mapping.h
+@@ -11,6 +11,8 @@
+ #include <linux/kmemcheck.h>
+ #include <linux/bug.h>
+ 
++#include <asm/cacheflush.h>
++
+ /**
+  * List of possible attributes associated with a DMA mapping. The semantics
+  * of each attribute should be defined in Documentation/DMA-attributes.txt.
+@@ -86,9 +88,18 @@ struct dma_map_ops {
+ 			       unsigned long offset, size_t size,
+ 			       enum dma_data_direction dir,
+ 			       unsigned long attrs);
++
++	dma_addr_t (*map_page_par_l1)(struct device *dev,
++				  unsigned long addr, size_t size,
++				  enum dma_data_direction dir);
++
+ 	void (*unmap_page)(struct device *dev, dma_addr_t dma_handle,
+ 			   size_t size, enum dma_data_direction dir,
+ 			   unsigned long attrs);
++
++	void (*unmap_page_par_l1)(struct device *dev, dma_addr_t dma_handle,
++			   size_t size, enum dma_data_direction dir,
++			   unsigned long attrs);
+ 	/*
+ 	 * map_sg returns 0 on error and a value > 0 on success.
+ 	 * It should never return a value < 0.
+@@ -196,6 +207,23 @@ static inline dma_addr_t dma_map_single_attrs(struct device *dev, void *ptr,
+ 	return addr;
+ }
+ 
++static inline dma_addr_t dma_map_single_par_l1(struct device *dev, void *ptr,
++					      size_t size,
++					      enum dma_data_direction dir)
++{
++	struct dma_map_ops *ops = get_dma_ops(dev);
++	dma_addr_t addr;
++
++	kmemcheck_mark_initialized(ptr, size);
++	BUG_ON(!valid_dma_direction(dir));
++	addr = ops->map_page_par_l1(dev, (unsigned long)ptr,
++			     size, dir);
++	debug_dma_map_page(dev, virt_to_page(ptr),
++			   offset_in_page(ptr), size,
++			   dir, addr, true);
++	return addr;
++}
++
+ static inline void dma_unmap_single_attrs(struct device *dev, dma_addr_t addr,
+ 					  size_t size,
+ 					  enum dma_data_direction dir,
+@@ -209,6 +237,19 @@ static inline void dma_unmap_single_attrs(struct device *dev, dma_addr_t addr,
+ 	debug_dma_unmap_page(dev, addr, size, dir, true);
+ }
+ 
++static inline void dma_unmap_single_attrs_par_l1(struct device *dev, dma_addr_t addr,
++					  size_t size,
++					  enum dma_data_direction dir,
++					  unsigned long attrs)
++{
++	struct dma_map_ops *ops = get_dma_ops(dev);
++
++	BUG_ON(!valid_dma_direction(dir));
++	if (ops->unmap_page)
++		ops->unmap_page_par_l1(dev, addr, size, dir, attrs);
++	debug_dma_unmap_page(dev, addr, size, dir, true);
++}
++
+ /*
+  * dma_maps_sg_attrs returns 0 on error and > 0 on success.
+  * It should never return a value < 0.
+diff --git a/lib/swiotlb.c b/lib/swiotlb.c
+index b7812df04437..cf2653b0a8ad 100644
+--- a/lib/swiotlb.c
++++ b/lib/swiotlb.c
+@@ -755,6 +755,7 @@ dma_addr_t swiotlb_map_page(struct device *dev, struct page *page,
+ 			    unsigned long attrs)
+ {
+ 	phys_addr_t map, phys = page_to_phys(page) + offset;
++	/*phys_addr_t map, phys = page_address(page) + offset;*/
+ 	dma_addr_t dev_addr = phys_to_dma(dev, phys);
+ 
+ 	BUG_ON(dir == DMA_NONE);
+-- 
+2.16.2
+

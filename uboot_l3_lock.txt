@@ -1,0 +1,2 @@
+# dump l3 lock registers from CCN
+md.q 0x4000200040 5

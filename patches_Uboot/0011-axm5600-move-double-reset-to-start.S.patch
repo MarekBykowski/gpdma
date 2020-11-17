@@ -1,0 +1,207 @@
+From 57a6422c521bd9f11d3d435f2e37c67d436b02ed Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Tue, 30 Oct 2018 06:38:42 -0500
+Subject: [PATCH 11/13] axm5600: move double reset to start.S
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ arch/arm/cpu/armv8/cache.S    |  5 ++++
+ arch/arm/cpu/armv8/start.S    |  4 +++
+ arch/arm/include/asm/macro.h  | 62 +++++++++++++++++++++++++++++++++++++++++++
+ arch/arm/include/asm/system.h |  1 +
+ board/axxia/common/spl.c      | 55 --------------------------------------
+ 5 files changed, 72 insertions(+), 55 deletions(-)
+
+diff --git a/arch/arm/cpu/armv8/cache.S b/arch/arm/cpu/armv8/cache.S
+index ab8c08917a..9921a9311e 100644
+--- a/arch/arm/cpu/armv8/cache.S
++++ b/arch/arm/cpu/armv8/cache.S
+@@ -12,6 +12,11 @@
+ #include <asm/macro.h>
+ #include <linux/linkage.h>
+ 
++ENTRY(__asm_double_reset)
++	__asm_double_reset
++	ret
++ENDPROC(__asm_double_reset)
++
+ /*
+  * void __asm_flush_dcache_level(level)
+  *
+diff --git a/arch/arm/cpu/armv8/start.S b/arch/arm/cpu/armv8/start.S
+index 1a41a81482..ae83884e8c 100644
+--- a/arch/arm/cpu/armv8/start.S
++++ b/arch/arm/cpu/armv8/start.S
+@@ -149,6 +149,10 @@ apply_a53_prefetch_disable:
+ 
+ apply_a57_core_errata:
+ 
++#if defined(CONFIG_SPL_BUILD) && 1
++	__asm_double_reset
++#endif
++
+ #ifdef CONFIG_ARM_ERRATA_828024
+ 	mrs	x0, S3_1_c15_c2_0	/* cpuactlr_el1 */
+ 	/* Disable non-allocate hint of w-b-n-a memory type */
+diff --git a/arch/arm/include/asm/macro.h b/arch/arm/include/asm/macro.h
+index 9bb0efa5ff..2c6e883976 100644
+--- a/arch/arm/include/asm/macro.h
++++ b/arch/arm/include/asm/macro.h
+@@ -231,6 +231,68 @@ lr	.req	x30
+ .endm
+ #endif
+ 
++.macro __asm_double_reset
++	/* Load SYSCON 0x8002c00000*/
++	mov x9, #0
++	movk x9, #0x2c0, lsl #16
++	movk x9, #0x80, lsl #32
++
++	/* read and clear reset status (write one to clear) */
++	ldr w10, [x9, #0x100]
++	str w10, [x9, #0x100]
++
++	/*
++	 * if this is a power-up/pin reset then initialize
++	 * persistent registers
++	 */
++	tbz w10, #0, reset_status_zero
++	add x11, x9, #0xdc /* from */
++	add x12, x9, #0xfc  /* to. Can't do stp xzr, xzr, [xr], 16 for AXI4 LSM*/
++zero_scratch:
++	str wzr, [x11], #4
++	cmp x11, x12
++	b.ne zero_scratch
++reset_status_zero:
++
++	tbz w10, #0, skip_double_reset
++	/* load lor (SYSCON + 0x2004) */
++	ldr w11, [x9, #0x2004]
++	tbnz w11, #7, skip_double_reset
++
++	/* 0x8080100000 */
++	mov x11, #0
++	movk x11, #0x8010, lsl #16
++	movk x11, #0x80, lsl #32
++	ldr w10, [x11, #0x4]
++	orr w10, w10, #1 << 1
++	str w10, [x11, #0x4]
++
++clear_spp:
++	ldr w12, [x11, #0x8]
++	ldr w13, [x11, #0xc]
++	cmp w13, #0x3
++	b.ne clear_spp
++
++	/* Write the key. */
++	mov w10, #0xab
++	str w10, [x9, #0x2000]
++	/* Clear the pin reset bit. */
++	mov w10, #1
++	str w10, [x9, #0x100]
++	/* Cause a chip reset.  Hardware delays this for 1024 cycles */
++	mov w10, #2
++	str w10, [x9, #0x2008]
++	/* Enable all cores. */
++	mov w10, #0
++	str w10, [x9, #0x2010]
++	/* Clear the key. */
++	mov w10, #0
++	str w10, [x9, #0x2000]
++
++	wfi
++skip_double_reset:
++.endm
++
+ #endif /* CONFIG_ARM64 */
+ 
+ #endif /* __ASSEMBLY__ */
+diff --git a/arch/arm/include/asm/system.h b/arch/arm/include/asm/system.h
+index f6bc1d3dc8..997f8d4ad2 100644
+--- a/arch/arm/include/asm/system.h
++++ b/arch/arm/include/asm/system.h
+@@ -78,6 +78,7 @@ void __asm_flush_dcache_range(u64 start, u64 end);
+ void __asm_invalidate_tlb_all(void);
+ void __asm_invalidate_icache_all(void);
+ int __asm_flush_l3_cache(void);
++void __asm_double_reset(void);
+ 
+ void armv8_switch_to_el2(void);
+ void armv8_switch_to_el1(void);
+diff --git a/board/axxia/common/spl.c b/board/axxia/common/spl.c
+index fbbdd71978..0aa94aa399 100755
+--- a/board/axxia/common/spl.c
++++ b/board/axxia/common/spl.c
+@@ -1319,10 +1319,6 @@ board_init_f(ulong dummy)
+ 	int rc;
+ 	unsigned int value;
+ 	unsigned int pvalue;
+-#if defined(CONFIG_AXXIA_ANY_56XX)
+-	unsigned int lor;
+-#endif
+-	int i;
+ 
+ 	/*
+ 	  Work-Around for Hardware Debug
+@@ -1357,58 +1353,7 @@ board_init_f(ulong dummy)
+                         CONFIG_SYS_SPL_MALLOC_SIZE);
+ #endif
+ 
+-	/* read and clear reset status (write one to clear) */
+ 	value = readl(SYSCON + 0x100);
+-	writel(value, (SYSCON + 0x100));
+-
+-	/*
+-	 * if this is a power-up/pin reset then initialize
+-	 * persistent registers
+-	 */
+-
+-	if ((value & 0x00000001))
+-		for (i = 0; i < 9; i++)
+-			writel(0, (SYSCON + (0xdc + (4 * i))));
+-
+-        /*
+-	 * For robustness, reboot chip in quiet post power-up
+-         * electrical environment.
+-         */
+-
+-#if defined(CONFIG_AXXIA_ANY_56XX)
+-        lor = readl(SYSCON + 0x2004);
+-
+-        if ((value & 0x00000001) && (0 == (lor & 0x80))) {
+-		unsigned int temp;
+-
+-		/*
+-		  Clear out the SSP fifo so the bootrom doesn't read
+-		  junk after the reset in simulation.  On the
+-		  hardware, the SSP gets reset during a chip reset,
+-		  but not in simulation.
+-		*/
+-
+-		temp = readl(SSP + 0x4);
+-		temp |= (1 << 1);
+-		writel(temp, (SSP + 0x4));
+-
+-		while (readl(SSP + 0xc) != 0x3)
+-			(void)readl(SSP + 0x8);
+-
+-		/* Write the key. */
+-		writel(0xab, (SYSCON + 0x2000));
+-		/* Clear the pin reset bit. */
+-		writel(0x1, (SYSCON + 0x100));
+-		/* Cause a chip reset.  Hardware delays this for 1024 cycles */
+-		writel(0x2, (SYSCON + 0x2008));
+-		/* Enable all cores. */
+-		writel(0x0, (SYSCON + 0x2010));
+-		/* Clear the key. */
+-		writel(0, (SYSCON + 0x2000));
+-		/* Let the reset happen. */
+-		wfi();
+-        }
+-#endif
+ 
+ 	/*
+ 	 * Set bit 2 of 0xdc if the last reset was caused by a watchdog
+-- 
+2.16.2
+

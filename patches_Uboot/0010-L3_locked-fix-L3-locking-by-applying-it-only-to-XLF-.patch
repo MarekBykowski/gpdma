@@ -1,0 +1,50 @@
+From 5264e8d4ece0daf7b1a36c8b32258abbded8c2db Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Tue, 23 Oct 2018 02:19:53 -0500
+Subject: [PATCH 10/13] L3_locked: fix L3 locking by applying it only to XLF
+ (not 5600).
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ board/axxia/common/spl.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/board/axxia/common/spl.c b/board/axxia/common/spl.c
+index bd52e7cd55..fbbdd71978 100755
+--- a/board/axxia/common/spl.c
++++ b/board/axxia/common/spl.c
+@@ -903,12 +903,15 @@ extern int set_cluster_coherency(unsigned cluster, unsigned state);
+ extern void ncr_l3tags(ncp_uint32_t address);
+ extern void l3_init_dma(ncp_uint32_t addr);
+ void (*l3_validate)(ncp_uint32_t address);
++#ifdef CONFIG_AXXIA_XLF
+ #include "../axc6700/ncp_l3lock_region.h"
+ #include "../../../include/configs/axxia.h"
++
+ extern ncp_st_t
+ ncp_l3lock_region_init (ncp_dev_hdl_t dev,
+             ncp_l3lock_region_info_t *l3lock_params,
+             ncp_bool_t isFPGA);
++#endif
+ 
+ 
+ static void
+@@ -1729,6 +1732,7 @@ board_init_f(ulong dummy)
+ 		asm volatile("adr x24, l3_validate\n"
+ 			"ldr x25, [x24]\n");
+ 
++#ifdef CONFIG_AXXIA_XLF
+ {
+ #define NO_L3_LOCK
+ 		/* Permits a Non-secure access request to access Secure registers */
+@@ -1746,6 +1750,7 @@ board_init_f(ulong dummy)
+ 			acp_failure(__FILE__, __func__, __LINE__);
+ 		}
+ }
++#endif
+ 		/*
+ 		   Do not enforce HW coherency.
+ 		   Rely soley on SW Cache Maintenance Operations.
+-- 
+2.16.2
+

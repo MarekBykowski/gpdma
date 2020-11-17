@@ -1,0 +1,124 @@
+From 33c7303bc640accd6b7fd2079e4a9946c4c496a5 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Mon, 2 Jul 2018 08:51:52 -0500
+Subject: [PATCH 2/4] ATF learns from Uboot whether this is A0 or B0 and adds
+ different RN-F IDs to the snoop domain upon it.
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ plat/intel/axxia/aarch64/axxia_common.c    |  2 +-
+ plat/intel/axxia/bl31_plat_setup.c         |  4 ++--
+ plat/intel/axxia/drivers/pwrc/axxia_pwrc.c | 10 +++++-----
+ plat/intel/axxia/include/axxia_def.h       |  5 ++++-
+ 4 files changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/plat/intel/axxia/aarch64/axxia_common.c b/plat/intel/axxia/aarch64/axxia_common.c
+index cdfd316f13..b26e22eb33 100644
+--- a/plat/intel/axxia/aarch64/axxia_common.c
++++ b/plat/intel/axxia/aarch64/axxia_common.c
+@@ -55,7 +55,7 @@
+ 			       TZRAM_SIZE - (ro_limit - ro_start),             \
+ 			       MT_MEMORY | MT_RW | MT_SECURE);	               \
+                                                                                \
+-	       if (IS_6700())                                                  \
++	       if (IS_ANY_6700())                                              \
+ 		       mmap_add_region(XLF_CCN_BASE, XLF_CCN_BASE,             \
+ 				       XLF_CCN_SIZE,			       \
+ 				       MT_DEVICE | MT_RW | MT_SECURE);         \
+diff --git a/plat/intel/axxia/bl31_plat_setup.c b/plat/intel/axxia/bl31_plat_setup.c
+index 07d9a0609f..341ae7d86a 100644
+--- a/plat/intel/axxia/bl31_plat_setup.c
++++ b/plat/intel/axxia/bl31_plat_setup.c
+@@ -230,7 +230,7 @@ void bl31_early_platform_setup(bl31_params_t *from_bl2,
+ 			       void *plat_params_from_bl2)
+ {
+ #if LOG_LEVEL >= LOG_LEVEL_INFO
+-	static char *target[] = { "5600", "6700" };
++	static char *target[] = { "5600", "6700", "6700_B0" };
+ 	static char *platform[] = { "simulation", "emulation", "hardware" };
+ 	static char *syscache_only_mode_option[] = { "none", "run in cache" };
+ 	static char *cache_protection_option[] = {
+@@ -649,7 +649,7 @@ initialize_cluster_info(void)
+ 		number_of_clusters = 12;
+ 
+ 		if (IS_SIM() || IS_HW()) {
+-			if (is_xlf_a0()) {
++			if (IS_6700()) {
+ 				bit_by_cluster[0]  = 11;
+ 				bit_by_cluster[1]  = 12;
+ 				bit_by_cluster[2]  = 17;
+diff --git a/plat/intel/axxia/drivers/pwrc/axxia_pwrc.c b/plat/intel/axxia/drivers/pwrc/axxia_pwrc.c
+index 25bb20b1d9..8c9c7e94c8 100644
+--- a/plat/intel/axxia/drivers/pwrc/axxia_pwrc.c
++++ b/plat/intel/axxia/drivers/pwrc/axxia_pwrc.c
+@@ -200,7 +200,7 @@ int axxia_pwrc_cpu_shutdown(unsigned int reqcpu)
+ 
+ 
+ 		/* Shut down the ACP interface is a step in power down however the AXXIA 5600 has not connected the ACP so it is skipped*/
+-		if (IS_6700())
++		if (IS_ANY_6700())
+ 		{
+ 			/* Disable the GIC */
+ 			axxia_pwrc_clear_bits_syscon_register(SYSCON_GIC_DISABLE, cluster_mask);
+@@ -244,7 +244,7 @@ int axxia_pwrc_cpu_shutdown(unsigned int reqcpu)
+ 
+ 		axxia_pwrc_clear_bits_syscon_register(SYSCON_PWR_GIC_CPU_ACTIVE, (1 << reqcpu));
+ 
+-		if (IS_6700())
++		if (IS_ANY_6700())
+ 		{
+ 			/* Disable the CPU Reset Deassertion Timer Register before powering down the cpu */
+ 			axxia_pwrc_set_bits_syscon_register(SYSCON_KEY, VALID_KEY_VALUE);
+@@ -304,7 +304,7 @@ int axxia_pwrc_cpu_powerup(unsigned int reqcpu)
+ 		}
+ 		udelay(64);
+ 
+-		if (IS_6700())
++		if (IS_ANY_6700())
+ 			axxia_pwrc_set_bits_syscon_register(SYSCON_GIC_DISABLE, (1 << cluster));
+ 
+ 	}
+@@ -585,7 +585,7 @@ static int axxia_pwrc_L2_physical_connection_and_power_up(unsigned int cluster)
+ 		goto power_up_l2_cleanup;
+ 	}
+ 
+-	if (IS_6700())
++	if (IS_ANY_6700())
+ 	{
+ 		axxia_pwrc_set_bits_syscon_register(SYSCON_KEY, VALID_KEY_VALUE);
+ 		axxia_pwrc_or_bits_syscon_register(SYSCON_ALLOW_DBG, mask);
+@@ -671,7 +671,7 @@ static int axxia_pwrc_L2_physical_connection_and_power_up(unsigned int cluster)
+ 		goto power_up_l2_cleanup;
+ 	}
+ 
+-	if (IS_6700())
++	if (IS_ANY_6700())
+ 	{
+ 		/* Power on the L2 power domain */
+ 		axxia_pwrc_or_bits_syscon_register(SYSCON_XLF_PWR_PWRUPTOP, mask);
+diff --git a/plat/intel/axxia/include/axxia_def.h b/plat/intel/axxia/include/axxia_def.h
+index d5a6c49dae..ab00d35728 100644
+--- a/plat/intel/axxia/include/axxia_def.h
++++ b/plat/intel/axxia/include/axxia_def.h
+@@ -35,7 +35,8 @@
+ 
+ typedef enum {
+ 	AXXIA_5600 = 0,
+-	AXXIA_6700 = 1
++	AXXIA_6700 = 1,
++	AXXIA_6700_B0 = 2
+ } axxia_target_t;
+ 
+ typedef enum {
+@@ -67,6 +68,8 @@ extern axxia_configuration_t axxia_configuration;
+ 
+ #define IS_5600() (AXXIA_5600 == axxia_configuration.target)
+ #define IS_6700() (AXXIA_6700 == axxia_configuration.target)
++#define IS_6700_B0() (AXXIA_6700_B0 == axxia_configuration.target)
++#define IS_ANY_6700() (IS_6700() || IS_6700_B0())
+ #define IS_SIM()  (AXXIA_SIM == axxia_configuration.platform)
+ #define IS_EMU()  (AXXIA_EMU == axxia_configuration.platform)
+ #define IS_HW()   (AXXIA_HW == axxia_configuration.platform)
+-- 
+2.16.2
+

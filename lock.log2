@@ -1,0 +1,53 @@
+Tests: dma_write
+burst set to 0 -- 3 = 64B, 5 = 128B, ...
+testing dma_write
+dma_write 64 bytes (overhead) 22347 ns crc32 0x11aad067 pass
+dma_write 64 bytes (overhead) 23252 ns crc32 0x11aad067 pass
+dma_write 4096 bytes 30313 ns crc32 0x5786a3f4 pass
+dma_write 8192 bytes 40357 ns crc32 0xfbd8b73f pass
+dma_write 16384 bytes 53719 ns crc32 0x1169749b pass
+dma_write 32768 bytes 81013 ns crc32 0x47f9c108 pass
+dma_write 65536 bytes 133856 ns crc32 0x963b7747 pass
+dma_write 131072 bytes 237986 ns crc32 0x5a0b2c85 pass
+dma_write 524288 bytes 908922 ns crc32 0x6750ef59 pass
+dma_write 1048576 bytes 1682985 ns crc32 0x4733e9cf pass
+dma_write 2097152 bytes 3365831 ns crc32 0x6e71177b pass
+burst set to 3 -- 3 = 64B, 5 = 128B, ...
+testing dma_write
+dma_write 64 bytes (overhead) 37770 ns crc32 0x11aad067 pass
+dma_write 64 bytes (overhead) 35669 ns crc32 0x11aad067 pass
+dma_write 4096 bytes 41642 ns crc32 0x5786a3f4 pass
+dma_write 8192 bytes 48096 ns crc32 0xfbd8b73f pass
+dma_write 16384 bytes 57085 ns crc32 0x1169749b pass
+dma_write 32768 bytes 71203 ns crc32 0x47f9c108 pass
+dma_write 65536 bytes 101649 ns crc32 0x963b7747 pass
+dma_write 131072 bytes 157919 ns crc32 0x5a0b2c85 pass
+dma_write 524288 bytes 500338 ns crc32 0x6750ef59 pass
+dma_write 1048576 bytes 986902 ns crc32 0x4733e9cf pass
+dma_write 2097152 bytes 1847470 ns crc32 0x6e71177b pass
+burst set to 5 -- 3 = 64B, 5 = 128B, ...
+testing dma_write
+dma_write 64 bytes (overhead) 48674 ns crc32 0x11aad067 pass
+dma_write 64 bytes (overhead) 53727 ns crc32 0x11aad067 pass
+dma_write 4096 bytes 54474 ns crc32 0x5786a3f4 pass
+dma_write 8192 bytes 61088 ns crc32 0xfbd8b73f pass
+dma_write 16384 bytes 68929 ns crc32 0x1169749b pass
+dma_write 32768 bytes 82249 ns crc32 0x47f9c108 pass
+dma_write 65536 bytes 108674 ns crc32 0x963b7747 pass
+dma_write 131072 bytes 162356 ns crc32 0x5a0b2c85 pass
+dma_write 524288 bytes 470734 ns crc32 0x6750ef59 pass
+dma_write 1048576 bytes 886519 ns crc32 0x4733e9cf pass
+dma_write 2097152 bytes 1714876 ns crc32 0x6e71177b pass
+burst set to 7 -- 3 = 64B, 5 = 128B, ...
+testing dma_write
+dma_write 64 bytes (overhead) 63945 ns crc32 0x11aad067 pass
+dma_write 64 bytes (overhead) 64051 ns crc32 0x11aad067 pass
+dma_write 4096 bytes 67712 ns crc32 0x5786a3f4 pass
+dma_write 8192 bytes 73284 ns crc32 0xfbd8b73f pass
+dma_write 16384 bytes 81951 ns crc32 0x1169749b pass
+dma_write 32768 bytes 98922 ns crc32 0x47f9c108 pass
+dma_write 65536 bytes 122907 ns crc32 0x963b7747 pass
+dma_write 131072 bytes 180923 ns crc32 0x5a0b2c85 pass
+dma_write 524288 bytes 487248 ns crc32 0x6750ef59 pass
+dma_write 1048576 bytes 908896 ns crc32 0x4733e9cf pass
+dma_write 2097152 bytes 1749642 ns crc32 0x6e71177b pass

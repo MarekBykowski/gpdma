@@ -1,0 +1,65 @@
+From eacaabd9ecacffdc7d18fa99c4be9d7cc3ff7d8d Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Thu, 10 May 2018 06:27:07 -0500
+Subject: [PATCH 3/4] Add L1 Prefetch disabling
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ include/common/asm_macros.S        | 13 +++++++++++++
+ services/std_svc/psci/psci_entry.S | 14 ++++++++++++++
+ 2 files changed, 27 insertions(+)
+
+diff --git a/include/common/asm_macros.S b/include/common/asm_macros.S
+index 695e36489d..23f20600e4 100644
+--- a/include/common/asm_macros.S
++++ b/include/common/asm_macros.S
+@@ -220,4 +220,17 @@
+ 		cmp \xreg, #0xD07       /* Cortex-A57 MPCore processor. */
+ 		b.eq    \a57_label
+ 	.endm
++
++	/*
++	 * Branch if current processor is a Cortex-A53 core.
++	 */
++	.macro  branch_if_a53_core, xreg, a53_label
++		mrs \xreg, midr_el1
++		lsr \xreg, \xreg, #4
++		and \xreg, \xreg, #0x00000FFF
++		cmp \xreg, #0xD03       /* Cortex-A53 MPCore processor. */
++		b.eq    \a53_label
++	.endm
++
++
+ #endif /* __ASM_MACROS_S__ */
+diff --git a/services/std_svc/psci/psci_entry.S b/services/std_svc/psci/psci_entry.S
+index 31587aa04f..1c12f43ba0 100644
+--- a/services/std_svc/psci/psci_entry.S
++++ b/services/std_svc/psci/psci_entry.S
+@@ -72,6 +72,9 @@ func psci_entrypoint
+ 	branch_if_a57_core x0, enable_cache_protection
+ 0:
+ 
++	branch_if_a53_core x0, disable_data_prefetch
++1:
++
+ 	/* --------------------------------------------
+ 	 * Enable the MMU with the DCache disabled. It
+ 	 * is safe to use stacks allocated in normal
+@@ -140,3 +143,14 @@ enable_cache_protection:
+ 	msr	S3_1_C11_C0_2, x0
+ 	isb
+ 	b 0b
++
++	/* --------------------------------------------
++	 * Disable L1 D-prefetch
++	 * --------------------------------------------
++	 */
++disable_data_prefetch:
++	mrs x0, S3_1_c15_c2_0   /* cpuactlr_el1 */
++	bic x0, x0, #0x7<<13
++	msr S3_1_c15_c2_0, x0   /* cpuactlr_el1 */
++	isb
++	b 1b
+-- 
+2.16.2
+

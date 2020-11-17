@@ -1,0 +1,67 @@
+
+
+
+
+
+root@axx-w024-a53:/workspace/sw/mbykowsx/lionfish/perf/trunk/nuevo/peripherals/pcie/axm67
+
+pcitest: loading out-of-tree module taints kernel.
+pcietest 0000:01:00.0: enabling device (0000 -> 0002)
+mb: pet->bar[0] ffffff8009f40000
+mb: pet->bar[2] ffffff802c000000
+pcietest 0000:01:00.0: PCIe Enpoint Test Driver registered.
+
+PEI0,1,2 AMIB Security set to pass throughmb: aligned to 16 bytes yes
+irq/180-lsi-dma[739]: PC Alignment exception: pc=ffffffc07bbcd491 sp=ffffffc07adb7bf0
+Internal error: Oops - SP/PC alignment exception: 8a000000 [#1] PREEMPT SMP
+Modules linked in: pcitest(O)
+CPU: 0 PID: 739 Comm: irq/180-lsi-dma Tainted: G           O    4.9.82-rt61 #6
+Hardware name: Lionfish (DT)
+task: ffffffc07aeb4600 task.stack: ffffffc07adb4000
+PC is at 0xffffffc07bbcd491
+LR is at vchan_complete+0xd0/0x1a0
+pc : [<ffffffc07bbcd491>] lr : [<ffffff8008471278>] pstate: 80000145
+sp : ffffffc07adb7bf0
+
+
+
+Vffffff80084711a8 vchan_complete
+FFFFFF8008471278 vchan_complete+0xd0
+mb: EP buf@ffffffc075380000: f000ff53 f000ff53 f000fea5
+
+
+
+root@axx-w024-a53:/workspace/sw/mbykowsx/lionfish/perf/trunk/nuevo/peripherals/pcie/axm6732/asic-1.1/pcitest#
+./dmatest_full.sh
+
+pcitest: loading out-of-tree module taints kernel.
+pcietest 0000:01:00.0: enabling device (0000 -> 0002)
+mb: pet->bar[0] ffffff8009f40000
+mb: pet->bar[2] ffffff802c000000
+pcietest 0000:01:00.0: PCIe Enpoint Test Driver registered.
+
+PEI0,1,2 AMIB Security set to pass through
+mb: kmalloc'ed ffffffc075360000 through 20000
+mb: aligned to 16 bytes yes
+
+!!!!!!!!!
+DMA0CH0: [GPDMA_ISR] IRQ180 CHANNEL STATUS 0000000C, ERROR 00000000
+!!!!!!!!!!
+
+
+
+
+Unable to handle kernel paging request at virtual address ffffffc07adfb890
+pgd = ffffff8008c77000
+[ffffffc07adfb890] *pgd=00e8000040000711, *pud=00e8000040000711
+Internal error: Oops: 8600000d [#1] PREEMPT SMP
+Modules linked in: pcitest(O)
+CPU: 0 PID: 739 Comm: irq/180-lsi-dma Tainted: G           O    4.9.82-rt61 #7
+Hardware name: Lionfish (DT)
+task: ffffffc07b371c00 task.stack: ffffffc07b30c000
+PC is at 0xffffffc07adfb890
+LR is at vchan_complete+0xd0/0x1a0
+pc : [<ffffffc07adfb890>] lr : [<ffffff8008471278>] pstate: 80000145
+sp : ffffffc07b30fbf0
+x29: ffffffc07b30fbf0 x28: 0000000000000006
+

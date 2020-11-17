@@ -1,0 +1,33 @@
+From a0eadbbb4d8b5a54ad8e3ab73c8320fe21f7a920 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Tue, 13 Mar 2018 05:46:14 -0500
+Subject: [PATCH 05/13] run_in_cache: Remove pushing SPL and UBoot built to
+ txasoft server. This was just for easing the deployment of the images.
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ scripts/build_uboot_run_in_cache.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/build_uboot_run_in_cache.sh b/scripts/build_uboot_run_in_cache.sh
+index f679393ff8..845d60b9c8 100755
+--- a/scripts/build_uboot_run_in_cache.sh
++++ b/scripts/build_uboot_run_in_cache.sh
+@@ -48,12 +48,12 @@ uboot_nokia() {
+                 $MKIMAGE -A arm64 -T firmware -C none -a 0 -e 0x00197001 -n XLOADER -d spl/u-boot-spl.bin spl/u-boot-spl.img
+                 $MKIMAGE -A arm64 -T firmware -C none -a 0 -e 0 -n XLOADER -d u-boot.bin u-boot.img
+ 
+-#: << EOM
++: << EOM
+ tftp aus-labsrv2 << TFTP
+ put u-boot.img mbu-boot.img
+ put spl/u-boot-spl.img mbu-boot-spl.img
+ TFTP
+-#EOM
++EOM
+ 
+         else
+                return 127
+-- 
+2.16.2
+

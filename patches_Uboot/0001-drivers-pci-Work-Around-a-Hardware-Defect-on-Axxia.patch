@@ -1,0 +1,42 @@
+From f19c2e3934a0e7390bb1770b1c719df740bee2fd Mon Sep 17 00:00:00 2001
+From: John Jacques <john.jacques@intel.com>
+Date: Fri, 17 Feb 2017 19:42:08 -0600
+Subject: [PATCH 01/13] drivers/pci: Work Around a Hardware Defect on Axxia
+
+Some Axxia devices require a work around while establishing a
+PCIe link.  The work around is as follows.
+
+Enable the LTSSM, and while a link has not been established,
+do the following for all lanes in use.
+
+If the rate is 2 (LANE0_DIG_ASIC_RX_ASIC_IN_0 bits 8:7), then
+	If bit 2 is set (LANE0_DIG_ASIC_RX_ASIC_OUT_0 bit 1)
+		Write 0x4700 to LANE0_DIG_ASIC_RX_OVRD_IN_0.
+	Else
+		Write 0x0700 to LANE0_DIG_ASIC_RX_OVRD_IN_0.
+
+Signed-off-by: John Jacques <john.jacques@intel.com>
+---
+ drivers/pci/pcie_axxia.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/pci/pcie_axxia.c b/drivers/pci/pcie_axxia.c
+index 88a69617c3..d246dc7218 100644
+--- a/drivers/pci/pcie_axxia.c
++++ b/drivers/pci/pcie_axxia.c
+@@ -27,6 +27,12 @@
+ #include <pci.h>
+ #include <config.h>
+ 
++/*
++  The "LOS Work Around"
++*/
++
++#define ENABLE_LOS_WA
++
+ #define PEI_GENERAL_CORE_CTL_REG 0x38
+ #define PEI_SII_PWR_MGMT_REG 0xD4
+ #define PEI_SII_DBG_0_MON_REG 0xEC
+-- 
+2.16.2
+

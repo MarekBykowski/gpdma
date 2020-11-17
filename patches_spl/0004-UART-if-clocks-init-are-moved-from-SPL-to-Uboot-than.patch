@@ -1,0 +1,34 @@
+From 6021895dbbc4a977f70342452f623655052e3bcf Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Fri, 26 Oct 2018 05:24:46 -0500
+Subject: [PATCH 4/4] UART: if clocks init are moved from SPL to Uboot than ATF
+ needs manual UART setup (baud rate and cloc frequency). For now disabling the
+ UART.
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ plat/intel/axxia/bl31_plat_setup.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/plat/intel/axxia/bl31_plat_setup.c b/plat/intel/axxia/bl31_plat_setup.c
+index 341ae7d86a..f2875ababc 100644
+--- a/plat/intel/axxia/bl31_plat_setup.c
++++ b/plat/intel/axxia/bl31_plat_setup.c
+@@ -240,10 +240,12 @@ void bl31_early_platform_setup(bl31_params_t *from_bl2,
+ 	memcpy(&axxia_configuration, plat_params_from_bl2,
+ 	       sizeof(axxia_configuration_t));
+ 
++#if 0
+ 	/* Initialize the console to provide early debug support */
+ 	console_init(PL011_UART0_BASE,
+-		     axxia_configuration.per_clock_hz,
+-		     axxia_configuration.baud_rate);
++		     256000000/*axxia_configuration.per_clock_hz*/,
++		     9600 /*axxia_configuration.baud_rate*/);
++#endif
+ 
+ 	INFO("Options: %s, %s, %s, %u MHz, %u\n",
+ 	     target[axxia_configuration.target],
+-- 
+2.16.2
+

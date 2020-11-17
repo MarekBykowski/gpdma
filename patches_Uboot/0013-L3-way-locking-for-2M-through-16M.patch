@@ -1,0 +1,110 @@
+From 44383621be2446174f9622c1635b6e7335cb755b Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Fri, 9 Nov 2018 07:02:01 -0600
+Subject: [PATCH 13/13] L3 way locking for 2M through 16M
+
+---
+ board/axxia/axc6700/ncp_l3lock_region_init.c |  4 +++-
+ board/axxia/common/spl.c                     | 33 +++++++++++++++++++++++-----
+ include/configs/axc6700.h                    |  2 +-
+ scripts/build_uboot_run_in_cache.sh          |  4 ++--
+ 4 files changed, 33 insertions(+), 10 deletions(-)
+
+diff --git a/board/axxia/axc6700/ncp_l3lock_region_init.c b/board/axxia/axc6700/ncp_l3lock_region_init.c
+index 42531087b0..b0be4d9079 100644
+--- a/board/axxia/axc6700/ncp_l3lock_region_init.c
++++ b/board/axxia/axc6700/ncp_l3lock_region_init.c
+@@ -60,7 +60,9 @@ ncp_l3lock_region_init (ncp_dev_hdl_t dev,
+ 			NCP_CALL(NCP_ST_INVALID_PARAMETER);
+ 		}
+ 	} else {
+-		if (l3lock_params->totalL3LockedSize == 4) {
++		if (l3lock_params->totalL3LockedSize == 2) {
++			numLockedWays = 1;
++		} else if (l3lock_params->totalL3LockedSize == 4) {
+ 			numLockedWays = 2;
+ 		} else if (l3lock_params->totalL3LockedSize == 8) {
+ 			numLockedWays = 4;
+diff --git a/board/axxia/common/spl.c b/board/axxia/common/spl.c
+index 0aa94aa399..6559b77385 100755
+--- a/board/axxia/common/spl.c
++++ b/board/axxia/common/spl.c
+@@ -1679,16 +1679,37 @@ board_init_f(ulong dummy)
+ 
+ #ifdef CONFIG_AXXIA_XLF
+ {
+-#define NO_L3_LOCK
++
++#define TWO_MLOCK 0 /* 2M, 1 way locked */
++#define FOUR_MLOCK 0 /* 4M, 2 way locking*/
++#define EIGHT_MLOCK 0 /* 8M, 4 way locked */
++#define SIXTEEN_MLOCK 1 /* 16M, 4 way locked */
++
+ 		/* Permits a Non-secure access request to access Secure registers */
+ 		writel(1, 0x4000000000);
+ 
+-		ncp_l3lock_region_info_t ncp_l3lock_region_info = {0x00000010, 
+-#ifdef NO_L3_LOCK
+-			{0x00000899, 0x0000089d, 0x000008a1, 0x000008a5}};
+-#elif defined(16M_L3_LOCK)
+-			{0x80000899, 0x8000089d, 0x800008a1, 0x800008a5}};
++		ncp_l3lock_region_info_t ncp_l3lock_region_info = {
++#if TWO_MLOCK
++			 0x00000002,
++#elif FOUR_MLOCK
++			 0x00000004,
++#elif EIGHT_MLOCK
++			 0x00000008,
++#elif SIXTEEN_MLOCK
++			 0x00000010,
++#endif
++
++#if TWO_MLOCK
++			{0x80000800, 0x00000000, 0x00000000, 0x00000000}
++#elif FOUR_MLOCK
++			{0x80000800, 0x80000802, 0x00000000, 0x00000000}
++#elif EIGHT_MLOCK
++			{0x80000800, 0x80000802, 0x80000804, 0x80000806}
++#elif SIXTEEN_MLOCK
++			/*{0x80000800, 0x80000804, 0x80000808, 0x8000080c}*/
++			{0x00000800, 0x00000804, 0x00000808, 0x0000080c}
+ #endif
++		};
+ 
+ 		if (0 != ncp_l3lock_region_init(NULL, &ncp_l3lock_region_info, 0)) {
+ 			printf("mb: failed to L3 Lock\n");
+diff --git a/include/configs/axc6700.h b/include/configs/axc6700.h
+index 4262b3e81e..c8d178cd58 100644
+--- a/include/configs/axc6700.h
++++ b/include/configs/axc6700.h
+@@ -329,7 +329,7 @@
+ 
+ #define CONFIG_AXXIA_XLF
+ #define ARM64
+-#define CLOCKS_INIT_IN_UBOOT
++/*#define CLOCKS_INIT_IN_UBOOT*/
+ 
+ /*
+   ==============================================================================
+diff --git a/scripts/build_uboot_run_in_cache.sh b/scripts/build_uboot_run_in_cache.sh
+index 845d60b9c8..f679393ff8 100755
+--- a/scripts/build_uboot_run_in_cache.sh
++++ b/scripts/build_uboot_run_in_cache.sh
+@@ -48,12 +48,12 @@ uboot_nokia() {
+                 $MKIMAGE -A arm64 -T firmware -C none -a 0 -e 0x00197001 -n XLOADER -d spl/u-boot-spl.bin spl/u-boot-spl.img
+                 $MKIMAGE -A arm64 -T firmware -C none -a 0 -e 0 -n XLOADER -d u-boot.bin u-boot.img
+ 
+-: << EOM
++#: << EOM
+ tftp aus-labsrv2 << TFTP
+ put u-boot.img mbu-boot.img
+ put spl/u-boot-spl.img mbu-boot-spl.img
+ TFTP
+-EOM
++#EOM
+ 
+         else
+                return 127
+-- 
+2.16.2
+

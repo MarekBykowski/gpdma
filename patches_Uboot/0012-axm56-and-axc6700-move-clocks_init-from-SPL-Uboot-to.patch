@@ -1,0 +1,179 @@
+From 3999ba62e0a30c6053a52b4ae4c61109bf4c2ad0 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Tue, 30 Oct 2018 06:40:28 -0500
+Subject: [PATCH 12/13] axm56 and axc6700: move clocks_init from SPL Uboot to
+ early Uboot (that is still running in cache).
+
+One can control it through CLOCKS_INIT_IN_UBOOT
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ board/axxia/common/axxia_clocks.c     |  4 ---
+ board/axxia/common/axxia_initialize.c |  2 ++
+ common/board_f.c                      | 56 +++++++++++++++++++++++++++++++++--
+ include/configs/axc6700.h             |  1 +
+ include/configs/axm5600.h             |  2 ++
+ 5 files changed, 59 insertions(+), 6 deletions(-)
+
+diff --git a/board/axxia/common/axxia_clocks.c b/board/axxia/common/axxia_clocks.c
+index 314fa710f4..dbd77b4d64 100644
+--- a/board/axxia/common/axxia_clocks.c
++++ b/board/axxia/common/axxia_clocks.c
+@@ -38,7 +38,6 @@ static int clocks_uninitialized = 1;
+ #endif
+ 
+ #ifndef CONFIG_AXXIA_EMU
+-#ifdef CONFIG_SPL_BUILD
+ 
+ static ncp_uint32_t get_pll(ncp_uint32_t, ncp_uint32_t);
+ 
+@@ -118,7 +117,6 @@ pll_init_frac(ncp_uint32_t region, ncp_uint32_t *parameters)
+ 	return 0;
+ }
+ 
+-#endif	/* CONFIG_SPL_BUILD */
+ 
+ static ncp_uint32_t
+ get_pll(ncp_uint32_t plldiv, ncp_uint32_t seldiv)
+@@ -195,7 +193,6 @@ serdes_clock_en(void)
+ 
+ 
+ 
+-#ifdef CONFIG_SPL_BUILD
+ #ifdef CONFIG_AXXIA_ANY_56XX
+ /*
+   ------------------------------------------------------------------------------
+@@ -476,7 +473,6 @@ clocks_init( int ddrRecovery )
+ 	return 0;
+ }
+ #endif /* CONFIG_AXXIA_ANY_XLF */
+-#endif /* CONFIG_SPL_BUILD */
+ #endif/* CONFIG_AXXIA_EMU */
+ 
+ #ifdef CONFIG_AXXIA_ANY_56XX
+diff --git a/board/axxia/common/axxia_initialize.c b/board/axxia/common/axxia_initialize.c
+index 547c6c41a3..4a8fe2d81f 100644
+--- a/board/axxia/common/axxia_initialize.c
++++ b/board/axxia/common/axxia_initialize.c
+@@ -113,6 +113,7 @@ axxia_initialize(void)
+ 			acp_failure(__FILE__, __FUNCTION__, __LINE__);
+ #endif
+ 
++#if !defined(CLOCKS_INIT_IN_UBOOT)
+ 	/*
+ 	  ======
+ 	  Clocks
+@@ -123,6 +124,7 @@ axxia_initialize(void)
+ 	if (0 != (global->flags & PARAMETERS_GLOBAL_SET_CLOCKS))
+ 		if (0 != clocks_init(ddrRecovery))
+ 			acp_failure(__FILE__, __FUNCTION__, __LINE__);
++#endif
+ #endif
+ 
+ 	serial_initialize();
+diff --git a/common/board_f.c b/common/board_f.c
+index 3bf92be84a..1a0e336431 100644
+--- a/common/board_f.c
++++ b/common/board_f.c
+@@ -771,12 +771,60 @@ int do_heap(void)
+ 	return 0;
+ }
+ 
++int load_parameters_off_flash(void)
++{
++	/* get parameters.bin off flash. Malloc must be before */
++	(void)sysmem_size();
++	return 0;
++}
++
++#if defined(CLOCKS_INIT_IN_UBOOT)
++int clocks_initalization(void)
++{
++	int rc = 0;
++
++/* Check if ddrRetention is set. If it is set we have to
++ * skip the clocks init for device memories.
++ */
++#ifdef CONFIG_MEMORY_RETENTION
++	if (0 != (global->flags & PARAMETERS_GLOBAL_ENABLE_RETENTION)) {
++		unsigned value;
++		/*
++		 *  we use bit 0 of the persistent scratch register to
++		 *  inidicate ddrRetention recovery.
++		 */
++		ncr_read32(NCP_REGION_ID(0x156, 0x00), 0x00dc, &value);
++		ddrRecovery = (value & 0x1) ;
++		value &= 0xfffffffe;
++		ncr_write32(NCP_REGION_ID(0x156, 0x00), 0x00dc, value);
++
++		printf("DDR Retention Enabled, Recovery = %d\n",
++		       ddrRecovery);
++	} else {
++		/*printf("DDR Retention Not Enabled\n");*/
++		asm volatile("nop\n");
++	}
++#else
++	ddrRecovery = 0;
++#endif
++
++	/*
++	  ======
++	  Clocks
++	  ======
++	*/
++
++	if (0 != (global->flags & PARAMETERS_GLOBAL_SET_CLOCKS))
++		if (0 != clocks_init(ddrRecovery))
++			acp_failure(__FILE__, __FUNCTION__, __LINE__);
++	return rc;
++}
++#endif
++
+ int init_mem_axxia(void)
+ {
+ 	int rc = 0;
+ 
+-	/* get parameters.bin off flash. Malloc must be before */
+-	(void)sysmem_size();
+ 
+ 	if (0 != sysmem_init())
+ 		acp_failure(__FILE__, __FUNCTION__, __LINE__);
+@@ -913,6 +961,10 @@ int switch_to_EL2_non_secure(void)
+ static init_fnc_t init_sequence_f[] = {
+ #ifdef SYSCACHE_ONLY_MODE
+ 	do_heap,
++	load_parameters_off_flash,
++#if defined(CLOCKS_INIT_IN_UBOOT)
++	clocks_initalization,
++#endif
+ 	init_mem_axxia,
+ 	flush_all,
+ 	switch_to_EL2_non_secure,
+diff --git a/include/configs/axc6700.h b/include/configs/axc6700.h
+index 1261bd5bc4..4262b3e81e 100644
+--- a/include/configs/axc6700.h
++++ b/include/configs/axc6700.h
+@@ -329,6 +329,7 @@
+ 
+ #define CONFIG_AXXIA_XLF
+ #define ARM64
++#define CLOCKS_INIT_IN_UBOOT
+ 
+ /*
+   ==============================================================================
+diff --git a/include/configs/axm5600.h b/include/configs/axm5600.h
+index 8af9cccb88..ca3143db1e 100644
+--- a/include/configs/axm5600.h
++++ b/include/configs/axm5600.h
+@@ -236,6 +236,8 @@
+ #define CONFIG_CACHE_PROTECTION
+ #define CONFIG_AXXIA_AXM_I2C
+ 
++#define CLOCKS_INIT_IN_UBOOT
++
+ /*
+  * xHCI model needs powercycling of usb ports, according to standard
+  * define ...USB_POWERCYCLE if uboot should handle this, 
+-- 
+2.16.2
+

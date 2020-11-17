@@ -1,0 +1,53 @@
+From 89d12a3375eee0e01e958d19389bd2a9e6ccde12 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Thu, 10 May 2018 06:28:19 -0500
+Subject: [PATCH 09/13] Add L1 Prefetch disabling
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ arch/arm/cpu/armv8/start.S | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm/cpu/armv8/start.S b/arch/arm/cpu/armv8/start.S
+index e3cab16177..1a41a81482 100644
+--- a/arch/arm/cpu/armv8/start.S
++++ b/arch/arm/cpu/armv8/start.S
+@@ -129,14 +129,24 @@ master_cpu:
+ WEAK(apply_core_errata)
+ 
+ 	mov	x29, lr			/* Save LR */
+-	/* For now, we support Cortex-A57 specific errata only */
++	branch_if_a53_core x0, apply_a53_prefetch_disable
++0:
+ 
+ 	/* Check if we are running on a Cortex-A57 core */
+ 	branch_if_a57_core x0, apply_a57_core_errata
+-0:
++1:
+ 	mov	lr, x29			/* Restore LR */
+ 	ret
+ 
++apply_a53_prefetch_disable:
++#if defined(CONFIG_SPL_BUILD)
++	mrs x0, S3_1_c15_c2_0   /* cpuactlr_el1 */
++	bic x0, x0, #0x7<<13
++	msr S3_1_c15_c2_0, x0   /* cpuactlr_el1 */
++	isb
++#endif
++	b 0b
++
+ apply_a57_core_errata:
+ 
+ #ifdef CONFIG_ARM_ERRATA_828024
+@@ -171,7 +181,7 @@ apply_a57_core_errata:
+    msr S3_1_C11_C0_2, x1
+    isb
+ #endif
+-	b 0b
++	b 1b
+ ENDPROC(apply_core_errata)
+ 
+ /*-----------------------------------------------------------------------*/
+-- 
+2.16.2
+

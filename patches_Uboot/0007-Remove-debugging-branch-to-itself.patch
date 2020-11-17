@@ -1,0 +1,25 @@
+From f4a0c38d1e33573bcbf781e5243ae0b1eec582bb Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Tue, 3 Jul 2018 08:07:57 -0500
+Subject: [PATCH 07/13] Remove debugging branch to itself
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ common/board_f.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/common/board_f.c b/common/board_f.c
+index e7b6d9802b..3bf92be84a 100644
+--- a/common/board_f.c
++++ b/common/board_f.c
+@@ -864,7 +864,6 @@ int switch_to_EL2_non_secure(void)
+ 	axxia_configuration->target = AXXIA_5600;
+ 	axxia_configuration->platform = AXXIA_HW;
+ #elif defined(CONFIG_AXXIA_XLF)
+-	asm volatile("mb: b mb\n");
+ 	if (0 != is_xlf_a0()) {
+ 		axxia_configuration->target = AXXIA_6700;
+ 	} else {
+-- 
+2.16.2
+

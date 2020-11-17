@@ -1,0 +1,17923 @@
+cscope 15 /workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked               0000102967
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/average.h
+
+1 
+	~<löux/exp‹t.h
+>
+
+2 
+	~<löux/avîage.h
+>
+
+3 
+	~<löux/kî√l.h
+>
+
+4 
+	~<löux/bug.h
+>
+
+5 
+	~<löux/log2.h
+>
+
+8 
+	ssma_hñ≥r
+{
+
+9 
+	mcou¡
+;
+
+10 } 
+	tsma_hñ≥r_t
+;
+
+12 
+	ssma
+ {
+
+13 
+	möã∫Æ
+;
+
+14 
+	mn
+;
+
+15 
+sma_hñ≥r_t
+ 
+	mhñ≥r
+;
+
+18 
+	$sma_öô
+(
+sma
+ *
+avg
+, 
+n
+)
+
+20 
+	`BUG_ON
+(
+n
+ == 0);
+
+21 
+avg
+->
+öã∫Æ
+ = 0;
+
+22 
+avg
+->
+n
+ =Ç;
+
+23 
+avg
+->
+hñ≥r
+.
+cou¡
+ = 0;
+
+24 
+	}
+}
+
+30 
+	$sma_add
+(
+sma
+ *
+avg
+, 
+vÆ
+)
+
+32 
+öã∫Æ
+ = 
+	`ACCESS_ONCE
+(
+avg
+->internal);
+
+34 
+	`BUG_ON
+(
+avg
+->
+n
+ == 0);
+
+37 i‡(
+avg
+->
+hñ≥r
+.
+cou¡
+ <avg->
+n
+)
+
+38 
+avg
+->
+hñ≥r
+.
+cou¡
+++;
+
+40 i‡(
+avg
+->
+hñ≥r
+.
+cou¡
+ <avg->
+n
+)
+
+41 
+	`ACCESS_ONCE
+(
+avg
+->
+öã∫Æ
+Ëavg->
+hñ≥r
+.
+cou¡
+ <ávg->
+n
+ ?
+
+42 
+öã∫Æ
+ + 
+vÆ
+ : (öã∫Æ + vÆË/ 
+avg
+->
+n
+;
+
+44 
+öã∫Æ
+ -öã∫Æ / 
+avg
+->
+n
+;
+
+45 
+	`ACCESS_ONCE
+(
+avg
+->
+öã∫Æ
+Ëöã∫Æ +
+vÆ
+ /ávg->
+n
+;
+
+49  
+avg
+->
+hñ≥r
+.
+cou¡
+ <ávg->
+n
+ ?
+
+50 
+avg
+->
+öã∫Æ
+ /ávg->
+hñ≥r
+.
+cou¡
+ :ávg->internal;
+
+51 
+	}
+}
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/debug_kernel_error.txt
+
+1 
+	gØrch64
+-
+	gaxxü
+-
+	glöux
+-
+	gobjdump
+ -
+dSÃ
+ 
+	gpcôe°
+.
+	gko
+ > 
+£e
+
+
+3 
+	gmb
+: 
+ã°size
+ 16384
+
+4 
+mb
+: 
+de°_∑
+ 000000c004000000
+
+5 
+mb
+: 
+de°_va
+ 
+ffffff8008056000
+ 
+to
+ 
+de°_∑
+ 000000c004000000
+
+6 
+mb
+: 
+buf_va
+ 
+ffffffc073c88000
+
+
+7 
+mb
+: 
+doög
+ 
+¸c32
+ 
+⁄
+ 
+	$de°
+ (
+ffffff8008056000
+,0x1000)
+
+8 
+mb
+: 
+de°_va
+ 
+ffffff8008058000
+ 
+to
+ 
+de°_∑
+ 000000c004001000
+
+9 
+mb
+: 
+buf_va
+ 
+ffffffc073c89000
+
+
+10 
+mb
+: 
+doög
+ 
+¸c32
+ 
+⁄
+ 
+	$de°
+ (
+ffffff8008058000
+,0x1000)
+
+11 
+mb
+: 
+de°_va
+ 
+ffffff800805a000
+ 
+to
+ 
+de°_∑
+ 000000c004002000
+
+12 
+mb
+: 
+buf_va
+ 
+ffffffc073c8a000
+
+
+13 
+mb
+: 
+doög
+ 
+¸c32
+ 
+⁄
+ 
+	$de°
+ (
+ffffff800805a000
+,0x1000)
+
+14 
+mb
+: 
+de°_va
+ 
+ffffff800805c000
+ 
+to
+ 
+de°_∑
+ 000000c004003000
+
+15 
+mb
+: 
+buf_va
+ 
+ffffffc073c8b000
+
+
+16 
+mb
+: 
+doög
+ 
+¸c32
+ 
+⁄
+ 
+	$de°
+ (
+ffffff800805c000
+,0x1000)
+
+17 
+dma_ªad
+ 16384 
+byãs
+ 130566
+
+18 ------------[ 
+cut
+ 
+hîe
+ ]------------
+
+19 
+kî√l
+ 
+BUG
+ 
+©
+ 
+mm
+/
+¶ub
+.
+c
+:3942!
+
+20 
+I¡î«l
+ 
+îr‹
+: 
+O›s
+ - 
+BUG
+: 0 [#1] 
+PREEMPT
+ 
+SMP
+
+
+21 
+ModuÀs
+ 
+löked
+ 
+ö
+: 
+	`pcôe°
+(
+O
+Ë[
+œ°
+ 
+u∆ﬂded
+: 
+pcôe°
+]
+
+22 
+CPU
+: 0 
+PID
+: 3638 
+Comm
+: 
+dm©e°_fuŒ
+.
+sh
+ 
+Taöãd
+: 
+G
+ 
+O
+ 4.9.82-
+π61
+
+
+24 
+H¨dw¨e
+ 
+«me
+: 
+	$Li⁄fish
+ (
+DT
+)
+
+25 
+èsk
+: 
+ffffffc073cc0000
+Åask.
+°ack
+: 
+ffffffc073ˇ0000
+
+
+26 
+PC
+ 
+is
+ 
+©
+ 
+k‰ì
++0x230/0x278
+
+27 
+LR
+ 
+is
+ 
+©
+ 
+ã°_dma
++0x3a8/0x5c8 [
+pcôe°
+]
+
+28 
+pc
+ : [<
+ffffff8008223818
+>] 
+Ã
+ : [<
+ffffff80007c7748
+>] 
+p°©e
+: 40000145
+
+29 
+•
+ : 
+ffffffc073ˇ3c00
+
+
+32 
+Whîe
+ 
+PC
+ 
+is
+?
+
+33 
+ffffff80082234e8
+ 
+T
+ 
+k‰ì
+
+
+34 
+k‰ì
++0x230=
+FFFFFF8008223718
+
+
+36 
+whîe
+ 
+LR
+ 
+is
+?
+
+37 00000000000003a0 <
+ã°_dma
+>
+
+39 
+mbykowsx
+@
+txaso·15
+:
+asic
+-1.1/
+pcôe°$
+ 
+Ørch64
+-
+axxü
+-
+löux
+-
+addr2löe
+ -
+e
+ 
+pcôe°
+.
+ko
+ 0x748
+
+40 /
+w‹k•a˚
+/
+sw
+/
+mbykowsx
+/
+li⁄fish
+/
+≥rf
+/
+åunk
+/
+nuevo
+/
+≥rùhîÆs
+/
+pcõ
+/
+axm6732
+/
+asic
+-1.1/
+pcôe°
+/pcôe°.
+c
+:386
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/debug_kernel_error1.txt
+
+6 
+	groŸ
+@
+	gaxx
+-
+	gw024
+-
+	ga53
+:/
+w‹k•a˚
+/
+sw
+/
+mbykowsx
+/
+li⁄fish
+/
+≥rf
+/
+åunk
+/
+nuevo
+/
+≥rùhîÆs
+/
+pcõ
+/
+axm67
+
+
+8 
+pcôe°
+: 
+lﬂdög
+ 
+out
+-
+of
+-
+åì
+ 
+moduÀ
+ 
+èöts
+ 
+kî√l
+.
+
+9 
+pcõã°
+ 0000:01:00.0: 
+íablög
+ 
+devi˚
+ (0000 -> 0002)
+
+10 
+mb
+: 
+≥t
+->
+b¨
+[0] 
+ffffff8009f40000
+
+
+11 
+mb
+: 
+≥t
+->
+b¨
+[2] 
+ffffff802c000000
+
+
+12 
+pcõã°
+ 0000:01:00.0: 
+PCIe
+ 
+E≈oöt
+ 
+Te°
+ 
+Drivî
+ 
+ªgi°îed
+.
+
+14 
+PEI0
+,1,2 
+AMIB
+ 
+Securôy
+ 
+£t
+ 
+to
+ 
+∑ss
+ 
+	gthroughmb
+: 
+Æig√d
+Åÿ16 
+byãs
+ 
+yes
+
+
+15 
+úq
+/180-
+lsi
+-
+dma
+[739]: 
+PC
+ 
+Alignmít
+ 
+ex˚±i⁄
+: 
+pc
+=
+ffffffc07bbcd491
+ 
+•
+=
+ffffffc07adb7bf0
+
+
+16 
+I¡î«l
+ 
+îr‹
+: 
+O›s
+ - 
+SP
+/
+PC
+ 
+Æignmít
+ 
+ex˚±i⁄
+: 8a000000 [#1] 
+PREEMPT
+ 
+SMP
+
+
+17 
+ModuÀs
+ 
+löked
+ 
+ö
+: 
+	$pcôe°
+(
+O
+)
+
+18 
+CPU
+: 0 
+PID
+: 739 
+Comm
+: 
+úq
+/180-
+lsi
+-
+dma
+ 
+Taöãd
+: 
+G
+ 
+O
+ 4.9.82-
+π61
+ #6
+
+19 
+H¨dw¨e
+ 
+«me
+: 
+	$Li⁄fish
+ (
+DT
+)
+
+20 
+èsk
+: 
+ffffffc07´b4600
+Åask.
+°ack
+: 
+ffffffc07adb4000
+
+
+21 
+PC
+ 
+is
+ 
+©
+ 0xffffffc07bbcd491
+
+22 
+LR
+ 
+is
+ 
+©
+ 
+vch™_com∂ëe
++0xd0/0x1a0
+
+23 
+pc
+ : [<
+ffffffc07bbcd491
+>] 
+Ã
+ : [<
+ffffff8008471278
+>] 
+p°©e
+: 80000145
+
+24 
+•
+ : 
+ffffffc07adb7bf0
+
+
+28 
+Vffffff80084711a8
+ 
+vch™_com∂ëe
+
+
+29 
+FFFFFF8008471278
+ 
+vch™_com∂ëe
++0xd0
+
+30 
+mb
+: 
+EP
+ 
+buf
+@
+ffffffc075380000
+: 
+f000ff53
+ f000ff53 
+f000„a5
+
+
+34 
+roŸ
+@
+axx
+-
+w024
+-
+a53
+:/
+w‹k•a˚
+/
+sw
+/
+mbykowsx
+/
+li⁄fish
+/
+≥rf
+/
+åunk
+/
+nuevo
+/
+≥rùhîÆs
+/
+pcõ
+/
+axm6732
+/
+asic
+-1.1/
+pcôe°
+#
+./
+dm©e°_fuŒ
+.
+sh
+
+
+36 
+pcôe°
+: 
+lﬂdög
+ 
+out
+-
+of
+-
+åì
+ 
+moduÀ
+ 
+èöts
+ 
+kî√l
+.
+
+37 
+pcõã°
+ 0000:01:00.0: 
+íablög
+ 
+	`devi˚
+ (0000 -> 0002)
+
+38 
+mb
+: 
+≥t
+->
+b¨
+[0] 
+ffffff8009f40000
+
+
+39 
+mb
+: 
+≥t
+->
+b¨
+[2] 
+ffffff802c000000
+
+
+40 
+pcõã°
+ 0000:01:00.0: 
+PCIe
+ 
+E≈oöt
+ 
+Te°
+ 
+Drivî
+ 
+ªgi°îed
+.
+
+42 
+PEI0
+,1,2 
+AMIB
+ 
+Securôy
+ 
+£t
+ 
+to
+ 
+∑ss
+ 
+through
+
+
+43 
+mb
+: 
+kmÆloc
+'ed ffffffc075360000Åhrough 20000
+
+44 
+mb
+: 
+Æig√d
+ 
+to
+ 16 
+byãs
+ 
+yes
+
+
+47 
+DMA0CH0
+: [
+GPDMA_ISR
+] 
+IRQ180
+ 
+CHANNEL
+ 
+STATUS
+ 0000000C, 
+ERROR
+ 00000000
+
+53 
+U«bÀ
+ 
+to
+ 
+h™dÀ
+ 
+kî√l
+ 
+∑gög
+ 
+ªque°
+ 
+©
+ 
+vútuÆ
+ 
+addªss
+ 
+ffffffc07adfb890
+
+
+54 
+pgd
+ = 
+ffffff8008c77000
+
+
+55 [
+ffffffc07adfb890
+] *
+pgd
+=00e8000040000711, *
+pud
+=00e8000040000711
+
+56 
+I¡î«l
+ 
+îr‹
+: 
+O›s
+: 8600000d [#1] 
+PREEMPT
+ 
+SMP
+
+
+57 
+ModuÀs
+ 
+löked
+ 
+ö
+: 
+	$pcôe°
+(
+O
+)
+
+58 
+CPU
+: 0 
+PID
+: 739 
+Comm
+: 
+úq
+/180-
+lsi
+-
+dma
+ 
+Taöãd
+: 
+G
+ 
+O
+ 4.9.82-
+π61
+ #7
+
+59 
+H¨dw¨e
+ 
+«me
+: 
+	$Li⁄fish
+ (
+DT
+)
+
+60 
+èsk
+: 
+ffffffc07b371c00
+Åask.
+°ack
+: 
+ffffffc07b30c000
+
+
+61 
+PC
+ 
+is
+ 
+©
+ 0xffffffc07adfb890
+
+62 
+LR
+ 
+is
+ 
+©
+ 
+vch™_com∂ëe
++0xd0/0x1a0
+
+63 
+pc
+ : [<
+ffffffc07adfb890
+>] 
+Ã
+ : [<
+ffffff8008471278
+>] 
+p°©e
+: 80000145
+
+64 
+•
+ : 
+ffffffc07b30fbf0
+
+
+65 
+x29
+: 
+ffffffc07b30fbf0
+ 
+x28
+: 0000000000000006
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/l3-dma-trace.h
+
+1 #unde‡
+TRACE_SYSTEM
+
+
+2 
+	#TRACE_SYSTEM
+ 
+l3_dma
+
+
+	)
+
+4 #i‡!
+deföed
+(
+_TRACE_L3_DMA_H
+Ë|| deföed(
+TRACE_HEADER_MULTI_READ
+)
+
+5 
+	#_TRACE_L3_DMA_H
+
+
+	)
+
+7 
+	~<löux/åa˚poöt.h
+>
+
+9 
+DECLARE_EVENT_CLASS
+(
+l3_dma
+,
+
+11 
+TP_PROTO
+(c⁄° * 
+ty≥
+),
+
+13 
+TP_ARGS
+(
+ty≥
+),
+
+15 
+TP_STRUCT__íåy
+(
+
+16 
+__fõld
+(c⁄° *, 
+«me
+)
+
+19 
+TP_Á°_assign
+(
+
+20 
+__íåy
+->
+«me
+ = 
+ty≥
+;
+
+23 
+TP_¥ötk
+("%s", 
+__íåy
+->
+«me
+)
+
+26 
+DEFINE_EVENT
+(
+l3_dma
+, 
+l3_dma_íåy
+,
+
+28 
+TP_PROTO
+(c⁄° *
+ªas⁄
+),
+
+30 
+TP_ARGS
+(
+ªas⁄
+)
+
+33 
+DEFINE_EVENT
+(
+l3_dma
+, 
+l3_dma_exô
+,
+
+35 
+TP_PROTO
+(c⁄° *
+ªas⁄
+),
+
+37 
+TP_ARGS
+(
+ªas⁄
+)
+
+40 
+TRACE_EVENT
+(
+l3_dma_duøti⁄
+,
+
+42 
+TP_PROTO
+(
+˝u
+, 
+time•ec
+ 
+duøti⁄
+, time•e¯
+avg_duøti⁄
+),
+
+44 
+TP_ARGS
+(
+˝u
+, 
+duøti⁄
+, 
+avg_duøti⁄
+),
+
+46 
+TP_STRUCT__íåy
+(
+
+47 
+	$__fõld
+(, 
+˝u
+)
+
+48 
+	$__fõld
+(
+__kî√l_time_t
+, 
+duøti⁄_tv_£c
+)
+
+49 
+	$__fõld
+(, 
+duøti⁄_tv_n£c
+)
+
+50 
+	$__fõld
+(
+__kî√l_time_t
+, 
+avg_duøti⁄_tv_£c
+)
+
+51 
+	`__fõld
+(, 
+avg_duøti⁄_tv_n£c
+)
+
+54 
+	`TP_Á°_assign
+(
+
+55 
+__íåy
+->
+˝u
+ = cpu;
+
+56 
+__íåy
+->
+duøti⁄_tv_£c
+ = 
+duøti⁄
+.
+tv_£c
+;
+
+57 
+__íåy
+->
+duøti⁄_tv_n£c
+ = 
+duøti⁄
+.
+tv_n£c
+;
+
+58 
+__íåy
+->
+avg_duøti⁄_tv_£c
+ = 
+avg_duøti⁄
+.
+tv_£c
+;
+
+59 
+__íåy
+->
+avg_duøti⁄_tv_n£c
+ = 
+avg_duøti⁄
+.
+tv_n£c
+;
+
+62 
+	`TP_¥ötk
+("˝u=%u (%ld.%09ldËavg(%ld.%09ld)", 
+__íåy
+->
+˝u
+, __íåy->
+duøti⁄_tv_£c
+,
+
+63 
+__íåy
+->
+duøti⁄_tv_n£c
+, __íåy->
+avg_duøti⁄_tv_£c
+, __íåy->
+avg_duøti⁄_tv_n£c
+)
+
+70 #unde‡
+TRACE_INCLUDE_PATH
+
+
+71 
+	#TRACE_INCLUDE_PATH
+ .
+
+	)
+
+72 
+	#TRACE_INCLUDE_FILE
+ 
+l3
+-
+dma
+-
+åa˚
+
+
+	)
+
+73 
+	~<åa˚/deföe_åa˚.h
+>
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/pcitest.c
+
+11 
+	#CREATE_TRACE_POINTS
+
+
+	)
+
+12 
+	~"l3-dma-åa˚.h
+"
+
+16 
+	#UPDATED_DMA_MAP
+ 1
+
+	)
+
+18 #unde‡
+KBUILD_MODNAME
+
+
+19 
+	#KBUILD_MODNAME
+ "pcôe°"
+
+	)
+
+22 
+	~<löux/øndom.h
+>
+
+23 
+	~<löux/î∫o.h
+>
+
+24 
+	~<löux/öô.h
+>
+
+25 
+	~<löux/¶ab.h
+>
+
+26 
+	~<löux/io.h
+>
+
+27 
+	~<löux/úq.h
+>
+
+28 
+	~<löux/öãºu±.h
+>
+
+29 
+	~<löux/kî√l.h
+>
+
+30 
+	~<löux/moduÀ.h
+>
+
+31 
+	~<löux/pci.h
+>
+
+32 
+	~<löux/∂©f‹m_devi˚.h
+>
+
+33 
+	~<löux/of_úq.h
+>
+
+34 
+	~<löux/dm´ngöe.h
+>
+
+35 
+	~<löux/¸c32.h
+>
+
+36 
+	~<löux/dñay.h
+>
+
+37 
+	~<löux/highmem.h
+>
+
+39 
+	~"avîage.h
+"
+
+42 
+	#DRV_NAME
+ "pcõã°"
+
+	)
+
+43 
+	#NS
+ 1000000000
+
+	)
+
+45 
+ktime_t
+ 
+	gktime_°¨t
+;
+
+46 
+ktime_t
+ 
+	gktime_avg_duøti⁄
+ = { .
+tv64
+ = 0 };
+
+47 
+sma
+ 
+	gsma_avg
+;
+
+49 
+	s≥t_¥iv©e
+ {
+
+50 
+pci_dev
+ *
+	mpdev
+;
+
+51 
+__iomem
+ *
+	mb¨
+[5];
+
+52 
+size_t
+ 
+	mæí
+;
+
+53 
+	mªsu…
+[1024];
+
+56 
+	#¥_ªsu…
+(
+_≥t
+, 
+_fmt
+, ...) \
+
+57 (
+_≥t
+)->
+æí
+ +
+	`•rötf
+(&(_≥t)->
+ªsu…
+[(_≥t)->æí], 
+_fmt
+, ## 
+__VA_ARGS__
+)
+
+	)
+
+61 
+	#BAR_MEM
+ 2
+
+	)
+
+62 
+	#BAR_OFFSET
+ 0
+
+	)
+
+63 
+	#BAR_SIZE
+ 0x100000
+
+	)
+
+64 
+	#BAR_OFFSET_2
+ 
+BAR_SIZE
+/2
+
+	)
+
+66 
+	gã°size
+ = 16384;
+
+68 #i‡
+L3_LOCKED
+
+
+69 
+__maybe_unu£d
+
+
+70 
+	$di•œy_m≠pög
+(
+addªss
+) {
+
+71 
+∑r_ñ1
+;
+
+73 
+	`¥_öfo
+("----- Tøn¶©ög VA 0x%lx\n", 
+addªss
+);
+
+74 
+__asm__
+ 
+	`__vﬁ©ûe__
+ ("© s1e1r, %0" : : "r" (
+addªss
+));
+
+75 
+__asm__
+ 
+	`__vﬁ©ûe__
+ ("mr†%0, PAR_EL1\n" : "Ù" (
+∑r_ñ1
+));
+
+77 i‡(0 !(
+∑r_ñ1
+ & 1)) {
+
+78 
+	`¥_öfo
+("Address Translation Failed: 0x%lx\n"
+
+82 
+addªss
+,
+
+83 (
+∑r_ñ1
+ & 0x7e) >> 1,
+
+84 (
+∑r_ñ1
+ & 0x100) >> 8,
+
+85 (
+∑r_ñ1
+ & 0x200) >> 9);
+
+87 
+	`¥_öfo
+("Address Translation Succeeded: 0x%lx\n"
+
+92 
+addªss
+,
+
+93 (
+∑r_ñ1
+ & 0x180) >> 7,
+
+94 (
+∑r_ñ1
+ & 0x200) >> 9,
+
+95 
+∑r_ñ1
+ & 0xfffffffff000,
+
+96 (
+∑r_ñ1
+ & 0xff00000000000000) >> 56);
+
+99  (
+∑r_ñ1
+ & 0xfffffffff000);
+
+100 
+	}
+}
+
+103 
+ölöe
+ 
+u32
+ 
+	$gë_˙t‰q
+()
+
+105  
+	`¨ch_timî_gë_˙t‰q
+();
+
+106 
+	}
+}
+
+108 
+ölöe
+ 
+u64
+ 
+	$gë_˙ç˘
+()
+
+110  
+	`¨ch_cou¡î_gë_˙tv˘
+();
+
+111 
+	}
+}
+
+114 
+dma_ch™
+ *
+
+115 
+	$ªque°_dma
+(
+dma_devi˚
+ **
+devp
+)
+
+117 
+dma_ˇp_mask_t
+ 
+mask
+;
+
+118 
+dma_ch™
+ *
+ch™
+;
+
+120 
+	`dma_ˇp_zîo
+(
+mask
+);
+
+121 
+	`dma_ˇp_£t
+(
+DMA_MEMCPY
+, 
+mask
+);
+
+122 
+	`dma_ˇp_£t
+(
+DMA_SG
+, 
+mask
+);
+
+124 
+ch™
+ = 
+	`dma_ªque°_ch™√l
+(
+mask
+, 
+NULL
+, NULL);
+
+125 i‡(!
+ch™
+)
+
+126 
+	`¥_îr
+("FailedÅoÑequest DMA channel\n");
+
+129 *
+devp
+ = 
+ch™
+->
+devi˚
+;
+
+131  
+ch™
+;
+
+132 
+	}
+}
+
+135 
+	$ªÀa£_dma
+(
+dma_ch™
+ *
+ch™
+)
+
+137 
+	`dma_ªÀa£_ch™√l
+(
+ch™
+);
+
+138 
+	}
+}
+
+141 
+dma_cookõ_t
+
+
+142 
+	$dma_async_mem˝y_pg_to_pg
+(
+dma_ch™
+ *
+ch™
+, 
+∑ge
+ *
+de°_pg
+,
+
+143 
+de°_off
+, 
+∑ge
+ *
+§c_pg
+, 
+§c_off
+,
+
+144 
+size_t
+ 
+Àn
+)
+
+146 
+dma_devi˚
+ *
+dev
+ = 
+ch™
+->
+devi˚
+;
+
+147 
+dma_async_tx_des¸ùt‹
+ *
+tx
+;
+
+148 
+dm´ngöe_unm≠_d©a
+ *
+unm≠
+;
+
+149 
+dma_cookõ_t
+ 
+cookõ
+;
+
+150 
+Êags
+;
+
+151 
+unm≠
+ = 
+	`dm´ngöe_gë_unm≠_d©a
+(
+dev
+->dev, 2, 
+GFP_NOWAIT
+);
+
+152 i‡(!
+unm≠
+)
+
+154  -
+ENOMEM
+;
+
+156 
+unm≠
+->
+to_˙t
+ = 1;
+
+157 
+unm≠
+->
+‰om_˙t
+ = 1;
+
+158 
+unm≠
+->
+addr
+[0] = 
+	`dma_m≠_∑ge
+(
+dev
+->dev, 
+§c_pg
+, 
+§c_off
+, 
+Àn
+,
+
+159 
+DMA_TO_DEVICE
+);
+
+160 
+unm≠
+->
+addr
+[1] = 
+	`dma_m≠_∑ge
+(
+dev
+->dev, 
+de°_pg
+, 
+de°_off
+, 
+Àn
+,
+
+161 
+DMA_FROM_DEVICE
+);
+
+162 
+unm≠
+->
+Àn
+ =Üen;
+
+163 
+Êags
+ = 
+DMA_CTRL_ACK
+;
+
+164 
+tx
+ = 
+dev
+->
+	`devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+unm≠
+->
+addr
+[1], unmap->addr[0],
+
+165 
+Àn
+, 
+Êags
+);
+
+167 i‡(!
+tx
+) {
+
+168 
+	`dm´ngöe_unm≠_put
+(
+unm≠
+);
+
+169  -
+ENOMEM
+;
+
+172 
+	`dma_£t_unm≠
+(
+tx
+, 
+unm≠
+);
+
+173 
+cookõ
+ = 
+tx
+->
+	`tx_submô
+(tx);
+
+174 
+	`dm´ngöe_unm≠_put
+(
+unm≠
+);
+
+176 
+	`¥ìm±_dißbÀ
+();
+
+177 
+	`__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+178 
+	`__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+179 
+	`¥ìm±_íabÀ
+();
+
+180  
+cookõ
+;
+
+181 
+	}
+}
+
+183 
+dma_cookõ_t
+
+
+184 
+	$dma_async_mem˝y_pci_to_buf
+(
+dma_ch™
+ *
+ch™
+, *
+de°
+, 
+phys_addr_t
+ 
+§c
+, 
+size_t
+ 
+Àn
+)
+
+186 
+dma_devi˚
+ *
+dev
+ = 
+ch™
+->
+devi˚
+;
+
+187 
+dma_async_tx_des¸ùt‹
+ *
+tx
+;
+
+188 
+dma_addr_t
+ 
+dma_de°
+;
+
+189 
+dma_cookõ_t
+ 
+cookõ
+;
+
+190 
+Êags
+;
+
+191 
+dma_°©us
+ 
+°©us
+;
+
+192 
+ktime_t
+ 
+ktime_duøti⁄
+;
+
+194 #i‡
+UPDATED_DMA_MAP
+
+
+195 
+dma_de°
+ = (
+dma_addr_t
+Ë
+	`dma_m≠_sögÀ_∑r_l1
+(
+dev
+->dev, (*)
+de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+);
+
+197 
+dma_de°
+ = 
+	`dma_m≠_sögÀ
+(
+dev
+->dev, 
+de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+);
+
+200 i‡(
+	`dma_m≠pög_îr‹
+(
+dev
+->dev, 
+dma_de°
+)) {
+
+201  -
+ENOMEM
+;
+
+203 
+Êags
+ = 
+DMA_CTRL_ACK
+;
+
+205 
+tx
+ = 
+dev
+->
+	`devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+dma_de°
+, 
+§c
+, 
+Àn
+, 
+Êags
+);
+
+206 i‡(!
+tx
+) {
+
+207 #i‡
+UPDATED_DMA_MAP
+
+
+208 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+, ()
+de°
+);
+
+210 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+);
+
+212  -
+ENOMEM
+;
+
+214 
+tx
+->
+ˇŒback
+ = 
+NULL
+;
+
+216 
+	`åa˚_l3_dma_íåy
+("dmaengine_submit ----> measure from here");
+
+217 
+ktime_°¨t
+ = 
+	`ktime_gë
+();
+
+218 
+cookõ
+ = 
+	`dm´ngöe_submô
+(
+tx
+);
+
+219 i‡(
+	`dma_submô_îr‹
+(
+cookõ
+)) {
+
+220 
+	`¥ötk
+(
+KERN_ERR
+ "%s: FaûedÅÿ°¨àDMAÅøns„r\n", 
+__func__
+);
+
+221 #i‡
+UPDATED_DMA_MAP
+
+
+222 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+, ()
+de°
+);
+
+224 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+);
+
+226  -
+ENODEV
+;
+
+229 
+	`åa˚_l3_dma_íåy
+("dma_sync_wait");
+
+230 
+°©us
+ = 
+	`dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+231 
+	`åa˚_l3_dma_exô
+("dma_sync_wait <---- upÅo here");
+
+233 
+ktime_duøti⁄
+ = 
+	`ktime_sub
+(
+	`ktime_gë
+(), 
+ktime_°¨t
+);
+
+234 
+ktime_avg_duøti⁄
+.
+tv64
+ = 
+	`sma_add
+(&
+sma_avg
+, 
+ktime_duøti⁄
+.tv64);
+
+235 
+	`åa˚_l3_dma_duøti⁄
+(
+	`smp_¥o˚ss‹_id
+(),
+
+236 
+	`ktime_to_time•ec
+(
+ktime_duøti⁄
+),
+
+237 
+	`ktime_to_time•ec
+(
+ktime_avg_duøti⁄
+)
+
+240 #i‡
+UPDATED_DMA_MAP
+
+
+241 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+, ()
+de°
+);
+
+243 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+);
+
+246 
+	`¥ìm±_dißbÀ
+();
+
+247 
+	`__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+248 
+	`__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+249 
+	`¥ìm±_íabÀ
+();
+
+250  
+°©us
+;
+
+251 
+	}
+}
+
+253 
+dma_°©us
+
+
+254 
+	$dma_async_mem˝y_buf_to_pci
+(
+dma_ch™
+ *
+ch™
+, 
+phys_addr_t
+ 
+de°
+, *
+§c
+, 
+size_t
+ 
+Àn
+)
+
+256 
+dma_devi˚
+ *
+dev
+ = 
+ch™
+->
+devi˚
+;
+
+257 
+dma_async_tx_des¸ùt‹
+ *
+tx
+;
+
+258 
+dma_addr_t
+ 
+dma_§c
+;
+
+259 
+dma_cookõ_t
+ 
+cookõ
+;
+
+260 
+Êags
+;
+
+261 
+dma_°©us
+ 
+°©us
+;
+
+262 
+ktime_t
+ 
+ktime_duøti⁄
+;
+
+266 
+phys_addr_t
+ 
+phys1
+, 
+phys2
+;
+
+267 
+∑ge_addr1
+;
+
+268 
+∑ge
+ *
+∑ge1
+;
+
+269 * 
+km≠1
+;
+
+273 
+∑ge1
+ = 
+	`vút_to_∑ge
+(
+§c
+);
+
+274 
+km≠1
+=
+	`km≠
+(
+	`vút_to_∑ge
+(
+§c
+));
+
+275 
+	`¥_öfo
+("km≠Ñëu∫†%p\n", (*Ë
+km≠1
+);
+
+279 
+∑ge_addr1
+ = (Ë
+	`∑ge_addªss
+(
+∑ge1
+);
+
+280 
+	`¥_öfo
+("§¯%∞§¯∑ge_addªs†%lx\n", (*Ë
+§c
+, 
+∑ge_addr1
+);
+
+282 
+phys1
+ = 
+	`∑ge_to_phys
+(
+∑ge1
+);
+
+283 
+phys2
+ = 
+	`vút_to_phys
+(
+§c
+);
+
+285 
+	`¥_öfo
+("mb: %s(Ëphys1 %lxÖhys2 %lx\n", 
+__func__
+, (Ë
+phys1
+,(Ë
+phys2
+);
+
+287 i‡(
+	`PageHighMem
+(
+	`vút_to_∑ge
+(
+§c
+)))
+
+288 
+	`¥_öfo
+("mb: src is in highmem\n");
+
+292 
+	`åa˚_l3_dma_íåy
+("dma_map_single");
+
+293 #i‡
+UPDATED_DMA_MAP
+
+
+294 
+dma_§c
+ = (
+dma_addr_t
+Ë
+	`dma_m≠_sögÀ_∑r_l1
+(
+dev
+->dev, (*)
+§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+296 
+dma_§c
+ = 
+	`dma_m≠_sögÀ
+(
+dev
+->dev, 
+§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+298 
+	`åa˚_l3_dma_exô
+("dma_map_single");
+
+300 
+	`åa˚_l3_dma_íåy
+("dma_mapping_error");
+
+301 i‡(
+	`dma_m≠pög_îr‹
+(
+dev
+->dev, 
+dma_§c
+)) {
+
+302  -
+ENOMEM
+;
+
+304 
+	`åa˚_l3_dma_exô
+("dma_mapping_error");
+
+306 
+Êags
+ = 
+DMA_CTRL_ACK
+;
+
+308 
+	`åa˚_l3_dma_íåy
+("device_prep_dma_memcpy");
+
+309 
+tx
+ = 
+dev
+->
+	`devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+de°
+, 
+dma_§c
+, 
+Àn
+, 
+Êags
+);
+
+310 
+	`åa˚_l3_dma_exô
+("device_prep_dma_memcpy");
+
+312 i‡(!
+tx
+) {
+
+313 
+	`åa˚_l3_dma_íåy
+("dma_unmap_single");
+
+314 #i‡
+UPDATED_DMA_MAP
+
+
+315 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+, ()
+§c
+);
+
+317 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+319 
+	`åa˚_l3_dma_exô
+("dma_unmap_single");
+
+320  -
+ENOMEM
+;
+
+323 
+tx
+->
+ˇŒback
+ = 
+NULL
+;
+
+325 
+	`åa˚_l3_dma_íåy
+("dmaengine_submit ----> measure from here");
+
+326 
+ktime_°¨t
+ = 
+	`ktime_gë
+();
+
+327 
+cookõ
+ = 
+	`dm´ngöe_submô
+(
+tx
+);
+
+328 
+	`åa˚_l3_dma_exô
+("dmaengine_submit");
+
+329 i‡(
+	`dma_submô_îr‹
+(
+cookõ
+)) {
+
+330 
+	`¥ötk
+(
+KERN_ERR
+ "%s: FaûedÅÿ°¨àDMAÅøns„r\n", 
+__func__
+);
+
+331 #i‡
+UPDATED_DMA_MAP
+
+
+332 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+, ()
+§c
+);
+
+334 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+336  -
+ENODEV
+;
+
+339 
+	`åa˚_l3_dma_íåy
+("dma_sync_wait");
+
+340 
+°©us
+ = 
+	`dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+341 
+	`åa˚_l3_dma_exô
+("dma_sync_wait <---- upÅo here");
+
+343 
+ktime_duøti⁄
+ = 
+	`ktime_sub
+(
+	`ktime_gë
+(), 
+ktime_°¨t
+);
+
+344 
+ktime_avg_duøti⁄
+.
+tv64
+ = 
+	`sma_add
+(&
+sma_avg
+, 
+ktime_duøti⁄
+.tv64);
+
+345 
+	`åa˚_l3_dma_duøti⁄
+(
+	`smp_¥o˚ss‹_id
+(),
+
+346 
+	`ktime_to_time•ec
+(
+ktime_duøti⁄
+),
+
+347 
+	`ktime_to_time•ec
+(
+ktime_avg_duøti⁄
+)
+
+350 
+	`åa˚_l3_dma_íåy
+("dma_unmap_single");
+
+351 #i‡
+UPDATED_DMA_MAP
+
+
+352 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+, ()
+§c
+);
+
+354 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+356 
+	`åa˚_l3_dma_exô
+("dma_unmap_single");
+
+358 
+	`¥ìm±_dißbÀ
+();
+
+359 
+	`__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+360 
+	`__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+361 
+	`¥ìm±_íabÀ
+();
+
+363  
+°©us
+;
+
+364 
+	}
+}
+
+367 
+dma_°©us
+
+
+368 
+	$dma_async_mem˝y_mem2mem
+(
+dma_ch™
+ *
+ch™
+, * 
+de°
+, *
+§c
+, 
+size_t
+ 
+Àn
+)
+
+370 
+dma_devi˚
+ *
+dev
+ = 
+ch™
+->
+devi˚
+;
+
+371 
+dma_async_tx_des¸ùt‹
+ *
+tx
+;
+
+372 
+dma_addr_t
+ 
+dma_§c
+;
+
+373 
+dma_addr_t
+ 
+dma_de°
+;
+
+374 
+dma_cookõ_t
+ 
+cookõ
+;
+
+375 
+Êags
+;
+
+376 
+dma_°©us
+ 
+°©us
+;
+
+377 
+ktime_t
+ 
+ktime_duøti⁄
+;
+
+379 #i‡
+UPDATED_DMA_MAP
+
+
+380 
+dma_§c
+ = (
+dma_addr_t
+Ë
+	`dma_m≠_sögÀ_∑r_l1
+(
+dev
+->dev, (*)
+§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+381 
+dma_de°
+ = (
+dma_addr_t
+Ë
+	`dma_m≠_sögÀ_∑r_l1
+(
+dev
+->dev, (*)
+de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+383 
+dma_§c
+ = 
+	`dma_m≠_sögÀ
+(
+dev
+->dev, 
+§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+384 
+dma_de°
+ = 
+	`dma_m≠_sögÀ
+(
+dev
+->dev, 
+de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+386 
+Êags
+ = 
+DMA_CTRL_ACK
+;
+
+388 
+tx
+ = 
+dev
+->
+	`devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+dma_de°
+, 
+dma_§c
+, 
+Àn
+, 
+Êags
+);
+
+390 i‡(!
+tx
+) {
+
+391 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+392 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+393  -
+ENOMEM
+;
+
+396 
+tx
+->
+ˇŒback
+ = 
+NULL
+;
+
+399 
+	`åa˚_l3_dma_íåy
+("dmaengine_submit ----> measure from here");
+
+400 
+ktime_°¨t
+ = 
+	`ktime_gë
+();
+
+401 
+cookõ
+ = 
+	`dm´ngöe_submô
+(
+tx
+);
+
+402 
+	`åa˚_l3_dma_exô
+("dmaengine_submit");
+
+404 i‡(
+	`dma_submô_îr‹
+(
+cookõ
+)) {
+
+405 
+	`¥ötk
+(
+KERN_ERR
+ "%s: FaûedÅÿ°¨àDMAÅøns„r\n", 
+__func__
+);
+
+406 #i‡
+UPDATED_DMA_MAP
+
+
+407 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+, ()
+§c
+);
+
+408 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+, ()
+de°
+);
+
+410 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+411 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+413  -
+ENODEV
+;
+
+416 
+	`åa˚_l3_dma_íåy
+("dma_sync_wait");
+
+417 
+°©us
+ = 
+	`dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+418 
+	`åa˚_l3_dma_exô
+("dma_sync_wait <---- upÅo here");
+
+420 
+ktime_duøti⁄
+ = 
+	`ktime_sub
+(
+	`ktime_gë
+(), 
+ktime_°¨t
+);
+
+421 
+ktime_avg_duøti⁄
+.
+tv64
+ = 
+	`sma_add
+(&
+sma_avg
+, 
+ktime_duøti⁄
+.tv64);
+
+422 
+	`åa˚_l3_dma_duøti⁄
+(
+	`smp_¥o˚ss‹_id
+(),
+
+423 
+	`ktime_to_time•ec
+(
+ktime_duøti⁄
+),
+
+424 
+	`ktime_to_time•ec
+(
+ktime_avg_duøti⁄
+)
+
+427 #i‡
+UPDATED_DMA_MAP
+
+
+428 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+, ()
+§c
+);
+
+429 
+	`dma_unm≠_sögÀ_©ås_∑r_l1
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+, ()
+de°
+);
+
+431 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+432 
+	`dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+435 
+	`¥ìm±_dißbÀ
+();
+
+436 
+	`__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+437 
+	`__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+438 
+	`¥ìm±_íabÀ
+();
+
+440  
+°©us
+;
+
+441 
+	}
+}
+
+443 
+dma_cookõ_t
+
+
+444 
+	$dma_async_mem˝y_ï_to_ï
+(
+dma_ch™
+ *
+ch™
+, 
+phys_addr_t
+ 
+de°
+,Öhys_addr_à
+§c
+, 
+size_t
+ 
+Àn
+)
+
+446 
+dma_devi˚
+ *
+dev
+ = 
+ch™
+->
+devi˚
+;
+
+447 
+dma_async_tx_des¸ùt‹
+ *
+tx
+;
+
+448 
+dma_cookõ_t
+ 
+cookõ
+;
+
+449 
+Êags
+;
+
+451 
+Êags
+ = 
+DMA_CTRL_ACK
+;
+
+453 
+tx
+ = 
+dev
+->
+	`devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+de°
+, 
+§c
+, 
+Àn
+, 
+Êags
+);
+
+455 i‡(!
+tx
+) {
+
+456  -
+ENOMEM
+;
+
+459 
+tx
+->
+ˇŒback
+ = 
+NULL
+;
+
+461 
+cookõ
+ = 
+tx
+->
+	`tx_submô
+(tx);
+
+463 
+	`¥ìm±_dißbÀ
+();
+
+464 
+	`__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+465 
+	`__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+466 
+	`¥ìm±_íabÀ
+();
+
+468  
+cookõ
+;
+
+469 
+	}
+}
+
+473 
+	$ã°_mem˝y
+(
+≥t_¥iv©e
+ *
+≥t
+, 
+wrôe
+)
+
+475 *
+buf
+;
+
+476 
+u64
+ 
+t0
+,
+t1
+,
+ñ≠£d
+;
+
+477 
+buff£t
+ = 
+BAR_OFFSET
+;
+
+478 
+u64
+ 
+i
+=0, 
+avîage
+ = 0;
+
+479 
+	e_ã°_ªsu…
+ {
+Áû
+ = 0, 
+∑ss
+} 
+ã°_ªsu…
+ =Öass;
+
+481 
+buf
+ = 
+	`kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+482 i‡(!
+buf
+)
+
+483  -
+ENOMEM
+;
+
+484 
+	`mem£t
+(
+buf
+, 0, 
+ã°size
+);
+
+486 
+i
+ = 0; i < 
+ITERATIONS
+; i++)
+
+488 
+t0
+ = 
+	`gë_˙ç˘
+();
+
+489 i‡(
+wrôe
+)
+
+490 
+	`mem˝y
+((
+≥t
+->
+b¨
+[
+BAR_MEM
+] + 
+buff£t
+), 
+buf
+, 
+ã°size
+);
+
+492 
+	`mem˝y
+(
+buf
+, (
+≥t
+->
+b¨
+[
+BAR_MEM
+] + 
+buff£t
+), 
+ã°size
+);
+
+493 
+t1
+ = 
+	`gë_˙ç˘
+();
+
+495 
+avîage
+ +
+	`div_u64
+(
+NS
+*(
+t1
+-
+t0
+), 
+	`gë_˙t‰q
+());
+
+496 i‡(
+	`¸c32
+(~0,
+≥t
+->
+b¨
+[
+BAR_MEM
+]+
+buff£t
+,
+ã°size
+Ë!¸c32(~0,
+buf
+,testsize)) {
+
+497 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: crc failed\n");
+
+498 
+ã°_ªsu…
+ = 
+Áû
+;
+
+503 
+ñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+505 i‡(
+ã°size
+ == 64) {
+
+506 
+	`¥_ªsu…
+(
+≥t
+, "memcpy_%s %lu bytes (overhead) %lluÇs crc32 %#x %s\n",
+
+507 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+buf
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+509 
+	`¥_ªsu…
+(
+≥t
+, "memcpy_%s %lu bytes %lluÇs crc32 %#x %s\n",
+
+510 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+buf
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+513 
+	`k‰ì
+(
+buf
+);
+
+516 
+	}
+}
+
+519 
+	$ã°_dma
+(
+≥t_¥iv©e
+ *
+≥t
+, 
+wrôe
+)
+
+521 *
+buf
+;
+
+522 *
+de°
+ = 
+NULL
+;
+
+523 
+u64
+ 
+t0
+,
+t1
+,
+ñ≠£d
+;
+
+524 
+u64
+ 
+i
+=0, 
+avîage
+ = 0;
+
+525 
+dma_devi˚
+ *
+dev
+;
+
+526 
+dma_ch™
+ *
+ch™
+;
+
+527 
+dma_°©us
+ 
+°©us
+;
+
+528 #i‡
+L3_LOCKED
+
+
+529 
+l3_ba£_addªss
+ = 0x80000000;
+
+531 
+	e_ã°_ªsu…
+ {
+Áû
+ = 0, 
+∑ss
+} 
+ã°_ªsu…
+ =Öass;
+
+532 
+phys_addr_t
+ 
+boff£t
+ = 
+BAR_OFFSET
+;
+
+534 #i‡
+L3_LOCKED
+
+
+541 i‡(!
+	`ªque°_mem_ªgi⁄
+(
+l3_ba£_addªss
+, 
+ã°size
+, "pcitest"))
+
+542  -
+EBUSY
+;
+
+544 
+buf
+ = (*Ë
+	`i‹em≠_ˇche
+(
+l3_ba£_addªss
+, 
+ã°size
+);
+
+545 i‡(!
+buf
+)
+
+546  -
+ENOMEM
+;
+
+552 
+buf
+ = 
+	`kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+554 i‡(!
+buf
+)
+
+555  -
+ENOMEM
+;
+
+559 
+ch™
+ = 
+	`ªque°_dma
+(&
+dev
+);
+
+560 
+i
+ = 0; i < 
+ITERATIONS
+; i++)
+
+565 i‡(
+wrôe
+) {
+
+566 
+	`mem£t
+(
+buf
+, 0x12, 
+ã°size
+);
+
+567 
+	`m¶ìp
+(5);
+
+570 
+t0
+ = 
+	`gë_˙ç˘
+();
+
+571 i‡(
+wrôe
+) {
+
+572 
+°©us
+ = 
+	`dma_async_mem˝y_buf_to_pci
+(
+ch™
+, 
+boff£t
+ + 
+	`pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+buf
+, 
+ã°size
+);
+
+574 
+°©us
+ = 
+	`dma_async_mem˝y_pci_to_buf
+(
+ch™
+, 
+buf
+, 
+boff£t
+ + 
+	`pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+ã°size
+);
+
+577 
+t1
+ = 
+	`gë_˙ç˘
+();
+
+579 
+avîage
+ +
+	`div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+	`gë_˙t‰q
+());
+
+582 
+de°
+ = 
+	`i‹em≠
+(
+boff£t
++
+	`pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+ã°size
+);
+
+583 if(
+de°
+ =
+NULL
+){
+
+584 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: UnableÅo map memoryÅo verifyÑesults, verification must be manual\n");
+
+585 
+˛ónup
+;
+
+588 
+	#DEBUG
+ 0
+
+	)
+
+589 #i‡
+DEBUG
+
+
+590 
+	`¥_öfo
+("buf: 0x%x\n", *(vﬁ©ûê*)
+buf
+);
+
+591 
+	`¥_öfo
+("de°: 0x%x\n", *(vﬁ©ûê*)
+de°
+);
+
+593 i‡(
+	`¸c32
+(~0, 
+buf
+, 
+ã°size
+Ë!¸c32(~0, 
+de°
+,Åestsize)) {
+
+594 
+	`iounm≠
+(
+de°
+);
+
+595 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: crc failed\n");
+
+596 
+ã°_ªsu…
+ = 
+Áû
+;
+
+599 
+	`iounm≠
+(
+de°
+);
+
+603 
+ñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+604 i‡(
+°©us
+ != 0) {
+
+605 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: DMA faûed, sètu†%d\n", 
+°©us
+);
+
+606 
+ã°_ªsu…
+ = 
+Áû
+;
+
+609 i‡(
+ã°size
+ == 64) {
+
+610 
+	`¥_ªsu…
+(
+≥t
+, "dma_%s %lu bytes (overhead) %lluÇs crc32 %#x %s\n",
+
+611 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+buf
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+613 
+	`¥_ªsu…
+(
+≥t
+, "dma_%s %lu bytes %lluÇs crc32 %#x %s\n",
+
+614 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+buf
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+617 
+˛ónup
+:
+
+618 
+	`ªÀa£_dma
+(
+ch™
+);
+
+619 #i‡
+L3_LOCKED
+
+
+620 
+	`iounm≠
+((
+__iomem
+*)
+buf
+);
+
+621 
+	`ªÀa£_mem_ªgi⁄
+(
+l3_ba£_addªss
+, 
+ã°size
+);
+
+623 
+	`k‰ì
+(
+buf
+);
+
+627 
+	}
+}
+
+630 
+	$ã°_ï2ï
+(
+≥t_¥iv©e
+ *
+≥t
+, 
+wrôe
+)
+
+632 
+u64
+ 
+t0
+,
+t1
+,
+ñ≠£d
+;
+
+633 
+u64
+ 
+i
+=0, 
+avîage
+ = 0;
+
+634 
+dma_devi˚
+ *
+dev
+;
+
+635 
+dma_ch™
+ *
+ch™
+;
+
+636 
+dma_cookõ_t
+ 
+cookõ
+;
+
+637 
+dma_°©us
+ 
+°©us
+;
+
+638 
+	e_ã°_ªsu…
+ {
+Áû
+ = 0, 
+∑ss
+} 
+ã°_ªsu…
+ =Öass;
+
+639 
+phys_addr_t
+ 
+boff£t
+ = 
+BAR_OFFSET
+;
+
+640 
+phys_addr_t
+ 
+boff£t2
+ = 
+BAR_OFFSET_2
+;
+
+641 *
+§c
+ = 
+NULL
+;
+
+642 *
+de°
+ = 
+NULL
+;
+
+644 
+ch™
+ = 
+	`ªque°_dma
+(&
+dev
+);
+
+646 
+i
+ = 0; i < 
+ITERATIONS
+; i++)
+
+648 
+t0
+ = 
+	`gë_˙ç˘
+();
+
+649 i‡(
+wrôe
+)
+
+650 
+cookõ
+ = 
+	`dma_async_mem˝y_ï_to_ï
+(
+ch™
+, 
+boff£t
++
+	`pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+boff£t2
++pci_ªsour˚_°¨t’ë->pdev, BAR_MEM), 
+ã°size
+);
+
+652 
+cookõ
+ = 
+	`dma_async_mem˝y_ï_to_ï
+(
+ch™
+, 
+boff£t2
++
+	`pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+boff£t
++pci_ªsour˚_°¨t’ë->pdev, BAR_MEM), 
+ã°size
+);
+
+653 
+°©us
+ = 
+	`dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+655 
+t1
+ = 
+	`gë_˙ç˘
+();
+
+657 
+avîage
+ +
+	`div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+	`gë_˙t‰q
+());
+
+659 i‡(
+°©us
+ != 0) {
+
+660 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: DMA faûed, sètu†%d\n", 
+°©us
+);
+
+661 
+ã°_ªsu…
+ = 
+Áû
+;
+
+667 
+§c
+ = 
+	`i‹em≠
+(
+boff£t
++
+	`pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+ã°size
+);
+
+668 
+de°
+
+	`i‹em≠
+(
+boff£t2
++
+	`pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+ã°size
+);
+
+670 if(
+§c
+ =
+NULL
+ || 
+de°
+ == NULL) {
+
+671 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: UnableÅo map memoryÅo verifyÑesults, verification must be manual\n");
+
+672 
+˛ónup
+;
+
+674 i‡(
+	`¸c32
+(~0, 
+§c
+, 
+ã°size
+Ë!¸c32(~0, 
+de°
+,Åestsize)) {
+
+675 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: crc failed\n");
+
+676 
+ã°_ªsu…
+ = 
+Áû
+;
+
+682 
+ñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+684 i‡(
+ã°size
+ == 64) {
+
+685 
+	`¥_ªsu…
+(
+≥t
+, "ep2ep_%s %lu bytes (overhead) %lluÇs crc32 %#x %s\n",
+
+686 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+§c
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+688 
+	`¥_ªsu…
+(
+≥t
+, "ep2ep_%s %lu bytes %lluÇs crc32 %#x %s\n",
+
+689 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+§c
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+692 
+˛ónup
+:
+
+693 if(
+§c
+ !
+NULL
+)
+
+694 
+	`iounm≠
+(
+§c
+);
+
+695 if(
+de°
+ !
+NULL
+)
+
+696 
+	`iounm≠
+(
+de°
+);
+
+698 
+	`ªÀa£_dma
+(
+ch™
+);
+
+701 
+	}
+}
+
+705 
+	$ã°_mem2mem
+(
+≥t_¥iv©e
+ *
+≥t
+)
+
+707 *
+§c
+, *
+d°
+;
+
+708 
+u64
+ 
+t0
+,
+t1
+,
+ñ≠£d
+;
+
+709 
+dma_devi˚
+ *
+dev
+;
+
+710 
+dma_ch™
+ *
+ch™
+;
+
+711 
+dma_°©us
+ 
+°©us
+;
+
+712 
+	e_ã°_ªsu…
+ {
+Áû
+ = 0, 
+∑ss
+} 
+ã°_ªsu…
+ =Öass;
+
+713 
+u64
+ 
+i
+=0, 
+avîage
+ = 0;
+
+714 
+dma_°©us
+;
+
+715 #i‡
+L3_LOCKED
+
+
+716 
+l3_ba£_addªss
+ = 0x80000000;
+
+724 i‡(!
+	`ªque°_mem_ªgi⁄
+(
+l3_ba£_addªss
+, 
+SZ_32M
+, "pcitest"))
+
+725  -
+EBUSY
+;
+
+728 
+§c
+ = (*Ë
+	`i‹em≠_ˇche
+(
+l3_ba£_addªss
+, 
+SZ_16M
+);
+
+729 i‡(!
+§c
+)
+
+730  -
+ENOMEM
+;
+
+732 
+§c
+ = 
+	`kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+733 i‡(!
+§c
+)
+
+734  -
+ENOMEM
+;
+
+738 
+d°
+ = (*Ë
+	`i‹em≠_ˇche
+(
+l3_ba£_addªss
++
+SZ_16M
+, SZ_16M);
+
+739 i‡(!
+d°
+)
+
+740  -
+ENOMEM
+;
+
+742 
+d°
+ = 
+	`kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+743 i‡(!
+d°
+)
+
+744  -
+ENOMEM
+;
+
+747 
+ch™
+ = 
+	`ªque°_dma
+(&
+dev
+);
+
+749 
+i
+ = 0; i < 
+ITERATIONS
+; i++)
+
+754 
+	`mem£t
+(
+§c
+, 0xab, 
+ã°size
+);
+
+755 
+	`mem£t
+(
+d°
+, 0xba, 
+ã°size
+);
+
+756 
+	`m¶ìp
+(5);
+
+758 
+t0
+ = 
+	`gë_˙ç˘
+();
+
+759 
+°©us
+ = 
+	`dma_async_mem˝y_mem2mem
+(
+ch™
+, 
+d°
+, 
+§c
+, 
+ã°size
+);
+
+760 
+t1
+ = 
+	`gë_˙ç˘
+();
+
+762 
+	`¥_öfo
+("mb: sr¯%x\n", *(vﬁ©ûê*)
+§c
+);
+
+763 
+	`¥_öfo
+("mb: d° %x\n", *(vﬁ©ûê*)
+d°
+);
+
+766 
+avîage
+ +
+	`div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+	`gë_˙t‰q
+());
+
+768 i‡(
+°©us
+ != 0) {
+
+769 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: DMA faûed, sètu†%d\n", 
+°©us
+);
+
+770 
+ã°_ªsu…
+ = 
+Áû
+;
+
+774 i‡(
+	`¸c32
+(~0, 
+§c
+, 
+ã°size
+Ë!¸c32(~0, 
+d°
+,Åestsize)) {
+
+775 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: crc failed\n");
+
+776 
+ã°_ªsu…
+ = 
+Áû
+;
+
+782 
+ñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+784 i‡(
+ã°size
+ == 64) {
+
+785 
+	`¥_ªsu…
+(
+≥t
+,"mem2mem %lu bytes (overhead) %lluÇs crc32 %#x %s\n",
+
+786 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+§c
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+788 
+	`¥_ªsu…
+(
+≥t
+, "mem2mem %lu bytes %lluÇs crc32 %#x %s\n",
+
+789 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+§c
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+792 
+	`ªÀa£_dma
+(
+ch™
+);
+
+793 #i‡
+L3_LOCKED
+
+
+794 
+	`iounm≠
+((
+__iomem
+*)
+d°
+);
+
+795 
+	`iounm≠
+((
+__iomem
+*)
+§c
+);
+
+796 
+	`ªÀa£_mem_ªgi⁄
+(
+l3_ba£_addªss
+, 
+SZ_32M
+);
+
+798 
+	`k‰ì
+(
+d°
+);
+
+799 
+	`k‰ì
+(
+§c
+);
+
+803 
+	}
+}
+
+807 
+	$ã°_mem˝y_ho°
+(
+≥t_¥iv©e
+ *
+≥t
+)
+
+809 *
+§c
+, *
+d°
+;
+
+810 
+	e_ã°_ªsu…
+ {
+Áû
+ = 0, 
+∑ss
+} 
+ã°_ªsu…
+ =Öass;
+
+811 
+u64
+ 
+t0
+,
+t1
+,
+ñ≠£d
+;
+
+812 
+u64
+ 
+i
+=0, 
+avîage
+ = 0;
+
+814 
+§c
+ = 
+	`kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+816 i‡(!
+§c
+)
+
+817  -
+ENOMEM
+;
+
+819 
+	`mem£t
+(
+§c
+, 0, 
+ã°size
+);
+
+821 
+d°
+ = 
+	`kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+822 i‡(!
+d°
+)
+
+823  -
+ENOMEM
+;
+
+825 
+i
+ = 0; i < 
+ITERATIONS
+; i++)
+
+827 
+t0
+ = 
+	`gë_˙ç˘
+();
+
+828 
+	`mem˝y
+ (
+§c
+, 
+d°
+, 
+ã°size
+);
+
+829 
+t1
+ = 
+	`gë_˙ç˘
+();
+
+831 
+avîage
+ +
+	`div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+	`gë_˙t‰q
+());
+
+833 i‡(
+	`¸c32
+(~0, 
+§c
+, 
+ã°size
+Ë!¸c32(~0, 
+d°
+,Åestsize))
+
+835 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: crc failed\n");
+
+836 
+ã°_ªsu…
+ = 
+Áû
+;
+
+842 
+ñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+844 i‡(
+ã°size
+ == 64) {
+
+845 
+	`¥_ªsu…
+(
+≥t
+,"memcpy %lu bytes (overhead) %lluÇs crc32 %#x %s\n",
+
+846 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+§c
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+848 
+	`¥_ªsu…
+(
+≥t
+, "memcpy %lu bytes %lluÇs crc32 %#x %s\n",
+
+849 
+ã°size
+, 
+ñ≠£d
+, 
+	`¸c32
+(~0, 
+§c
+,Åe°size), 
+ã°_ªsu…
+?"pass":"fail" );
+
+852 
+	`k‰ì
+(
+d°
+);
+
+853 
+	`k‰ì
+(
+§c
+);
+
+856 
+	}
+}
+
+858 
+	$ã°_time
+()
+
+860 
+u64
+ 
+t0
+,
+t1
+;
+
+861 
+t0
+ = 
+	`gë_˙ç˘
+();
+
+862 
+	`m¶ìp
+(10000);
+
+863 
+t1
+ = 
+	`gë_˙ç˘
+();
+
+864 
+	`¥ötk
+(
+KERN_INFO
+ "Sleep 10 seconds, measuredÉlapsedÅime %llu us\n",
+
+865 
+	`div_u64
+(1000000*(
+t1
+-
+t0
+), 
+	`gë_˙t‰q
+()));
+
+869 
+	}
+}
+
+871 
+ssize_t
+ 
+__ªf
+
+
+872 
+	$show_ã°
+(
+devi˚
+ *
+dev
+, 
+devi˚_©åibuã
+ *
+©å
+,
+
+873 *
+buf
+)
+
+875 
+	`°r˝y
+(
+buf
+, "memcpy_read memcpy_write dma_read memcpy dma_write mem2memÉp2ep_readÉp2ep_write\n");
+
+876  
+	`°æí
+(
+buf
+);
+
+877 
+	}
+}
+
+885 
+	$sˇâî_buf„r
+(*
+buf
+, 
+size_t
+ 
+Àn
+, 
+sˇâîli°
+ *
+sg
+, size_à
+max_íts
+)
+
+887 
+size_t
+ 
+n
+;
+
+888 
+size_t
+ 
+chunk
+;
+
+889 
+size_t
+ 
+ªmaö
+ = 
+Àn
+;
+
+891 
+n
+ = 0;Ç < 
+max_íts
+ && 
+ªmaö
+ > 0; ++n) {
+
+892 i‡(
+n
+ =
+max_íts
+ - 1) {
+
+893 
+chunk
+ = 
+ªmaö
+;
+
+895 
+chunk
+ = 1 + (
+	`gë_øndom_öt
+(Ë% 
+ªmaö
+);
+
+896 
+chunk
+ = 
+	`mö_t
+(
+size_t
+, 
+ªmaö
+, chunk);
+
+898 
+	`sg_£t_buf
+(&
+sg
+[
+n
+], 
+buf
+, 
+chunk
+);
+
+899 
+buf
+ +
+chunk
+;
+
+900 
+ªmaö
+ -
+chunk
+;
+
+903  
+n
+;
+
+904 
+	}
+}
+
+907 
+dma_cookõ_t
+
+
+908 
+	$dma_async_mem˝y_sg_to_sg
+(
+dma_ch™
+ *
+ch™
+,
+
+909 
+sˇâîli°
+ *
+d°_sg
+, 
+d°_√¡s
+,
+
+910 
+sˇâîli°
+ *
+§c_sg
+, 
+§c_√¡s
+)
+
+913 
+dma_devi˚
+ *
+dev
+ = 
+ch™
+->
+devi˚
+;
+
+914 
+dma_async_tx_des¸ùt‹
+ *
+tx
+;
+
+915 
+d°_≥¡s
+, 
+§c_≥¡s
+;
+
+916 
+dma_cookõ_t
+ 
+cookõ
+;
+
+918 
+d°_≥¡s
+ = 
+	`dma_m≠_sg
+(
+dev
+->dev, 
+d°_sg
+, 
+d°_√¡s
+, 
+DMA_BIDIRECTIONAL
+);
+
+919 i‡(
+d°_≥¡s
+ == 0) {
+
+920 
+	`¥_îr
+("dma_async_memcpy_sg_to_sg: FailedÅo map sg)\n");
+
+921  -
+EINVAL
+;
+
+924 
+§c_≥¡s
+ = 
+	`dma_m≠_sg
+(
+dev
+->dev, 
+§c_sg
+, 
+§c_√¡s
+, 
+DMA_BIDIRECTIONAL
+);
+
+925 i‡(
+§c_≥¡s
+ == 0) {
+
+926 
+	`¥_îr
+("dma_async_memcpy_sg_to_sg: FailedÅo map sg\n");
+
+927  -
+EINVAL
+;
+
+930 
+tx
+ = 
+dev
+->
+	`devi˚_¥ï_dma_sg
+(
+ch™
+,
+
+931 
+d°_sg
+, 
+d°_≥¡s
+,
+
+932 
+§c_sg
+, 
+§c_≥¡s
+,
+
+933 
+DMA_CTRL_ACK
+);
+
+934 i‡(!
+tx
+) {
+
+935 
+	`dma_unm≠_sg
+(
+dev
+->dev, 
+d°_sg
+, 
+d°_√¡s
+, 
+DMA_BIDIRECTIONAL
+);
+
+936 
+	`dma_unm≠_sg
+(
+dev
+->dev, 
+§c_sg
+, 
+§c_√¡s
+, 
+DMA_BIDIRECTIONAL
+);
+
+937  -
+ENOMEM
+;
+
+940 
+tx
+->
+ˇŒback
+ = 
+NULL
+;
+
+942 
+cookõ
+ = 
+tx
+->
+	`tx_submô
+(tx);
+
+944  
+cookõ
+;
+
+945 
+	}
+}
+
+948 
+	$kmÆloc_zîo
+(
+size_t
+ 
+Àn
+)
+
+950  
+	`kzÆloc
+(
+Àn
+, 
+GFP_KERNEL
+);
+
+951 
+	}
+}
+
+954 
+	$kmÆloc_∑âîn
+(
+size_t
+ 
+Àn
+)
+
+956 
+u32
+ 
+£ed
+ = 
+Àn
+;
+
+957 
+u8
+ *
+buf
+;
+
+958 
+size_t
+ 
+i
+;
+
+960 
+buf
+ = 
+	`kmÆloc
+(
+Àn
+, 
+GFP_KERNEL
+);
+
+961 i‡(
+buf
+) {
+
+962 
+i
+ = 0; i < 
+Àn
+; ++i) {
+
+963 
+£ed
+ = 
+	`√xt_p£udo_øndom32
+(seed);
+
+964 
+buf
+[
+i
+] = 
+£ed
+ & 0xff;
+
+968  
+buf
+;
+
+969 
+	}
+}
+
+973 
+	$ã°_sg2sg
+(
+≥t_¥iv©e
+ *
+≥t
+)
+
+975 *
+§c
+, *
+d°
+;
+
+976 
+u64
+ 
+t0
+,
+t1
+,
+ñ≠£d
+;
+
+977 
+u64
+ 
+i
+=0, 
+avîage
+ = 0;
+
+978 
+dma_devi˚
+ *
+dev
+;
+
+979 
+dma_ch™
+ *
+ch™
+;
+
+980 
+dma_cookõ_t
+ 
+cookõ
+;
+
+981 
+dma_°©us
+ 
+°©us
+;
+
+982 
+	e_ã°_ªsu…
+ {
+Áû
+ = 0, 
+∑ss
+} 
+ã°_ªsu…
+ =Öass;
+
+983 
+sˇâîli°
+ 
+d°_sg
+[16], 
+§c_sg
+[16];
+
+984 
+d°_√¡s
+, 
+§c_√¡s
+;
+
+985 
+ªsu…
+ = -
+EINVAL
+;
+
+987 
+§c
+ = 
+	`kmÆloc_∑âîn
+(
+ã°size
+);
+
+988 
+d°
+ = 
+	`kmÆloc_zîo
+(
+ã°size
+);
+
+989 i‡(!
+§c
+ || !
+d°
+)
+
+990  -
+ENOMEM
+;
+
+993 
+	`sg_öô_èbÀ
+(
+§c_sg
+, 
+	`ARRAY_SIZE
+(src_sg));
+
+994 
+§c_√¡s
+ = 
+	`sˇâî_buf„r
+(
+§c
+, 
+ã°size
+, 
+§c_sg
+, 
+	`ARRAY_SIZE
+(src_sg));
+
+995 
+	`sg_öô_èbÀ
+(
+d°_sg
+, 
+	`ARRAY_SIZE
+(dst_sg));
+
+996 
+d°_√¡s
+ = 
+	`sˇâî_buf„r
+(
+d°
+, 
+ã°size
+, 
+d°_sg
+, 
+	`ARRAY_SIZE
+(dst_sg));
+
+999 
+ch™
+ = 
+	`ªque°_dma
+(&
+dev
+);
+
+1000 i‡(!
+ch™
+) {
+
+1001 
+	`¥_ªsu…
+(
+≥t
+, "sg2sg:Ñequest dma failed\n");
+
+1002 
+ã°_ªsu…
+ = 
+Áû
+;
+
+1003 
+˛ónup
+;
+
+1006 
+i
+ = 0; i < 
+ITERATIONS
+; i++)
+
+1008 
+t0
+ = 
+	`gë_˙ç˘
+();
+
+1010 
+cookõ
+ = 
+	`dma_async_mem˝y_sg_to_sg
+(
+ch™
+, 
+d°_sg
+, 
+d°_√¡s
+, 
+§c_sg
+, 
+§c_√¡s
+);
+
+1011 i‡(
+cookõ
+ < 0) {
+
+1012 
+	`¥_ªsu…
+(
+≥t
+, "sg2sg: dm®¥ï faûed,Éº‹ %d\n", 
+cookõ
+);
+
+1013 
+ã°_ªsu…
+ = 
+Áû
+;
+
+1015 
+°©us
+ = 
+	`dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+1017 
+t1
+ = 
+	`gë_˙ç˘
+();
+
+1019 
+avîage
+ +
+	`div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+	`gë_˙t‰q
+());
+
+1021 i‡(
+°©us
+ != 0) {
+
+1022 
+	`¥_ªsu…
+(
+≥t
+, "sg2sg: dm®Áûed, sètu†%d\n", 
+°©us
+);
+
+1023 
+ã°_ªsu…
+ = 
+Áû
+;
+
+1027 i‡((
+ªsu…
+ = 
+	`memcmp
+(
+§c
+, 
+d°
+, 
+ã°size
+)) != 0) {
+
+1028 
+	`¥_ªsu…
+(
+≥t
+, "ERROR: memcmp failed\n");
+
+1029 
+ã°_ªsu…
+ = 
+Áû
+;
+
+1034 
+ñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+1036 
+	`¥_ªsu…
+(
+≥t
+, "sg2sg sgli° %d -> %d\n", 
+§c_√¡s
+, 
+d°_√¡s
+);
+
+1038 i‡(
+ã°size
+ == 64) {
+
+1039 
+	`¥_ªsu…
+(
+≥t
+, "sg2sg %6lu bytes (overhead) %lluÇs memcmp %s\n",
+
+1040 
+ã°size
+, 
+ñ≠£d
+, 
+ã°_ªsu…
+?"pass":"fail" );
+
+1042 
+	`¥_ªsu…
+(
+≥t
+, "sg2sg %6lu bytes %lluÇs memcpy %s\n",
+
+1043 
+ã°size
+, 
+ñ≠£d
+, 
+ã°_ªsu…
+?"pass":"fail" );
+
+1046 
+˛ónup
+:
+
+1047 
+	`ªÀa£_dma
+(
+ch™
+);
+
+1048 i‡(
+§c
+Ë
+	`k‰ì
+(
+d°
+);
+
+1049 i‡(
+d°
+Ë
+	`k‰ì
+(
+§c
+);
+
+1051  
+ªsu…
+ ? -
+EINVAL
+ : 0;
+
+1052 
+	}
+}
+
+1055 
+ssize_t
+ 
+__ªf
+
+
+1056 
+	$run_ã°
+(
+devi˚
+ *
+dev
+, 
+devi˚_©åibuã
+ *
+©å
+,
+
+1057 c⁄° *
+buf
+, 
+size_t
+ 
+cou¡
+)
+
+1059 
+≥t_¥iv©e
+ *
+≥t
+ = 
+	`dev_gë_drvd©a
+(
+dev
+);
+
+1060 
+ssize_t
+ 
+ªt
+ = 0;
+
+1062 
+≥t
+->
+æí
+ = 0;
+
+1064 i‡(!
+≥t
+->
+b¨
+[
+BAR_MEM
+])
+
+1065  -
+ENODEV
+;
+
+1067 i‡(0 =
+	`°∫cmp
+(
+buf
+, "memcpy_read", 10))
+
+1068 
+ªt
+ = 
+	`ã°_mem˝y
+(
+≥t
+, 0);
+
+1069 i‡(0 =
+	`°∫cmp
+(
+buf
+, "memcpy_write", 10))
+
+1070 
+ªt
+ = 
+	`ã°_mem˝y
+(
+≥t
+, 1);
+
+1071 i‡(0 =
+	`°∫cmp
+(
+buf
+, "dma_read", 5))
+
+1072 
+ªt
+ = 
+	`ã°_dma
+(
+≥t
+, 0);
+
+1073 i‡(0 =
+	`°∫cmp
+(
+buf
+, "sg2sg", 5))
+
+1074 
+ªt
+ = 
+	`ã°_sg2sg
+(
+≥t
+);
+
+1075 i‡(0 =
+	`°∫cmp
+(
+buf
+, "dma_write", 5))
+
+1076 
+ªt
+ = 
+	`ã°_dma
+(
+≥t
+, 1);
+
+1077 i‡(0 =
+	`°∫cmp
+(
+buf
+, "mem2mem", 5))
+
+1078 
+ªt
+ = 
+	`ã°_mem2mem
+(
+≥t
+);
+
+1079 i‡(0 =
+	`°∫cmp
+(
+buf
+, "memcpy", 5))
+
+1080 
+ªt
+ = 
+	`ã°_mem˝y_ho°
+(
+≥t
+);
+
+1081 i‡(0 =
+	`°∫cmp
+(
+buf
+, "ep2ep_read", 10))
+
+1082 
+ªt
+ = 
+	`ã°_ï2ï
+(
+≥t
+, 0);
+
+1083 i‡(0 =
+	`°∫cmp
+(
+buf
+, "ep2ep_write", 10))
+
+1084 
+ªt
+ = 
+	`ã°_ï2ï
+(
+≥t
+, 1);
+
+1085 i‡(0 =
+	`°∫cmp
+(
+buf
+, "time", 4))
+
+1086 
+ªt
+ = 
+	`ã°_time
+();
+
+1088 
+ªt
+ = -
+EINVAL
+;
+
+1090  
+ªt
+ < 0 ?Ñë : 
+cou¡
+;
+
+1091 
+	}
+}
+
+1093 
+ssize_t
+ 
+__ªf
+
+
+1094 
+	$show_ªsu…
+(
+devi˚
+ *
+dev
+, 
+devi˚_©åibuã
+ *
+©å
+, *
+buf
+)
+
+1096 
+≥t_¥iv©e
+ *
+≥t
+ = 
+	`dev_gë_drvd©a
+(
+dev
+);
+
+1098 
+	`mem˝y
+(
+buf
+, 
+≥t
+->
+ªsu…
+,Öë->
+æí
+);
+
+1099  
+	`°æí
+(
+buf
+);
+
+1100 
+	}
+}
+
+1105 
+	$dißbÀ_PCIe_Securôy
+()
+
+1107 
+__iomem
+ *
+vútuÆ_addr
+=
+	`i‹em≠
+(0xa000400000, 0x20);
+
+1109 
+	`wrôñ
+(1, (*)(
+vútuÆ_addr
+ + 8));
+
+1110 
+	`wrôñ
+(1, (*)(
+vútuÆ_addr
+ + 0xc));
+
+1111 
+	`wrôñ
+(1, (*)(
+vútuÆ_addr
+ + 0x10));
+
+1113 
+	`¥ötk
+(
+KERN_NOTICE
+ "\nPEI0,1,2 AMIB Security setÅoÖassÅhrough");
+
+1114 
+	}
+}
+
+1116 
+DEVICE_ULONG_ATTR
+(
+ã°size
+, 0644,Åestsize);
+
+1117 
+DEVICE_ATTR
+(
+ã°ˇ£
+, 0644, 
+show_ã°
+, 
+run_ã°
+);
+
+1118 
+DEVICE_ATTR
+(
+ªsu…
+, 0444, 
+show_ªsu…
+, 
+NULL
+);
+
+1121 
+	$≥t_¥obe
+(
+pci_dev
+ *
+pdev
+, c⁄° 
+pci_devi˚_id
+ *
+pci_id
+)
+
+1123 
+≥t_¥iv©e
+ *
+≥t
+;
+
+1124 
+b¨
+;
+
+1125 
+ªt
+;
+
+1127 
+≥t
+ = 
+	`kzÆloc
+((
+≥t_¥iv©e
+), 
+GFP_KERNEL
+);
+
+1128 i‡(!
+≥t
+)
+
+1129  -
+ENOMEM
+;
+
+1131 
+ªt
+ = 
+	`pci_íabÀ_devi˚
+(
+pdev
+);
+
+1132 i‡(
+ªt
+) {
+
+1133 
+	`dev_îr
+(&
+pdev
+->
+dev
+, "can'tÉnable device.\n");
+
+1134 
+d⁄e
+;
+
+1137 
+ªt
+ = 
+	`pci_ªque°_ªgi⁄s
+(
+pdev
+, 
+KBUILD_MODNAME
+);
+
+1138 i‡(
+ªt
+) {
+
+1139 
+	`dev_îr
+(&
+pdev
+->
+dev
+, "pci_ªque°_ªgi⁄†FAILED-%d", 
+ªt
+);
+
+1140 
+dißbÀ_pci
+;
+
+1143 i‡(
+	`dma_£t_mask_™d_cohîít
+(&
+pdev
+->
+dev
+, 
+	`DMA_BIT_MASK
+(64))) {
+
+1144 
+	`dev_w¨n
+(&
+pdev
+->
+dev
+, "mydev: No suitable DMAávailable\n");
+
+1145 
+dißbÀ_pci
+;
+
+1149 
+b¨
+ = 0; b¨ < 
+	`ARRAY_SIZE
+(
+≥t
+->bar); bar++) {
+
+1150 
+≥t
+->
+b¨
+[b¨] = 
+	`pci_iom≠
+(
+pdev
+, bar, 0);
+
+1153 i‡(
+≥t
+->
+b¨
+[
+BAR_MEM
+] == 0) {
+
+1154 
+	`dev_îr
+(&
+pdev
+->
+dev
+, "UnableÅo map PCI memory space\n");
+
+1155 
+ªÀa£_ªg
+;
+
+1158 
+≥t
+->
+pdev
+ =Ödev;
+
+1159 
+	`pci_£t_drvd©a
+(
+pdev
+, 
+≥t
+);
+
+1160 
+	`dev_öfo
+(&
+pdev
+->
+dev
+, "PCIe Enpoint Test DriverÑegistered.\n");
+
+1162 
+	`devi˚_¸óã_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ã°ˇ£
+);
+
+1163 
+	`devi˚_¸óã_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ã°size
+.
+©å
+);
+
+1164 
+	`devi˚_¸óã_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ªsu…
+);
+
+1166 
+	`dißbÀ_PCIe_Securôy
+();
+
+1168 
+	`sma_öô
+(&
+sma_avg
+, 1000);
+
+1172 
+ªÀa£_ªg
+:
+
+1173 
+	`pci_ªÀa£_ªgi⁄s
+(
+pdev
+);
+
+1174 
+dißbÀ_pci
+:
+
+1175 
+	`pci_dißbÀ_devi˚
+(
+pdev
+);
+
+1176 
+d⁄e
+:
+
+1177 
+	`k‰ì
+(
+≥t
+);
+
+1178 
+	`dev_öfo
+(&
+pdev
+->
+dev
+, "ProbêÁûed (%d)\n", 
+ªt
+);
+
+1179  
+ªt
+;
+
+1180 
+	}
+}
+
+1184 
+	$≥t_ªmove
+(
+pci_dev
+ *
+pdev
+)
+
+1186 
+≥t_¥iv©e
+ *
+≥t
+ = 
+	`pci_gë_drvd©a
+(
+pdev
+);
+
+1187 
+i
+;
+
+1189 
+	`pci_ªÀa£_ªgi⁄s
+(
+pdev
+);
+
+1190 
+i
+ = 0; i<
+	`ARRAY_SIZE
+(
+≥t
+->
+b¨
+); ++i)
+
+1191 i‡(
+≥t
+->
+b¨
+[
+i
+])
+
+1192 
+	`iounm≠
+(
+≥t
+->
+b¨
+[
+i
+]);
+
+1193 
+	`devi˚_ªmove_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ã°ˇ£
+);
+
+1194 
+	`devi˚_ªmove_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ã°size
+.
+©å
+);
+
+1195 
+	`devi˚_ªmove_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ªsu…
+);
+
+1196 
+	`pci_dißbÀ_devi˚
+(
+pdev
+);
+
+1197 
+	`k‰ì
+(
+≥t
+);
+
+1198 
+	}
+}
+
+1200 
+pci_devi˚_id
+ 
+	g≥t_pci_ids
+[] = {
+
+1202 { 
+PCI_DEVICE
+(0x10b5, 0x87a0) },
+
+1226 
+pci_drivî
+ 
+	g≥t_gpio_drivî
+ = {
+
+1227 .
+«me
+ = 
+DRV_NAME
+,
+
+1228 .
+	gid_èbÀ
+ = 
+≥t_pci_ids
+,
+
+1229 .
+	g¥obe
+ = 
+≥t_¥obe
+,
+
+1230 .
+	gªmove
+ = 
+≥t_ªmove
+,
+
+1233 
+moduÀ_pci_drivî
+(
+≥t_gpio_drivî
+);
+
+1236 
+MODULE_AUTHOR
+("Douglas Paulson <douglas.t.paulson@intel.com>");
+
+1237 
+MODULE_DESCRIPTION
+("PCIe Endpoint Test Driver");
+
+1238 
+MODULE_LICENSE
+("GPL v2");
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/pcitest.mod.c
+
+1 
+	~<löux/moduÀ.h
+>
+
+2 
+	~<löux/vîmagic.h
+>
+
+3 
+	~<löux/compûî.h
+>
+
+5 
+MODULE_INFO
+(
+vîmagic
+, 
+VERMAGIC_STRING
+);
+
+7 
+__visibÀ
+ 
+moduÀ
+ 
+__this_moduÀ
+
+
+8 
+__©åibuã__
+((
+£˘i⁄
+(".gnu.linkonce.this_module"))) = {
+
+9 .
+«me
+ = 
+KBUILD_MODNAME
+,
+
+10 .
+	göô
+ = 
+öô_moduÀ
+,
+
+11 #ifde‡
+CONFIG_MODULE_UNLOAD
+
+
+12 .
+	gexô
+ = 
+˛ónup_moduÀ
+,
+
+14 .
+	g¨ch
+ = 
+MODULE_ARCH_INIT
+,
+
+17 #ifde‡
+RETPOLINE
+
+
+18 
+MODULE_INFO
+(
+ªçﬁöe
+, "Y");
+
+21 c⁄° 
+	g__moduÀ_dïíds
+[]
+
+22 
+__u£d
+
+
+23 
+__©åibuã__
+((
+£˘i⁄
+(".modinfo"))) =
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/pcitest_orig.c
+
+1 
+	gcommô
+ 93e8786a0c1de204903057c1864a79a4c830ba19
+
+2 
+	gAuth‹
+: 
+M¨ek
+ 
+Bykowski
+ <
+m¨ek
+.
+bykowski
+@
+gmaû
+.
+com
+>
+
+3 
+D©e
+: 
+Fri
+ 
+Jun
+ 22 04:23:26 2018 -0500
+
+5 
+Upd©ög
+ .
+gôign‹e
+
+
+7 
+diff
+ --
+gô
+ 
+a
+/
+åunk
+/
+nuevo
+/
+≥rùhîÆs
+/
+pcõ
+/
+axm6732
+/
+asic
+-1.1/
+pcôe°
+/pcôe°.
+c
+ 
+b
+/trunk/nuevo/peripherals/pcie/axm6732/asic-1.1/pcitest/pcitest.c
+
+8 
+√w
+ 
+fûe
+ 
+mode
+ 100644
+
+9 
+ödex
+ 00000000..6bae2d22
+
+10 --- /
+dev
+/
+nuŒ
+
+
+11 +++ 
+b
+/
+åunk
+/
+nuevo
+/
+≥rùhîÆs
+/
+pcõ
+/
+axm6732
+/
+asic
+-1.1/
+pcôe°
+/pcôe°.
+c
+
+
+24 #deföê
+	#ITERATIONS
+ 25
+
+	)
+
+28 #ö˛udê
+	~<löux/øndom.h
+>
+
+31 #ö˛udê
+	~<löux/î∫o.h
+>
+
+32 #ö˛udê
+	~<löux/öô.h
+>
+
+33 #ö˛udê
+	~<löux/¶ab.h
+>
+
+34 #ö˛udê
+	~<löux/io.h
+>
+
+35 #ö˛udê
+	~<löux/úq.h
+>
+
+36 #ö˛udê
+	~<löux/öãºu±.h
+>
+
+37 #ö˛udê
+	~<löux/kî√l.h
+>
+
+38 #ö˛udê
+	~<löux/moduÀ.h
+>
+
+39 #ö˛udê
+	~<löux/pci.h
+>
+
+40 #ö˛udê
+	~<löux/∂©f‹m_devi˚.h
+>
+
+41 #ö˛udê
+	~<löux/of_úq.h
+>
+
+42 #ö˛udê
+	~<löux/dm´ngöe.h
+>
+
+43 #ö˛udê
+	~<löux/¸c32.h
+>
+
+44 #ö˛udê
+	~<löux/dñay.h
+>
+
+47 #deföê
+	#DRV_NAME
+ "pcõã°"
+
+	)
+
+48 #deföê
+	#NS
+ 1000000000
+
+	)
+
+50 +
+	s≥t_¥iv©e
+ {
+
+51 + 
+pci_dev
+ *
+	mpdev
+;
+
+52 + 
+__iomem
+ *
+	mb¨
+[5];
+
+53 + 
+size_t
+ 
+	mæí
+;
+
+54 + 
+	mªsu…
+[1024];
+
+57 #deföê
+	#¥_ªsu…
+(
+_≥t
+, 
+_fmt
+, ...) \
+
+58 + (
+_≥t
+)->
+æí
+ +
+	`•rötf
+(&(_≥t)->
+ªsu…
+[(_≥t)->æí], 
+_fmt
+, ## 
+__VA_ARGS__
+)
+
+	)
+
+63 #deföê
+	#BAR_MEM
+ 1
+
+	)
+
+64 #deföê
+	#BAR_OFFSET
+ 0
+
+	)
+
+65 #deföê
+	#BAR_SIZE
+ 0x100000
+
+	)
+
+66 #deföê
+	#BAR_OFFSET_2
+ 
+BAR_SIZE
+/2
+
+	)
+
+68 +
+	gã°size
+ = 16384;
+
+70 +
+ölöe
+ 
+u32
+ 
+gë_˙t‰q
+()
+
+72 +  
+¨ch_timî_gë_˙t‰q
+();
+
+75 +
+ölöe
+ 
+u64
+ 
+gë_˙ç˘
+()
+
+77 +  
+¨ch_cou¡î_gë_˙tv˘
+();
+
+81 +
+	gdma_ch™
+ *
+
+82 +
+ªque°_dma
+(
+dma_devi˚
+ **
+devp
+)
+
+84 + 
+dma_ˇp_mask_t
+ 
+	gmask
+;
+
+85 + 
+dma_ch™
+ *
+	gch™
+;
+
+87 + 
+dma_ˇp_zîo
+(
+mask
+);
+
+88 + 
+dma_ˇp_£t
+(
+DMA_MEMCPY
+, 
+mask
+);
+
+89 + 
+dma_ˇp_£t
+(
+DMA_SG
+, 
+mask
+);
+
+91 + 
+	gch™
+ = 
+dma_ªque°_ch™√l
+(
+mask
+, 
+NULL
+, NULL);
+
+92 + i‡(!
+	gch™
+)
+
+93 + 
+¥_îr
+("FailedÅoÑequest DMA channel\n");
+
+96 + *
+	gdevp
+ = 
+ch™
+->
+devi˚
+;
+
+98 +  
+	gch™
+;
+
+102 +
+ªÀa£_dma
+(
+dma_ch™
+ *
+ch™
+)
+
+104 + 
+dma_ªÀa£_ch™√l
+(
+ch™
+);
+
+108 +
+	gdma_cookõ_t
+
+
+109 + 
+dma_async_mem˝y_pg_to_pg
+(
+dma_ch™
+ *
+ch™
+, 
+∑ge
+ *
+de°_pg
+,
+
+110 + 
+de°_off
+, 
+∑ge
+ *
+§c_pg
+, 
+§c_off
+,
+
+111 + 
+size_t
+ 
+Àn
+)
+
+113 + 
+dma_devi˚
+ *
+	gdev
+ = 
+ch™
+->
+devi˚
+;
+
+114 + 
+dma_async_tx_des¸ùt‹
+ *
+	gtx
+;
+
+115 + 
+dm´ngöe_unm≠_d©a
+ *
+	gunm≠
+;
+
+116 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+117 + 
+	gÊags
+;
+
+118 + 
+	gunm≠
+ = 
+dm´ngöe_gë_unm≠_d©a
+(
+dev
+->dev, 2, 
+GFP_NOWAIT
+);
+
+119 + i‡(!
+	gunm≠
+)
+
+121 +  -
+	gENOMEM
+;
+
+123 + 
+	gunm≠
+->
+	gto_˙t
+ = 1;
+
+124 + 
+	gunm≠
+->
+	g‰om_˙t
+ = 1;
+
+125 + 
+	gunm≠
+->
+	gaddr
+[0] = 
+dma_m≠_∑ge
+(
+dev
+->dev, 
+§c_pg
+, 
+§c_off
+, 
+Àn
+,
+
+126 + 
+DMA_TO_DEVICE
+);
+
+127 + 
+	gunm≠
+->
+	gaddr
+[1] = 
+dma_m≠_∑ge
+(
+dev
+->dev, 
+de°_pg
+, 
+de°_off
+, 
+Àn
+,
+
+128 + 
+DMA_FROM_DEVICE
+);
+
+129 + 
+	gunm≠
+->
+	gÀn
+ = 
+Àn
+;
+
+130 + 
+	gÊags
+ = 
+DMA_CTRL_ACK
+;
+
+131 + 
+	gtx
+ = 
+dev
+->
+devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+unm≠
+->
+addr
+[1], unmap->addr[0],
+
+132 + 
+Àn
+, 
+Êags
+);
+
+134 + i‡(!
+	gtx
+) {
+
+135 + 
+dm´ngöe_unm≠_put
+(
+unm≠
+);
+
+136 +  -
+	gENOMEM
+;
+
+139 + 
+dma_£t_unm≠
+(
+tx
+, 
+unm≠
+);
+
+140 + 
+	gcookõ
+ = 
+tx
+->
+tx_submô
+(tx);
+
+141 + 
+dm´ngöe_unm≠_put
+(
+unm≠
+);
+
+143 + 
+¥ìm±_dißbÀ
+();
+
+144 + 
+__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+145 + 
+__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+146 + 
+¥ìm±_íabÀ
+();
+
+147 +  
+	gcookõ
+;
+
+150 +
+	gdma_cookõ_t
+
+
+151 +
+dma_async_mem˝y_pci_to_buf
+(
+dma_ch™
+ *
+ch™
+, *
+de°
+, 
+phys_addr_t
+ 
+§c
+, 
+size_t
+ 
+Àn
+)
+
+153 + 
+dma_devi˚
+ *
+	gdev
+ = 
+ch™
+->
+devi˚
+;
+
+154 + 
+dma_async_tx_des¸ùt‹
+ *
+	gtx
+;
+
+155 + 
+dma_addr_t
+ 
+	gdma_de°
+;
+
+156 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+157 + 
+	gÊags
+;
+
+159 + 
+	gdma_de°
+ = 
+dma_m≠_sögÀ
+(
+dev
+->dev, 
+de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+);
+
+160 + i‡(
+dma_m≠pög_îr‹
+(
+dev
+->dev, 
+dma_de°
+)) {
+
+161 +  -
+	gENOMEM
+;
+
+163 + 
+	gÊags
+ = 
+DMA_CTRL_ACK
+;
+
+165 + 
+	gtx
+ = 
+dev
+->
+devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+dma_de°
+, 
+§c
+, 
+Àn
+, 
+Êags
+);
+
+166 + i‡(!
+	gtx
+) {
+
+167 + 
+dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_FROM_DEVICE
+);
+
+168 +  -
+	gENOMEM
+;
+
+170 + 
+	gtx
+->
+	gˇŒback
+ = 
+NULL
+;
+
+172 + 
+	gcookõ
+ = 
+tx
+->
+tx_submô
+(tx);
+
+174 + 
+¥ìm±_dißbÀ
+();
+
+175 + 
+__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+176 + 
+__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+177 + 
+¥ìm±_íabÀ
+();
+
+178 +  
+	gcookõ
+;
+
+181 +
+	gdma_cookõ_t
+
+
+182 +
+dma_async_mem˝y_buf_to_pci
+(
+dma_ch™
+ *
+ch™
+, 
+phys_addr_t
+ 
+de°
+, *
+§c
+, 
+size_t
+ 
+Àn
+)
+
+184 + 
+dma_devi˚
+ *
+	gdev
+ = 
+ch™
+->
+devi˚
+;
+
+185 + 
+dma_async_tx_des¸ùt‹
+ *
+	gtx
+;
+
+186 + 
+dma_addr_t
+ 
+	gdma_§c
+;
+
+187 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+188 + 
+	gÊags
+;
+
+190 + 
+	gdma_§c
+ = 
+dma_m≠_sögÀ
+(
+dev
+->dev, 
+§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+192 + i‡(
+dma_m≠pög_îr‹
+(
+dev
+->dev, 
+dma_§c
+)) {
+
+193 +  -
+	gENOMEM
+;
+
+197 + 
+	gÊags
+ = 
+DMA_CTRL_ACK
+;
+
+199 + 
+	gtx
+ = 
+dev
+->
+devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+de°
+, 
+dma_§c
+, 
+Àn
+, 
+Êags
+);
+
+201 + i‡(!
+	gtx
+) {
+
+202 + 
+dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+203 +  -
+	gENOMEM
+;
+
+206 + 
+	gtx
+->
+	gˇŒback
+ = 
+NULL
+;
+
+208 + 
+	gcookõ
+ = 
+tx
+->
+tx_submô
+(tx);
+
+210 + 
+¥ìm±_dißbÀ
+();
+
+211 + 
+__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+212 + 
+__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+213 + 
+¥ìm±_íabÀ
+();
+
+215 +  
+	gcookõ
+;
+
+219 +
+	gdma_cookõ_t
+
+
+220 +
+dma_async_mem˝y_mem2mem
+(
+dma_ch™
+ *
+ch™
+, * 
+de°
+, *
+§c
+, 
+size_t
+ 
+Àn
+)
+
+222 + 
+dma_devi˚
+ *
+	gdev
+ = 
+ch™
+->
+devi˚
+;
+
+223 + 
+dma_async_tx_des¸ùt‹
+ *
+	gtx
+;
+
+224 + 
+dma_addr_t
+ 
+	gdma_§c
+;
+
+225 + 
+dma_addr_t
+ 
+	gdma_de°
+;
+
+226 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+227 + 
+	gÊags
+;
+
+230 + 
+	gdma_§c
+ = 
+dma_m≠_sögÀ
+(
+dev
+->dev, 
+§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+231 + 
+	gdma_de°
+ = 
+dma_m≠_sögÀ
+(
+dev
+->dev, 
+de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+232 + 
+	gÊags
+ = 
+DMA_CTRL_ACK
+;
+
+234 + 
+	gtx
+ = 
+dev
+->
+devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+dma_de°
+, 
+dma_§c
+, 
+Àn
+, 
+Êags
+);
+
+236 + i‡(!
+	gtx
+) {
+
+237 + 
+dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_§c
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+238 + 
+dma_unm≠_sögÀ
+(
+dev
+->dev, 
+dma_de°
+, 
+Àn
+, 
+DMA_TO_DEVICE
+);
+
+239 +  -
+	gENOMEM
+;
+
+242 + 
+	gtx
+->
+	gˇŒback
+ = 
+NULL
+;
+
+244 + 
+	gcookõ
+ = 
+tx
+->
+tx_submô
+(tx);
+
+246 + 
+¥ìm±_dißbÀ
+();
+
+247 + 
+__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+248 + 
+__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+249 + 
+¥ìm±_íabÀ
+();
+
+251 +  
+	gcookõ
+;
+
+254 +
+	gdma_cookõ_t
+
+
+255 +
+dma_async_mem˝y_ï_to_ï
+(
+dma_ch™
+ *
+ch™
+, 
+phys_addr_t
+ 
+de°
+,Öhys_addr_à
+§c
+, 
+size_t
+ 
+Àn
+)
+
+257 + 
+dma_devi˚
+ *
+	gdev
+ = 
+ch™
+->
+devi˚
+;
+
+258 + 
+dma_async_tx_des¸ùt‹
+ *
+	gtx
+;
+
+259 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+260 + 
+	gÊags
+;
+
+262 + 
+	gÊags
+ = 
+DMA_CTRL_ACK
+;
+
+264 + 
+	gtx
+ = 
+dev
+->
+devi˚_¥ï_dma_mem˝y
+(
+ch™
+, 
+de°
+, 
+§c
+, 
+Àn
+, 
+Êags
+);
+
+266 + i‡(!
+	gtx
+) {
+
+267 +  -
+	gENOMEM
+;
+
+270 + 
+	gtx
+->
+	gˇŒback
+ = 
+NULL
+;
+
+272 + 
+	gcookõ
+ = 
+tx
+->
+tx_submô
+(tx);
+
+274 + 
+¥ìm±_dißbÀ
+();
+
+275 + 
+__this_˝u_add
+(
+ch™
+->
+loˇl
+->
+byãs_å™s„ºed
+, 
+Àn
+);
+
+276 + 
+__this_˝u_öc
+(
+ch™
+->
+loˇl
+->
+mem˝y_cou¡
+);
+
+277 + 
+¥ìm±_íabÀ
+();
+
+279 +  
+	gcookõ
+;
+
+284 +
+ã°_mem˝y
+(
+≥t_¥iv©e
+ *
+≥t
+, 
+wrôe
+)
+
+286 + *
+	gbuf
+;
+
+287 + 
+u64
+ 
+	gt0
+,
+	gt1
+,
+	gñ≠£d
+;
+
+288 + 
+	gbuff£t
+ = 
+BAR_OFFSET
+;
+
+289 + 
+u64
+ 
+	gi
+=0, 
+	gavîage
+ = 0;
+
+291 + 
+	gbuf
+ = 
+kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+292 + i‡(!
+	gbuf
+)
+
+293 +  -
+	gENOMEM
+;
+
+294 + 
+mem£t
+(
+buf
+, 0, 
+ã°size
+);
+
+296 + 
+	gi
+ = 0; i < 
+	gITERATIONS
+; i++)
+
+298 + 
+	gt0
+ = 
+gë_˙ç˘
+();
+
+299 + i‡(
+	gwrôe
+)
+
+300 + 
+mem˝y
+((
+≥t
+->
+b¨
+[
+BAR_MEM
+] + 
+buff£t
+), 
+buf
+, 
+ã°size
+);
+
+302 + 
+mem˝y
+(
+buf
+, (
+≥t
+->
+b¨
+[
+BAR_MEM
+] + 
+buff£t
+), 
+ã°size
+);
+
+303 + 
+	gt1
+ = 
+gë_˙ç˘
+();
+
+306 + 
+	gavîage
+ +
+div_u64
+(
+NS
+*(
+t1
+-
+t0
+), 
+gë_˙t‰q
+());
+
+309 + 
+	gñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+311 + 
+¥_ªsu…
+(
+≥t
+, "memcpy_%s %d bytes %lluÇs crc32 %#x\n",
+
+312 + 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+, 
+¸c32
+(~0, 
+buf
+,Åestsize));
+
+314 + 
+k‰ì
+(
+buf
+);
+
+320 +
+ã°_dma
+(
+≥t_¥iv©e
+ *
+≥t
+, 
+wrôe
+)
+
+322 + *
+	gbuf
+;
+
+323 + *
+	gde°
+ = 
+NULL
+;
+
+324 + 
+u64
+ 
+	gt0
+,
+	gt1
+,
+	gñ≠£d
+;
+
+325 + 
+u64
+ 
+	gi
+=0, 
+	gavîage
+ = 0;
+
+326 + 
+dma_devi˚
+ *
+	gdev
+;
+
+327 + 
+dma_ch™
+ *
+	gch™
+;
+
+328 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+329 + 
+dma_°©us
+ 
+	g°©us
+;
+
+330 + 
+phys_addr_t
+ 
+	gboff£t
+ = 
+BAR_OFFSET
+;
+
+332 + 
+	gbuf
+ = 
+kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+334 + i‡(!
+	gbuf
+)
+
+335 +  -
+	gENOMEM
+;
+
+337 + 
+mem£t
+(
+buf
+, 0, 
+ã°size
+);
+
+339 + 
+	gch™
+ = 
+ªque°_dma
+(&
+dev
+);
+
+340 + 
+	gi
+ = 0; i < 
+	gITERATIONS
+; i++)
+
+343 + 
+	gt0
+ = 
+gë_˙ç˘
+();
+
+344 + i‡(
+	gwrôe
+)
+
+345 + 
+	gcookõ
+ = 
+dma_async_mem˝y_buf_to_pci
+(
+ch™
+, 
+boff£t
+ + 
+pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+buf
+, 
+ã°size
+);
+
+348 + 
+	gcookõ
+ = 
+dma_async_mem˝y_pci_to_buf
+(
+ch™
+, 
+buf
+, 
+boff£t
+ + 
+pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+ã°size
+);
+
+349 + 
+	g°©us
+ = 
+dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+350 + 
+	gt1
+ = 
+gë_˙ç˘
+();
+
+352 + 
+	gavîage
+ +
+div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+gë_˙t‰q
+());
+
+356 + 
+	gde°
+ = 
+i‹em≠
+(
+boff£t
++
+pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+ã°size
+);
+
+357 + if(
+	gde°
+ =
+NULL
+){
+
+358 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: UnableÅo map memoryÅo verifyÑesults, verification must be manual\n");
+
+362 + i‡(
+¸c32
+(~0, 
+buf
+, 
+ã°size
+Ë!¸c32(~0, 
+de°
+,Åestsize))
+
+363 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: CRC failed\n");
+
+365 + 
+iounm≠
+(
+de°
+);
+
+369 + 
+	gñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+370 + i‡(
+	g°©us
+ != 0) {
+
+371 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: DMA faûed, sètu†%d\n", 
+°©us
+);
+
+373 + 
+¥ötk
+(
+KERN_INFO
+ "dma_%s %d bytes %llu\n",
+
+374 + 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+);
+
+375 + 
+¥_ªsu…
+(
+≥t
+, "dma_%s %d bytes %lluÇs crc32 %#x\n",
+
+376 + 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+, 
+¸c32
+(~0, 
+buf
+,Åestsize));
+
+379 + 
+ªÀa£_dma
+(
+ch™
+);
+
+380 + 
+k‰ì
+(
+buf
+);
+
+386 +
+ã°_ï2ï
+(
+≥t_¥iv©e
+ *
+≥t
+, 
+wrôe
+)
+
+388 + 
+u64
+ 
+	gt0
+,
+	gt1
+,
+	gñ≠£d
+;
+
+389 + 
+u64
+ 
+	gi
+=0, 
+	gavîage
+ = 0;
+
+390 + 
+dma_devi˚
+ *
+	gdev
+;
+
+391 + 
+dma_ch™
+ *
+	gch™
+;
+
+392 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+393 + 
+dma_°©us
+ 
+	g°©us
+;
+
+394 + 
+phys_addr_t
+ 
+	gboff£t
+ = 
+BAR_OFFSET
+;
+
+395 + 
+phys_addr_t
+ 
+	gboff£t2
+ = 
+BAR_OFFSET_2
+;
+
+396 + *
+	g§c
+ = 
+NULL
+;
+
+397 + *
+	gde°
+ = 
+NULL
+;
+
+399 + 
+	gch™
+ = 
+ªque°_dma
+(&
+dev
+);
+
+401 + 
+	gi
+ = 0; i < 
+	gITERATIONS
+; i++)
+
+403 + 
+	gt0
+ = 
+gë_˙ç˘
+();
+
+404 + i‡(
+	gwrôe
+)
+
+405 + 
+	gcookõ
+ = 
+dma_async_mem˝y_ï_to_ï
+(
+ch™
+, 
+boff£t
++
+pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+boff£t2
++pci_ªsour˚_°¨t’ë->pdev, BAR_MEM), 
+ã°size
+);
+
+407 + 
+	gcookõ
+ = 
+dma_async_mem˝y_ï_to_ï
+(
+ch™
+, 
+boff£t2
++
+pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+boff£t
++pci_ªsour˚_°¨t’ë->pdev, BAR_MEM), 
+ã°size
+);
+
+408 + 
+	g°©us
+ = 
+dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+410 + 
+	gt1
+ = 
+gë_˙ç˘
+();
+
+412 + 
+	gavîage
+ +
+div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+gë_˙t‰q
+());
+
+414 + i‡(
+	g°©us
+ != 0) {
+
+415 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: DMA faûed, sètu†%d\n", 
+°©us
+);
+
+420 + 
+	g§c
+ = 
+i‹em≠
+(
+boff£t
++
+pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+ã°size
+);
+
+421 + 
+	gde°
+
+i‹em≠
+(
+boff£t2
++
+pci_ªsour˚_°¨t
+(
+≥t
+->
+pdev
+, 
+BAR_MEM
+), 
+ã°size
+);
+
+423 + if(
+	g§c
+ =
+NULL
+ || 
+de°
+ == NULL){
+
+424 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: UnableÅo map memoryÅo verifyÑesults, verification must be manual\n");
+
+428 + i‡(
+¸c32
+(~0, 
+§c
+, 
+ã°size
+Ë!¸c32(~0, 
+de°
+,Åestsize))
+
+429 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: CRC failed\n");
+
+433 + 
+	gñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+435 + 
+¥_ªsu…
+(
+≥t
+, "ep2ep_%s %d bytes %lluÇs\n",
+
+436 + 
+wrôe
+?"wrôe":"ªad", 
+ã°size
+, 
+ñ≠£d
+);
+
+438 + if(
+	g§c
+ !
+NULL
+)
+
+439 + 
+iounm≠
+(
+§c
+);
+
+440 + if(
+	gde°
+ !
+NULL
+)
+
+441 + 
+iounm≠
+(
+de°
+);
+
+443 + 
+ªÀa£_dma
+(
+ch™
+);
+
+450 +
+ã°_mem2mem
+(
+≥t_¥iv©e
+ *
+≥t
+)
+
+452 + *
+	g§c
+, *
+	gd°
+;
+
+453 + 
+u64
+ 
+	gt0
+,
+	gt1
+,
+	gñ≠£d
+;
+
+454 + 
+dma_devi˚
+ *
+	gdev
+;
+
+455 + 
+dma_ch™
+ *
+	gch™
+;
+
+456 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+457 + 
+dma_°©us
+ 
+	g°©us
+;
+
+458 + 
+u64
+ 
+	gi
+=0, 
+	gavîage
+ = 0;
+
+460 + 
+	g§c
+ = 
+kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+463 + i‡(!
+	g§c
+)
+
+464 +  -
+	gENOMEM
+;
+
+466 + 
+mem£t
+(
+§c
+, 0, 
+ã°size
+);
+
+468 + 
+	gd°
+ = 
+kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+469 + i‡(!
+	gd°
+)
+
+470 +  -
+	gENOMEM
+;
+
+472 + 
+	gch™
+ = 
+ªque°_dma
+(&
+dev
+);
+
+474 + 
+	gi
+ = 0; i < 
+	gITERATIONS
+; i++)
+
+476 + 
+	gt0
+ = 
+gë_˙ç˘
+();
+
+477 + 
+	gcookõ
+ = 
+dma_async_mem˝y_mem2mem
+(
+ch™
+, 
+d°
+, 
+§c
+, 
+ã°size
+);
+
+478 + 
+	g°©us
+ = 
+dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+479 + 
+	gt1
+ = 
+gë_˙ç˘
+();
+
+481 + 
+	gavîage
+ +
+div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+gë_˙t‰q
+());
+
+483 + i‡(
+	g°©us
+ != 0)
+
+485 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: DMA faûed, sètu†%d\n", 
+°©us
+);
+
+489 + i‡(
+¸c32
+(~0, 
+§c
+, 
+ã°size
+Ë!¸c32(~0, 
+d°
+,Åestsize))
+
+491 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: CRC failed\n");
+
+497 + 
+	gñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+499 + 
+¥_ªsu…
+(
+≥t
+, "mem2mem %d bytes %lluÇs crc32 %#x\n",
+
+500 + 
+ã°size
+, 
+ñ≠£d
+, 0);
+
+502 + 
+¥ötk
+(
+KERN_INFO
+ "mem2mem %d bytes %lluÇs crc32 %#x\n",
+
+503 + 
+ã°size
+, 
+ñ≠£d
+, 0);
+
+505 + 
+ªÀa£_dma
+(
+ch™
+);
+
+506 + 
+k‰ì
+(
+d°
+);
+
+507 + 
+k‰ì
+(
+§c
+);
+
+514 +
+ã°_mem˝y_ho°
+(
+≥t_¥iv©e
+ *
+≥t
+)
+
+516 + *
+	g§c
+, *
+	gd°
+;
+
+517 + 
+u64
+ 
+	gt0
+,
+	gt1
+,
+	gñ≠£d
+;
+
+518 + 
+u64
+ 
+	gi
+=0, 
+	gavîage
+ = 0;
+
+520 + 
+	g§c
+ = 
+kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+522 + i‡(!
+	g§c
+)
+
+523 +  -
+	gENOMEM
+;
+
+525 + 
+mem£t
+(
+§c
+, 0, 
+ã°size
+);
+
+527 + 
+	gd°
+ = 
+kmÆloc
+(
+ã°size
+, 
+GFP_KERNEL
+);
+
+528 + i‡(!
+	gd°
+)
+
+529 +  -
+	gENOMEM
+;
+
+531 + 
+	gi
+ = 0; i < 
+	gITERATIONS
+; i++)
+
+533 + 
+	gt0
+ = 
+gë_˙ç˘
+();
+
+534 + 
+mem˝y
+ (
+§c
+, 
+d°
+, 
+ã°size
+);
+
+535 + 
+	gt1
+ = 
+gë_˙ç˘
+();
+
+537 + 
+	gavîage
+ +
+div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+gë_˙t‰q
+());
+
+539 + i‡(
+¸c32
+(~0, 
+§c
+, 
+ã°size
+Ë!¸c32(~0, 
+d°
+,Åestsize))
+
+541 + 
+¥_ªsu…
+(
+≥t
+, "ERROR: CRC failed\n");
+
+547 + 
+	gñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+549 + 
+¥_ªsu…
+(
+≥t
+, "memcpy %d bytes %lluÇs crc32 %#x\n",
+
+550 + 
+ã°size
+, 
+ñ≠£d
+, 0);
+
+552 + 
+¥ötk
+(
+KERN_INFO
+ "memcpy %d bytes %lluÇs crc32 %#x\n",
+
+553 + 
+ã°size
+, 
+ñ≠£d
+, 0);
+
+555 + 
+k‰ì
+(
+d°
+);
+
+556 + 
+k‰ì
+(
+§c
+);
+
+561 +
+ã°_time
+()
+
+563 + 
+u64
+ 
+	gt0
+,
+	gt1
+;
+
+564 + 
+	gt0
+ = 
+gë_˙ç˘
+();
+
+565 + 
+m¶ìp
+(10000);
+
+566 + 
+	gt1
+ = 
+gë_˙ç˘
+();
+
+567 + 
+¥ötk
+(
+KERN_INFO
+ "Sleep 10 seconds, measuredÉlapsedÅime %llu us\n",
+
+568 + 
+div_u64
+(1000000*(
+t1
+-
+t0
+), 
+gë_˙t‰q
+()));
+
+574 +
+ssize_t
+ 
+	g__ªf
+
+
+575 +
+show_ã°
+(
+devi˚
+ *
+dev
+, 
+devi˚_©åibuã
+ *
+©å
+,
+
+576 + *
+buf
+)
+
+578 + 
+°r˝y
+(
+buf
+, "memcpy_read memcpy_write dma_read memcpy dma_write mem2memÉp2ep_readÉp2ep_write\n");
+
+579 +  
+°æí
+(
+buf
+);
+
+588 +
+sˇâî_buf„r
+(*
+buf
+, 
+size_t
+ 
+Àn
+, 
+sˇâîli°
+ *
+sg
+, size_à
+max_íts
+)
+
+590 + 
+size_t
+ 
+	gn
+;
+
+591 + 
+size_t
+ 
+	gchunk
+;
+
+592 + 
+size_t
+ 
+	gªmaö
+ = 
+Àn
+;
+
+594 + 
+	gn
+ = 0;Ç < 
+	gmax_íts
+ && 
+	gªmaö
+ > 0; ++n) {
+
+595 + i‡(
+	gn
+ =
+max_íts
+ - 1) {
+
+596 + 
+chunk
+ = 
+ªmaö
+;
+
+598 + 
+	gchunk
+ = 1 + (
+gë_øndom_öt
+(Ë% 
+ªmaö
+);
+
+599 + 
+	gchunk
+ = 
+mö_t
+(
+size_t
+, 
+ªmaö
+, 
+chunk
+);
+
+601 + 
+sg_£t_buf
+(&
+sg
+[
+n
+], 
+buf
+, 
+chunk
+);
+
+602 + 
+	gbuf
+ +
+chunk
+;
+
+603 + 
+	gªmaö
+ -
+chunk
+;
+
+606 +  
+	gn
+;
+
+610 +
+	gdma_cookõ_t
+
+
+611 +
+dma_async_mem˝y_sg_to_sg
+(
+dma_ch™
+ *
+ch™
+,
+
+612 + 
+sˇâîli°
+ *
+d°_sg
+, 
+d°_√¡s
+,
+
+613 + 
+sˇâîli°
+ *
+§c_sg
+, 
+§c_√¡s
+)
+
+616 + 
+dma_devi˚
+ *
+	gdev
+ = 
+ch™
+->
+devi˚
+;
+
+617 + 
+dma_async_tx_des¸ùt‹
+ *
+	gtx
+;
+
+618 + 
+	gd°_≥¡s
+, 
+	g§c_≥¡s
+;
+
+619 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+621 + 
+	gd°_≥¡s
+ = 
+dma_m≠_sg
+(
+dev
+->dev, 
+d°_sg
+, 
+d°_√¡s
+, 
+DMA_BIDIRECTIONAL
+);
+
+622 + i‡(
+	gd°_≥¡s
+ == 0) {
+
+623 + 
+¥_îr
+("dma_async_memcpy_sg_to_sg: FailedÅo map sg)\n");
+
+624 +  -
+	gEINVAL
+;
+
+627 + 
+	g§c_≥¡s
+ = 
+dma_m≠_sg
+(
+dev
+->dev, 
+§c_sg
+, 
+§c_√¡s
+, 
+DMA_BIDIRECTIONAL
+);
+
+628 + i‡(
+	g§c_≥¡s
+ == 0) {
+
+629 + 
+¥_îr
+("dma_async_memcpy_sg_to_sg: FailedÅo map sg\n");
+
+630 +  -
+	gEINVAL
+;
+
+633 + 
+	gtx
+ = 
+dev
+->
+devi˚_¥ï_dma_sg
+(
+ch™
+,
+
+634 + 
+d°_sg
+, 
+d°_≥¡s
+,
+
+635 + 
+§c_sg
+, 
+§c_≥¡s
+,
+
+636 + 
+DMA_CTRL_ACK
+);
+
+637 + i‡(!
+	gtx
+) {
+
+638 + 
+dma_unm≠_sg
+(
+dev
+->dev, 
+d°_sg
+, 
+d°_√¡s
+, 
+DMA_BIDIRECTIONAL
+);
+
+639 + 
+dma_unm≠_sg
+(
+dev
+->dev, 
+§c_sg
+, 
+§c_√¡s
+, 
+DMA_BIDIRECTIONAL
+);
+
+640 +  -
+	gENOMEM
+;
+
+643 + 
+	gtx
+->
+	gˇŒback
+ = 
+NULL
+;
+
+645 + 
+	gcookõ
+ = 
+tx
+->
+tx_submô
+(tx);
+
+647 +  
+	gcookõ
+;
+
+651 +
+kmÆloc_zîo
+(
+size_t
+ 
+Àn
+)
+
+653 +  
+kzÆloc
+(
+Àn
+, 
+GFP_KERNEL
+);
+
+657 +
+kmÆloc_∑âîn
+(
+size_t
+ 
+Àn
+)
+
+659 + 
+u32
+ 
+	g£ed
+ = 
+Àn
+;
+
+660 + 
+u8
+ *
+	gbuf
+;
+
+661 + 
+size_t
+ 
+	gi
+;
+
+663 + 
+	gbuf
+ = 
+kmÆloc
+(
+Àn
+, 
+GFP_KERNEL
+);
+
+664 + i‡(
+	gbuf
+) {
+
+665 + 
+	gi
+ = 0; i < 
+	gÀn
+; ++i) {
+
+666 + 
+	g£ed
+ = 
+√xt_p£udo_øndom32
+(
+£ed
+);
+
+667 + 
+	gbuf
+[
+i
+] = 
+£ed
+ & 0xff;
+
+671 +  
+	gbuf
+;
+
+676 +
+ã°_sg2sg
+(
+≥t_¥iv©e
+ *
+≥t
+)
+
+678 + *
+	g§c
+, *
+	gd°
+;
+
+679 + 
+u64
+ 
+	gt0
+,
+	gt1
+,
+	gñ≠£d
+;
+
+680 + 
+u64
+ 
+	gi
+=0, 
+	gavîage
+ = 0;
+
+681 + 
+dma_devi˚
+ *
+	gdev
+;
+
+682 + 
+dma_ch™
+ *
+	gch™
+;
+
+683 + 
+dma_cookõ_t
+ 
+	gcookõ
+;
+
+684 + 
+dma_°©us
+ 
+	g°©us
+;
+
+685 + 
+sˇâîli°
+ 
+	gd°_sg
+[16], 
+	g§c_sg
+[16];
+
+686 + 
+	gd°_√¡s
+, 
+	g§c_√¡s
+;
+
+687 + 
+	gªsu…
+;
+
+689 + 
+	g§c
+ = 
+kmÆloc_∑âîn
+(
+ã°size
+);
+
+690 + 
+	gd°
+ = 
+kmÆloc_zîo
+(
+ã°size
+);
+
+691 + i‡(!
+	g§c
+ || !
+	gd°
+)
+
+692 +  -
+	gENOMEM
+;
+
+695 + 
+sg_öô_èbÀ
+(
+§c_sg
+, 
+ARRAY_SIZE
+(src_sg));
+
+696 + 
+	g§c_√¡s
+ = 
+sˇâî_buf„r
+(
+§c
+, 
+ã°size
+, 
+§c_sg
+, 
+ARRAY_SIZE
+(src_sg));
+
+697 + 
+sg_öô_èbÀ
+(
+d°_sg
+, 
+ARRAY_SIZE
+(dst_sg));
+
+698 + 
+	gd°_√¡s
+ = 
+sˇâî_buf„r
+(
+d°
+, 
+ã°size
+, 
+d°_sg
+, 
+ARRAY_SIZE
+(dst_sg));
+
+701 + 
+	gch™
+ = 
+ªque°_dma
+(&
+dev
+);
+
+702 + i‡(!
+	gch™
+) {
+
+703 + 
+¥_ªsu…
+(
+≥t
+, "sg2sg:Ñequest dma failed\n");
+
+704 + 
+	g˛ónup
+;
+
+707 + 
+	gi
+ = 0; i < 
+	gITERATIONS
+; i++)
+
+709 + 
+	gt0
+ = 
+gë_˙ç˘
+();
+
+711 + 
+	gcookõ
+ = 
+dma_async_mem˝y_sg_to_sg
+(
+ch™
+, 
+d°_sg
+, 
+d°_√¡s
+, 
+§c_sg
+, 
+§c_√¡s
+);
+
+712 + i‡(
+	gcookõ
+ < 0) {
+
+713 + 
+¥_ªsu…
+(
+≥t
+, "sg2sg: dm®¥ï faûed,Éº‹ %d\n", 
+cookõ
+);
+
+714 + 
+	g˛ónup
+;
+
+716 + 
+	g°©us
+ = 
+dma_sync_waô
+(
+ch™
+, 
+cookõ
+);
+
+718 + 
+	gt1
+ = 
+gë_˙ç˘
+();
+
+720 + 
+	gavîage
+ +
+div_u64
+(
+NS
+ * (
+t1
+-
+t0
+), 
+gë_˙t‰q
+());
+
+722 + i‡(
+	g°©us
+ != 0) {
+
+723 + 
+¥_ªsu…
+(
+≥t
+, "sg2sg: dm®Áûed, sètu†%d\n", 
+°©us
+);
+
+724 + 
+	g˛ónup
+;
+
+728 + 
+	gñ≠£d
+ = 
+avîage
+/
+ITERATIONS
+;
+
+730 + 
+¥_ªsu…
+(
+≥t
+, "sg2sg sgli° %d -> %d\n", 
+§c_√¡s
+, 
+d°_√¡s
+);
+
+731 + 
+¥_ªsu…
+(
+≥t
+, "sg2sg %6d bytes %lluÇs\n",
+
+732 + 
+ã°size
+, 
+ñ≠£d
+);
+
+734 +
+	g˛ónup
+:
+
+735 + 
+ªsu…
+ = 
+memcmp
+(
+§c
+, 
+d°
+, 
+ã°size
+);
+
+736 + 
+¥_ªsu…
+(
+≥t
+, "sg2sg: %s\n", 
+ªsu…
+ == 0 ? "PASS" : "FAIL");
+
+737 + 
+ªÀa£_dma
+(
+ch™
+);
+
+738 + 
+k‰ì
+(
+d°
+);
+
+739 + 
+k‰ì
+(
+§c
+);
+
+741 +  
+	gªsu…
+ ? -
+	gEINVAL
+ : 0;
+
+745 +
+ssize_t
+ 
+	g__ªf
+
+
+746 +
+run_ã°
+(
+devi˚
+ *
+dev
+, 
+devi˚_©åibuã
+ *
+©å
+,
+
+747 + c⁄° *
+buf
+, 
+size_t
+ 
+cou¡
+)
+
+749 + 
+≥t_¥iv©e
+ *
+	g≥t
+ = 
+dev_gë_drvd©a
+(
+dev
+);
+
+750 + 
+ssize_t
+ 
+	gªt
+ = 0;
+
+752 + 
+	g≥t
+->
+	gæí
+ = 0;
+
+754 + i‡(!
+	g≥t
+->
+	gb¨
+[
+BAR_MEM
+])
+
+755 +  -
+	gENODEV
+;
+
+757 + i‡(0 =
+°∫cmp
+(
+buf
+, "memcpy_read", 10))
+
+758 + 
+	gªt
+ = 
+ã°_mem˝y
+(
+≥t
+, 0);
+
+759 + i‡(0 =
+°∫cmp
+(
+buf
+, "memcpy_write", 10))
+
+760 + 
+	gªt
+ = 
+ã°_mem˝y
+(
+≥t
+, 1);
+
+761 + i‡(0 =
+°∫cmp
+(
+buf
+, "dma_read", 5))
+
+762 + 
+	gªt
+ = 
+ã°_dma
+(
+≥t
+, 0);
+
+763 + i‡(0 =
+°∫cmp
+(
+buf
+, "sg2sg", 5))
+
+764 + 
+	gªt
+ = 
+ã°_sg2sg
+(
+≥t
+);
+
+765 + i‡(0 =
+°∫cmp
+(
+buf
+, "dma_write", 5))
+
+766 + 
+	gªt
+ = 
+ã°_dma
+(
+≥t
+, 1);
+
+767 + i‡(0 =
+°∫cmp
+(
+buf
+, "mem2mem", 5))
+
+768 + 
+	gªt
+ = 
+ã°_mem2mem
+(
+≥t
+);
+
+769 + i‡(0 =
+°∫cmp
+(
+buf
+, "memcpy", 5))
+
+770 + 
+	gªt
+ = 
+ã°_mem˝y_ho°
+(
+≥t
+);
+
+771 + i‡(0 =
+°∫cmp
+(
+buf
+, "ep2ep_read", 10))
+
+772 + 
+	gªt
+ = 
+ã°_ï2ï
+(
+≥t
+, 0);
+
+773 + i‡(0 =
+°∫cmp
+(
+buf
+, "ep2ep_write", 10))
+
+774 + 
+	gªt
+ = 
+ã°_ï2ï
+(
+≥t
+, 1);
+
+775 + i‡(0 =
+°∫cmp
+(
+buf
+, "time", 4))
+
+776 + 
+	gªt
+ = 
+ã°_time
+();
+
+778 + 
+	gªt
+ = -
+EINVAL
+;
+
+780 +  
+	gªt
+ < 0 ?Ñë : 
+cou¡
+;
+
+783 +
+ssize_t
+ 
+	g__ªf
+
+
+784 +
+show_ªsu…
+(
+devi˚
+ *
+dev
+, 
+devi˚_©åibuã
+ *
+©å
+, *
+buf
+)
+
+786 + 
+≥t_¥iv©e
+ *
+	g≥t
+ = 
+dev_gë_drvd©a
+(
+dev
+);
+
+788 + 
+mem˝y
+(
+buf
+, 
+≥t
+->
+ªsu…
+,Öë->
+æí
+);
+
+789 +  
+°æí
+(
+buf
+);
+
+795 +
+dißbÀ_PCIe_Securôy
+()
+
+797 + 
+__iomem
+ *
+	gvútuÆ_addr
+=
+i‹em≠
+(0xa000400000, 0x20);
+
+799 + 
+wrôñ
+(1, (*)(
+vútuÆ_addr
+ + 8));
+
+800 + 
+wrôñ
+(1, (*)(
+vútuÆ_addr
+ + 0xc));
+
+801 + 
+wrôñ
+(1, (*)(
+vútuÆ_addr
+ + 0x10));
+
+803 + 
+¥ötk
+(
+KERN_NOTICE
+ "\nPEI0,1,2 AMIB Security setÅoÖassÅhrough");
+
+806 +
+DEVICE_INT_ATTR
+(
+ã°size
+, 0644,Åestsize);
+
+807 +
+DEVICE_ATTR
+(
+ã°ˇ£
+, 0644, 
+show_ã°
+, 
+run_ã°
+);
+
+808 +
+DEVICE_ATTR
+(
+ªsu…
+, 0444, 
+show_ªsu…
+, 
+NULL
+);
+
+811 +
+≥t_¥obe
+(
+pci_dev
+ *
+pdev
+, c⁄° 
+pci_devi˚_id
+ *
+pci_id
+)
+
+813 + 
+≥t_¥iv©e
+ *
+	g≥t
+;
+
+814 + 
+	gb¨
+;
+
+815 + 
+	gªt
+;
+
+817 + 
+	g≥t
+ = 
+kzÆloc
+((
+≥t_¥iv©e
+), 
+GFP_KERNEL
+);
+
+818 + i‡(!
+	g≥t
+)
+
+819 +  -
+	gENOMEM
+;
+
+821 + 
+	gªt
+ = 
+pci_íabÀ_devi˚
+(
+pdev
+);
+
+822 + i‡(
+	gªt
+) {
+
+823 + 
+dev_îr
+(&
+pdev
+->
+dev
+, "can'tÉnable device.\n");
+
+824 + 
+	gd⁄e
+;
+
+827 + 
+	gªt
+ = 
+pci_ªque°_ªgi⁄s
+(
+pdev
+, 
+KBUILD_MODNAME
+);
+
+828 + i‡(
+	gªt
+) {
+
+829 + 
+dev_îr
+(&
+pdev
+->
+dev
+, "pci_ªque°_ªgi⁄†FAILED-%d", 
+ªt
+);
+
+830 + 
+	gdißbÀ_pci
+;
+
+833 + i‡(
+dma_£t_mask_™d_cohîít
+(&
+pdev
+->
+dev
+, 
+DMA_BIT_MASK
+(64))) {
+
+834 + 
+dev_w¨n
+(&
+pdev
+->
+dev
+, "mydev: No suitable DMAávailable\n");
+
+835 + 
+	gdißbÀ_pci
+;
+
+839 + 
+	gb¨
+ = 0; b¨ < 
+ARRAY_SIZE
+(
+≥t
+->
+b¨
+); bar++) {
+
+840 + 
+	g≥t
+->
+	gb¨
+[
+b¨
+] = 
+pci_iom≠
+(
+pdev
+, bar, 0);
+
+843 + i‡(
+	g≥t
+->
+	gb¨
+[
+BAR_MEM
+] == 0) {
+
+844 + 
+dev_îr
+(&
+pdev
+->
+dev
+, "UnableÅo map PCI memory space\n");
+
+845 + 
+	gªÀa£_ªg
+;
+
+848 + 
+	g≥t
+->
+	gpdev
+ = 
+pdev
+;
+
+849 + 
+pci_£t_drvd©a
+(
+pdev
+, 
+≥t
+);
+
+850 + 
+dev_öfo
+(&
+pdev
+->
+dev
+, "PCIe Enpoint Test DriverÑegistered.\n");
+
+852 + 
+devi˚_¸óã_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ã°ˇ£
+);
+
+853 + 
+devi˚_¸óã_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ã°size
+.
+©å
+);
+
+854 + 
+devi˚_¸óã_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ªsu…
+);
+
+856 + 
+dißbÀ_PCIe_Securôy
+();
+
+860 +
+	gªÀa£_ªg
+:
+
+861 + 
+pci_ªÀa£_ªgi⁄s
+(
+pdev
+);
+
+862 +
+	gdißbÀ_pci
+:
+
+863 + 
+pci_dißbÀ_devi˚
+(
+pdev
+);
+
+864 +
+	gd⁄e
+:
+
+865 + 
+k‰ì
+(
+≥t
+);
+
+866 + 
+dev_öfo
+(&
+pdev
+->
+dev
+, "ProbêÁûed (%d)\n", 
+ªt
+);
+
+867 +  
+	gªt
+;
+
+872 +
+≥t_ªmove
+(
+pci_dev
+ *
+pdev
+)
+
+874 + 
+≥t_¥iv©e
+ *
+	g≥t
+ = 
+pci_gë_drvd©a
+(
+pdev
+);
+
+875 + 
+	gi
+;
+
+877 + 
+pci_ªÀa£_ªgi⁄s
+(
+pdev
+);
+
+878 + 
+	gi
+ = 0; i<
+ARRAY_SIZE
+(
+≥t
+->
+b¨
+); ++i)
+
+879 + i‡(
+	g≥t
+->
+	gb¨
+[
+i
+])
+
+880 + 
+iounm≠
+(
+≥t
+->
+b¨
+[
+i
+]);
+
+881 + 
+devi˚_ªmove_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ã°ˇ£
+);
+
+882 + 
+devi˚_ªmove_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ã°size
+.
+©å
+);
+
+883 + 
+devi˚_ªmove_fûe
+(&
+pdev
+->
+dev
+, &
+dev_©å_ªsu…
+);
+
+884 + 
+pci_dißbÀ_devi˚
+(
+pdev
+);
+
+885 + 
+k‰ì
+(
+≥t
+);
+
+888 +
+pci_devi˚_id
+ 
+	g≥t_pci_ids
+[] = {
+
+890 + { 
+PCI_DEVICE
+(0x10b5, 0x87a0) },
+
+914 +
+pci_drivî
+ 
+	g≥t_gpio_drivî
+ = {
+
+915 + .
+«me
+ = 
+DRV_NAME
+,
+
+916 + .
+	gid_èbÀ
+ = 
+≥t_pci_ids
+,
+
+917 + .
+	g¥obe
+ = 
+≥t_¥obe
+,
+
+918 + .
+	gªmove
+ = 
+≥t_ªmove
+,
+
+921 +
+moduÀ_pci_drivî
+(
+≥t_gpio_drivî
+);
+
+924 +
+MODULE_AUTHOR
+("Douglas Paulson <douglas.t.paulson@intel.com>");
+
+925 +
+MODULE_DESCRIPTION
+("PCIe Endpoint Test Driver");
+
+926 +
+MODULE_LICENSE
+("GPL v2");
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/see_dma_map_unmap_par_el1_dump.txt
+
+3 
+	gPU
+: 0 
+PID
+: 3828 
+Comm
+: 
+dm©e°_fuŒ
+.
+sh
+ 
+Taöãd
+: 
+G
+ 
+W
+ 
+O
+ 4.9.82-
+π61
+ #47
+
+4 
+H¨dw¨e
+ 
+«me
+: 
+	$Li⁄fish
+ (
+DT
+)
+
+5 
+èsk
+: 
+ffffffc072331c00
+Åask.
+°ack
+: 
+ffffffc074a9c000
+
+
+6 
+PC
+ 
+is
+ 
+©
+ 
+add_dma_íåy
++0x12c/0x150
+
+7 
+LR
+ 
+is
+ 
+©
+ 
+add_dma_íåy
++0x12c/0x150
+
+8 
+pc
+ : [<
+ffffff800840c18c
+>] 
+Ã
+ : [<ffffff800840c18c>] 
+p°©e
+: 80000145
+
+9 
+•
+ : 
+ffffffc074a9fb70
+
+
+10 
+x29
+: 
+ffffffc074a9fb70
+ 
+x28
+: 
+ffffff8008c5ff50
+
+
+11 
+x27
+: 
+ffffffc077446528
+ 
+x26
+: 0000000000000002
+
+12 
+x25
+: 0000000000000001 
+x24
+: 0000000000000040
+
+13 
+x23
+: 
+ffffff8008bab000
+ 
+x22
+: 
+ffffff8008babb50
+
+
+14 
+x21
+: 
+ffffff8008babac8
+ 
+x20
+: 00000000ffffffef
+
+15 
+x19
+: 0000000000100ac0 
+x18
+: 0000000000000070
+
+16 
+x17
+: 0000000000000040 
+x16
+: 0000000000001400
+
+17 
+x15
+: 0000000000000010 
+x14
+: 3030303030303030
+
+18 
+x13
+: 783020656e696c65 
+x12
+: 6863616320666f20
+
+19 
+x11
+: 73676e697070616d 
+x10
+: 20676e697070616c
+
+20 
+x9
+ : 00000000000002˚ 
+x8
+ : 6564656563786520
+
+21 
+x7
+ : 3a4950412d414d44 
+x6
+ : 0000000000000000
+
+22 
+x5
+ : 0000000000000000 
+x4
+ : 0000000000000000
+
+23 
+x3
+ : 0000000000000002 
+x2
+ : 0000000000000001
+
+24 
+x1
+ : 0000000000000208 
+x0
+ : 0000000000000048
+
+26 ---[ 
+íd
+ 
+åa˚
+ 0000000000000003 ]---
+
+27 
+CÆl
+ 
+åa˚
+:
+
+28 
+Ex˚±i⁄
+ 
+	$°ack
+(0xffffffc074a9f990 
+to
+ 0xffffffc074a9fac0)
+
+29 
+f980
+: 0000000000100ac0 0000008000000000
+
+30 
+f9a0
+: 
+ffffffc074a9fb70
+ 
+ffffff800840c18c
+ 0000000080000145 000000000000003d
+
+31 
+f9c0
+: 0000000000000048 
+ffffff8008967300
+ 
+ffffffc074a9Á70
+ 
+ffffff800811d6e8
+
+
+32 
+f9e0
+: 
+ffffffc074a9Ád0
+ 
+ffffff800898f8e0
+ 
+ffffff8008babac8
+ 
+ffffff8008babb50
+
+
+33 
+Á00
+: 
+ffffff8008bab000
+ 0000000000000040 0000000000000001 0000000000000002
+
+34 
+Á20
+: 
+ffffffc077446528
+ 
+ffffff8008c5ff50
+ 
+ffffff8008b88e38
+ 
+ffffff8008c14870
+
+
+35 
+Á40
+: 0000000000000048 0000000000000208 0000000000000001 0000000000000002
+
+36 
+Á60
+: 0000000000000000 0000000000000000 0000000000000000 3a4950412d414d44
+
+37 
+Á80
+: 6564656563786520 00000000000002ce 20676e697070616c 73676e697070616d
+
+38 
+Áa0
+: 6863616320666f20 783020656e696c65 3030303030303030 0000000000000010
+
+39 [<
+ffffff800840c18c
+>] 
+add_dma_íåy
++0x12c/0x150
+
+40 [<
+ffffff800840c2c0
+>] 
+debug_dma_m≠_∑ge
++0x110/0x148
+
+41 [<
+ffffff80007c7cd8
+>] 
+ã°_dma
++0x3e8/0x780 [
+pcôe°
+]
+
+42 [<
+ffffff80007c9094
+>] 
+run_ã°
++0x1e4/0xac0 [
+pcôe°
+]
+
+43 [<
+ffffff80084c27ac
+>] 
+dev_©å_°‹e
++0x44/0x60
+
+44 [<
+ffffff80082b6184
+>] 
+sysfs_kf_wrôe
++0x5c/0x78
+
+45 [<
+ffffff80082b5410
+>] 
+kînfs_f›_wrôe
++0xb8/0x1d8
+
+46 [<
+ffffff8008236418
+>] 
+__vfs_wrôe
++0x48/0x90
+
+47 [<
+ffffff800823732c
+>] 
+vfs_wrôe
++0xa4/0x1b8
+
+48 [<
+ffffff8008238904
+>] 
+SyS_wrôe
++0x54/0xb0
+
+49 [<
+ffffff8008082f8c
+>] 
+__sys_åa˚_ªtu∫
++0x0/0x4
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/testzone.c
+
+13 
+	~<löux/øndom.h
+>
+
+14 
+	~<löux/î∫o.h
+>
+
+15 
+	~<löux/öô.h
+>
+
+16 
+	~<löux/¶ab.h
+>
+
+17 
+	~<löux/io.h
+>
+
+18 
+	~<löux/úq.h
+>
+
+19 
+	~<löux/öãºu±.h
+>
+
+20 
+	~<löux/kî√l.h
+>
+
+21 
+	~<löux/moduÀ.h
+>
+
+22 
+	~<löux/pci.h
+>
+
+23 
+	~<löux/∂©f‹m_devi˚.h
+>
+
+24 
+	~<löux/of_úq.h
+>
+
+25 
+	~<löux/dm´ngöe.h
+>
+
+26 
+	~<löux/¸c32.h
+>
+
+27 
+	~<löux/dñay.h
+>
+
+28 
+	~<löux/highmem.h
+>
+
+33 *
+	gbuf
+[24] = {0};
+
+34 
+size_t
+ 
+	gsize
+[24] =
+
+74 
+	$Æloc_öô
+()
+
+76 
+gÂ_t
+ 
+gÂÊags
+ = 
+GFP_DMA32
+ ;
+
+77 
+i
+;
+
+79 
+i
+=0; i<
+	`ARRAY_SIZE
+(
+buf
+); i++) {
+
+81 i‡(
+size
+[
+i
+] == 0) ;
+
+82 
+buf
+[
+i
+] = 
+	`kmÆloc
+(
+size
+[i],
+gÂÊags
+);
+
+85 if(!
+buf
+[
+i
+]) {
+
+87 
+	`¥_îr
+("memoryállocation failed\n");
+
+88  -
+ENOMEM
+;
+
+90 
+	`¥_öfo
+("Address 0x%p (v:0x%p) (size %lu) %pGg(0x%x)\n",
+
+91 (*)
+	`vút_to_phys
+(
+buf
+[
+i
+]), buf[i], 
+size
+[i], &
+gÂÊags
+, gfpflags);
+
+101 
+	}
+}
+
+103 
+	$Æloc_exô
+()
+
+105 
+i
+;
+
+106 
+i
+=0; i<
+	`ARRAY_SIZE
+(
+buf
+); i++) {
+
+107 i‡(
+size
+[
+i
+] == 0) ;
+
+108 
+	`k‰ì
+(
+buf
+[
+i
+]);
+
+109 
+	`¥_öfo
+("Memory freed\n");
+
+111 
+	`¥_öfo
+("moduÀ %†ªmoved\n", 
+__FILE__
+);
+
+112 
+	}
+}
+
+114 
+moduÀ_öô
+(
+Æloc_öô
+);
+
+115 
+moduÀ_exô
+(
+Æloc_exô
+);
+
+117 
+MODULE_AUTHOR
+("mb:");
+
+118 
+MODULE_DESCRIPTION
+("Test dma32állocation");
+
+119 
+MODULE_LICENSE
+("GPL v2");
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/testzone.mod.c
+
+1 
+	~<löux/moduÀ.h
+>
+
+2 
+	~<löux/vîmagic.h
+>
+
+3 
+	~<löux/compûî.h
+>
+
+5 
+MODULE_INFO
+(
+vîmagic
+, 
+VERMAGIC_STRING
+);
+
+7 
+__visibÀ
+ 
+moduÀ
+ 
+__this_moduÀ
+
+
+8 
+__©åibuã__
+((
+£˘i⁄
+(".gnu.linkonce.this_module"))) = {
+
+9 .
+«me
+ = 
+KBUILD_MODNAME
+,
+
+10 .
+	göô
+ = 
+öô_moduÀ
+,
+
+11 #ifde‡
+CONFIG_MODULE_UNLOAD
+
+
+12 .
+	gexô
+ = 
+˛ónup_moduÀ
+,
+
+14 .
+	g¨ch
+ = 
+MODULE_ARCH_INIT
+,
+
+17 #ifde‡
+RETPOLINE
+
+
+18 
+MODULE_INFO
+(
+ªçﬁöe
+, "Y");
+
+21 c⁄° 
+	g__moduÀ_dïíds
+[]
+
+22 
+__u£d
+
+
+23 
+__©åibuã__
+((
+£˘i⁄
+(".modinfo"))) =
+
+	@/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/uboot_l3_lock.txt
+
+1 #dum∞
+l3
+ 
+lock
+ 
+ªgi°îs
+ 
+‰om
+ 
+CCN
+
+
+2 
+	gmd
+.
+	gq
+ 0x4000200040 5
+
+	@/usr/include/linux/errno.h
+
+1 #i‚de‡
+_LINUX_ERRNO_H
+
+
+2 
+	#_LINUX_ERRNO_H
+
+
+	)
+
+4 
+	~<asm/î∫o.h
+>
+
+	@/usr/include/linux/kernel.h
+
+1 #i‚de‡
+_LINUX_KERNEL_H
+
+
+2 
+	#_LINUX_KERNEL_H
+
+
+	)
+
+10 
+	#SI_LOAD_SHIFT
+ 16
+
+	)
+
+11 
+	ssysöfo
+ {
+
+12 
+	mu±ime
+;
+
+13 
+	mlﬂds
+[3];
+
+14 
+	mtŸÆøm
+;
+
+15 
+	m‰ìøm
+;
+
+16 
+	msh¨edøm
+;
+
+17 
+	mbuf„ºam
+;
+
+18 
+	mtŸÆsw≠
+;
+
+19 
+	m‰ìsw≠
+;
+
+20 
+	m¥ocs
+;
+
+21 
+	m∑d
+;
+
+22 
+	mtŸÆhigh
+;
+
+23 
+	m‰ìhigh
+;
+
+24 
+	mmem_unô
+;
+
+25 
+	m_f
+[20-2*()-()];
+
+29 
+	#BUILD_BUG_ON
+(
+c⁄dôi⁄
+Ë(()
+	`BUILD_BUG_ON_ZERO
+(c⁄dôi⁄))
+
+	)
+
+32 
+	#MAYBE_BUILD_BUG_ON
+(
+c⁄d
+Ë(()([1 - 2 * !!(c⁄d)]))
+
+	)
+
+35 
+	#BUILD_BUG_ON_NOT_POWER_OF_2
+(
+n
+) \
+
+36 
+	`BUILD_BUG_ON
+((
+n
+Ë=0 || ((“Ë& (“Ë- 1)Ë!0))
+
+	)
+
+42 
+	#BUILD_BUG_ON_ZERO
+(
+e
+Ë((°ru˘ { :-!!”); }))
+
+	)
+
+43 
+	#BUILD_BUG_ON_NULL
+(
+e
+Ë((*)(°ru˘ { :-!!”); }))
+
+	)
+
+46 
+	#__FUNCTION__
+ (
+__func__
+)
+
+	)
+
+49 #ifde‡
+CONFIG_NUMA
+
+
+50 
+	#NUMA_BUILD
+ 1
+
+	)
+
+52 
+	#NUMA_BUILD
+ 0
+
+	)
+
+56 #ifde‡
+CONFIG_COMPACTION
+
+
+57 
+	#COMPACTION_BUILD
+ 1
+
+	)
+
+59 
+	#COMPACTION_BUILD
+ 0
+
+	)
+
+63 #ifde‡
+CONFIG_FTRACE_MCOUNT_RECORD
+
+
+64 
+	#REBUILD_DUE_TO_FTRACE_MCOUNT_RECORD
+
+
+	)
+
+67 
+	gmoduÀ
+;
+
+69 
+m¨k_h¨dw¨e_unsuµ‹ãd
+(c⁄° *
+msg
+);
+
+70 
+m¨k_ãch_¥evõw
+(c⁄° *
+msg
+, 
+moduÀ
+ *
+mod
+);
+
+	@/usr/include/linux/pci.h
+
+17 #i‚de‡
+LINUX_PCI_H
+
+
+18 
+	#LINUX_PCI_H
+
+
+	)
+
+20 
+	~<löux/pci_ªgs.h
+>
+
+30 
+	#PCI_DEVID
+(
+bus
+, 
+dev‚
+Ë((((
+u16
+)busË<< 8Ë| dev‚)
+
+	)
+
+32 
+	#PCI_BUS_NUM
+(
+x
+Ë(((xË>> 8Ë& 0xff)
+
+	)
+
+33 
+	#PCI_DEVFN
+(
+¶Ÿ
+, 
+func
+Ë((((¶ŸË& 0x1fË<< 3Ë| ((funcË& 0x07))
+
+	)
+
+34 
+	#PCI_SLOT
+(
+dev‚
+Ë(((dev‚Ë>> 3Ë& 0x1f)
+
+	)
+
+35 
+	#PCI_FUNC
+(
+dev‚
+Ë((dev‚Ë& 0x07)
+
+	)
+
+38 
+	#PCIIOC_BASE
+ ('P' << 24 | 'C' << 16 | 'I' << 8)
+
+	)
+
+39 
+	#PCIIOC_CONTROLLER
+ (
+PCIIOC_BASE
+ | 0x00Ë
+
+	)
+
+40 
+	#PCIIOC_MMAP_IS_IO
+ (
+PCIIOC_BASE
+ | 0x01Ë
+
+	)
+
+41 
+	#PCIIOC_MMAP_IS_MEM
+ (
+PCIIOC_BASE
+ | 0x02Ë
+
+	)
+
+42 
+	#PCIIOC_WRITE_COMBINE
+ (
+PCIIOC_BASE
+ | 0x03Ë
+
+	)
+
+	@/usr/include/linux/random.h
+
+7 #i‚de‡
+_LINUX_RANDOM_H
+
+
+8 
+	#_LINUX_RANDOM_H
+
+
+	)
+
+10 
+	~<löux/ty≥s.h
+>
+
+11 
+	~<löux/io˘l.h
+>
+
+12 
+	~<löux/úqƒ.h
+>
+
+17 
+	#RNDGETENTCNT
+ 
+	`_IOR
+–'R', 0x00, )
+
+	)
+
+20 
+	#RNDADDTOENTCNT
+ 
+	`_IOW
+–'R', 0x01, )
+
+	)
+
+23 
+	#RNDGETPOOL
+ 
+	`_IOR
+–'R', 0x02, [2] )
+
+	)
+
+29 
+	#RNDADDENTROPY
+ 
+	`_IOW
+–'R', 0x03, [2] )
+
+	)
+
+32 
+	#RNDZAPENTCNT
+ 
+	`_IO
+–'R', 0x04 )
+
+	)
+
+35 
+	#RNDCLEARPOOL
+ 
+	`_IO
+–'R', 0x06 )
+
+	)
+
+37 
+	sønd_poﬁ_öfo
+ {
+
+38 
+	míå›y_cou¡
+;
+
+39 
+	mbuf_size
+;
+
+40 
+__u32
+ 
+	mbuf
+[0];
+
+43 
+	s∫d_°©e
+ {
+
+44 
+__u32
+ 
+	ms1
+, 
+	ms2
+, 
+	ms3
+;
+
+	@average.h
+
+1 
+	~<löux/exp‹t.h
+>
+
+2 
+	~<löux/avîage.h
+>
+
+3 
+	~<löux/kî√l.h
+>
+
+4 
+	~<löux/bug.h
+>
+
+5 
+	~<löux/log2.h
+>
+
+8 
+	ssma_hñ≥r
+{
+
+9 
+	mcou¡
+;
+
+10 } 
+	tsma_hñ≥r_t
+;
+
+12 
+	ssma
+ {
+
+13 
+	möã∫Æ
+;
+
+14 
+	mn
+;
+
+15 
+sma_hñ≥r_t
+ 
+	mhñ≥r
+;
+
+18 
+	$sma_öô
+(
+sma
+ *
+avg
+, 
+n
+)
+
+20 
+	`BUG_ON
+(
+n
+ == 0);
+
+21 
+avg
+->
+öã∫Æ
+ = 0;
+
+22 
+avg
+->
+n
+ =Ç;
+
+23 
+avg
+->
+hñ≥r
+.
+cou¡
+ = 0;
+
+24 
+	}
+}
+
+30 
+	$sma_add
+(
+sma
+ *
+avg
+, 
+vÆ
+)
+
+32 
+öã∫Æ
+ = 
+	`ACCESS_ONCE
+(
+avg
+->internal);
+
+34 
+	`BUG_ON
+(
+avg
+->
+n
+ == 0);
+
+37 i‡(
+avg
+->
+hñ≥r
+.
+cou¡
+ <avg->
+n
+)
+
+38 
+avg
+->
+hñ≥r
+.
+cou¡
+++;
+
+40 i‡(
+avg
+->
+hñ≥r
+.
+cou¡
+ <avg->
+n
+)
+
+41 
+	`ACCESS_ONCE
+(
+avg
+->
+öã∫Æ
+Ëavg->
+hñ≥r
+.
+cou¡
+ <ávg->
+n
+ ?
+
+42 
+öã∫Æ
+ + 
+vÆ
+ : (öã∫Æ + vÆË/ 
+avg
+->
+n
+;
+
+44 
+öã∫Æ
+ -öã∫Æ / 
+avg
+->
+n
+;
+
+45 
+	`ACCESS_ONCE
+(
+avg
+->
+öã∫Æ
+Ëöã∫Æ +
+vÆ
+ /ávg->
+n
+;
+
+49  
+avg
+->
+hñ≥r
+.
+cou¡
+ <ávg->
+n
+ ?
+
+50 
+avg
+->
+öã∫Æ
+ /ávg->
+hñ≥r
+.
+cou¡
+ :ávg->internal;
+
+51 
+	}
+}
+
+	@l3-dma-trace.h
+
+1 #unde‡
+TRACE_SYSTEM
+
+
+2 
+	#TRACE_SYSTEM
+ 
+l3_dma
+
+
+	)
+
+4 #i‡!
+deföed
+(
+_TRACE_L3_DMA_H
+Ë|| deföed(
+TRACE_HEADER_MULTI_READ
+)
+
+5 
+	#_TRACE_L3_DMA_H
+
+
+	)
+
+7 
+	~<löux/åa˚poöt.h
+>
+
+9 
+DECLARE_EVENT_CLASS
+(
+l3_dma
+,
+
+11 
+TP_PROTO
+(c⁄° * 
+ty≥
+),
+
+13 
+TP_ARGS
+(
+ty≥
+),
+
+15 
+TP_STRUCT__íåy
+(
+
+16 
+__fõld
+(c⁄° *, 
+«me
+)
+
+19 
+TP_Á°_assign
+(
+
+20 
+__íåy
+->
+«me
+ = 
+ty≥
+;
+
+23 
+TP_¥ötk
+("%s", 
+__íåy
+->
+«me
+)
+
+26 
+DEFINE_EVENT
+(
+l3_dma
+, 
+l3_dma_íåy
+,
+
+28 
+TP_PROTO
+(c⁄° *
+ªas⁄
+),
+
+30 
+TP_ARGS
+(
+ªas⁄
+)
+
+33 
+DEFINE_EVENT
+(
+l3_dma
+, 
+l3_dma_exô
+,
+
+35 
+TP_PROTO
+(c⁄° *
+ªas⁄
+),
+
+37 
+TP_ARGS
+(
+ªas⁄
+)
+
+40 
+TRACE_EVENT
+(
+l3_dma_duøti⁄
+,
+
+42 
+TP_PROTO
+(
+˝u
+, 
+time•ec
+ 
+duøti⁄
+, time•e¯
+avg_duøti⁄
+),
+
+44 
+TP_ARGS
+(
+˝u
+, 
+duøti⁄
+, 
+avg_duøti⁄
+),
+
+46 
+TP_STRUCT__íåy
+(
+
+47 
+	$__fõld
+(, 
+˝u
+)
+
+48 
+	$__fõld
+(
+__kî√l_time_t
+, 
+duøti⁄_tv_£c
+)
+
+49 
+	$__fõld
+(, 
+duøti⁄_tv_n£c
+)
+
+50 
+	$__fõld
+(
+__kî√l_time_t
+, 
+avg_duøti⁄_tv_£c
+)
+
+51 
+	`__fõld
+(, 
+avg_duøti⁄_tv_n£c
+)
+
+54 
+	`TP_Á°_assign
+(
+
+55 
+__íåy
+->
+˝u
+ = cpu;
+
+56 
+__íåy
+->
+duøti⁄_tv_£c
+ = 
+duøti⁄
+.
+tv_£c
+;
+
+57 
+__íåy
+->
+duøti⁄_tv_n£c
+ = 
+duøti⁄
+.
+tv_n£c
+;
+
+58 
+__íåy
+->
+avg_duøti⁄_tv_£c
+ = 
+avg_duøti⁄
+.
+tv_£c
+;
+
+59 
+__íåy
+->
+avg_duøti⁄_tv_n£c
+ = 
+avg_duøti⁄
+.
+tv_n£c
+;
+
+62 
+	`TP_¥ötk
+("˝u=%u (%ld.%09ldËavg(%ld.%09ld)", 
+__íåy
+->
+˝u
+, __íåy->
+duøti⁄_tv_£c
+,
+
+63 
+__íåy
+->
+duøti⁄_tv_n£c
+, __íåy->
+avg_duøti⁄_tv_£c
+, __íåy->
+avg_duøti⁄_tv_n£c
+)
+
+70 #unde‡
+TRACE_INCLUDE_PATH
+
+
+71 
+	#TRACE_INCLUDE_PATH
+ .
+
+	)
+
+72 
+	#TRACE_INCLUDE_FILE
+ 
+l3
+-
+dma
+-
+åa˚
+
+
+	)
+
+73 
+	~<åa˚/deföe_åa˚.h
+>
+
+	@/usr/include/asm/errno.h
+
+1 
+	~<asm-gíîic/î∫o.h
+>
+
+	@/usr/include/linux/ioctl.h
+
+1 #i‚de‡
+_LINUX_IOCTL_H
+
+
+2 
+	#_LINUX_IOCTL_H
+
+
+	)
+
+4 
+	~<asm/io˘l.h
+>
+
+	@/usr/include/linux/irqnr.h
+
+1 #i‚de‡
+_LINUX_IRQNR_H
+
+
+2 
+	#_LINUX_IRQNR_H
+
+
+	)
+
+	@/usr/include/linux/pci_regs.h
+
+22 #i‚de‡
+LINUX_PCI_REGS_H
+
+
+23 
+	#LINUX_PCI_REGS_H
+
+
+	)
+
+29 
+	#PCI_VENDOR_ID
+ 0x00
+
+	)
+
+30 
+	#PCI_DEVICE_ID
+ 0x02
+
+	)
+
+31 
+	#PCI_COMMAND
+ 0x04
+
+	)
+
+32 
+	#PCI_COMMAND_IO
+ 0x1
+
+	)
+
+33 
+	#PCI_COMMAND_MEMORY
+ 0x2
+
+	)
+
+34 
+	#PCI_COMMAND_MASTER
+ 0x4
+
+	)
+
+35 
+	#PCI_COMMAND_SPECIAL
+ 0x8
+
+	)
+
+36 
+	#PCI_COMMAND_INVALIDATE
+ 0x10
+
+	)
+
+37 
+	#PCI_COMMAND_VGA_PALETTE
+ 0x20
+
+	)
+
+38 
+	#PCI_COMMAND_PARITY
+ 0x40
+
+	)
+
+39 
+	#PCI_COMMAND_WAIT
+ 0x80
+
+	)
+
+40 
+	#PCI_COMMAND_SERR
+ 0x100
+
+	)
+
+41 
+	#PCI_COMMAND_FAST_BACK
+ 0x200
+
+	)
+
+42 
+	#PCI_COMMAND_INTX_DISABLE
+ 0x400
+
+	)
+
+44 
+	#PCI_STATUS
+ 0x06
+
+	)
+
+45 
+	#PCI_STATUS_INTERRUPT
+ 0x08
+
+	)
+
+46 
+	#PCI_STATUS_CAP_LIST
+ 0x10
+
+	)
+
+47 
+	#PCI_STATUS_66MHZ
+ 0x20
+
+	)
+
+48 
+	#PCI_STATUS_UDF
+ 0x40
+
+	)
+
+49 
+	#PCI_STATUS_FAST_BACK
+ 0x80
+
+	)
+
+50 
+	#PCI_STATUS_PARITY
+ 0x100
+
+	)
+
+51 
+	#PCI_STATUS_DEVSEL_MASK
+ 0x600
+
+	)
+
+52 
+	#PCI_STATUS_DEVSEL_FAST
+ 0x000
+
+	)
+
+53 
+	#PCI_STATUS_DEVSEL_MEDIUM
+ 0x200
+
+	)
+
+54 
+	#PCI_STATUS_DEVSEL_SLOW
+ 0x400
+
+	)
+
+55 
+	#PCI_STATUS_SIG_TARGET_ABORT
+ 0x800
+
+	)
+
+56 
+	#PCI_STATUS_REC_TARGET_ABORT
+ 0x1000
+
+	)
+
+57 
+	#PCI_STATUS_REC_MASTER_ABORT
+ 0x2000
+
+	)
+
+58 
+	#PCI_STATUS_SIG_SYSTEM_ERROR
+ 0x4000
+
+	)
+
+59 
+	#PCI_STATUS_DETECTED_PARITY
+ 0x8000
+
+	)
+
+61 
+	#PCI_CLASS_REVISION
+ 0x08
+
+	)
+
+62 
+	#PCI_REVISION_ID
+ 0x08
+
+	)
+
+63 
+	#PCI_CLASS_PROG
+ 0x09
+
+	)
+
+64 
+	#PCI_CLASS_DEVICE
+ 0x0®
+
+	)
+
+66 
+	#PCI_CACHE_LINE_SIZE
+ 0x0¯
+
+	)
+
+67 
+	#PCI_LATENCY_TIMER
+ 0x0d
+
+	)
+
+68 
+	#PCI_HEADER_TYPE
+ 0x0ê
+
+	)
+
+69 
+	#PCI_HEADER_TYPE_NORMAL
+ 0
+
+	)
+
+70 
+	#PCI_HEADER_TYPE_BRIDGE
+ 1
+
+	)
+
+71 
+	#PCI_HEADER_TYPE_CARDBUS
+ 2
+
+	)
+
+73 
+	#PCI_BIST
+ 0x0‡
+
+	)
+
+74 
+	#PCI_BIST_CODE_MASK
+ 0x0‡
+
+	)
+
+75 
+	#PCI_BIST_START
+ 0x40
+
+	)
+
+76 
+	#PCI_BIST_CAPABLE
+ 0x80
+
+	)
+
+84 
+	#PCI_BASE_ADDRESS_0
+ 0x10
+
+	)
+
+85 
+	#PCI_BASE_ADDRESS_1
+ 0x14
+
+	)
+
+86 
+	#PCI_BASE_ADDRESS_2
+ 0x18
+
+	)
+
+87 
+	#PCI_BASE_ADDRESS_3
+ 0x1¯
+
+	)
+
+88 
+	#PCI_BASE_ADDRESS_4
+ 0x20
+
+	)
+
+89 
+	#PCI_BASE_ADDRESS_5
+ 0x24
+
+	)
+
+90 
+	#PCI_BASE_ADDRESS_SPACE
+ 0x01
+
+	)
+
+91 
+	#PCI_BASE_ADDRESS_SPACE_IO
+ 0x01
+
+	)
+
+92 
+	#PCI_BASE_ADDRESS_SPACE_MEMORY
+ 0x00
+
+	)
+
+93 
+	#PCI_BASE_ADDRESS_MEM_TYPE_MASK
+ 0x06
+
+	)
+
+94 
+	#PCI_BASE_ADDRESS_MEM_TYPE_32
+ 0x00
+
+	)
+
+95 
+	#PCI_BASE_ADDRESS_MEM_TYPE_1M
+ 0x02
+
+	)
+
+96 
+	#PCI_BASE_ADDRESS_MEM_TYPE_64
+ 0x04
+
+	)
+
+97 
+	#PCI_BASE_ADDRESS_MEM_PREFETCH
+ 0x08
+
+	)
+
+98 
+	#PCI_BASE_ADDRESS_MEM_MASK
+ (~0x0fUL)
+
+	)
+
+99 
+	#PCI_BASE_ADDRESS_IO_MASK
+ (~0x03UL)
+
+	)
+
+103 
+	#PCI_CARDBUS_CIS
+ 0x28
+
+	)
+
+104 
+	#PCI_SUBSYSTEM_VENDOR_ID
+ 0x2c
+
+	)
+
+105 
+	#PCI_SUBSYSTEM_ID
+ 0x2e
+
+	)
+
+106 
+	#PCI_ROM_ADDRESS
+ 0x30
+
+	)
+
+107 
+	#PCI_ROM_ADDRESS_ENABLE
+ 0x01
+
+	)
+
+108 
+	#PCI_ROM_ADDRESS_MASK
+ (~0x7ffUL)
+
+	)
+
+110 
+	#PCI_CAPABILITY_LIST
+ 0x34
+
+	)
+
+113 
+	#PCI_INTERRUPT_LINE
+ 0x3¯
+
+	)
+
+114 
+	#PCI_INTERRUPT_PIN
+ 0x3d
+
+	)
+
+115 
+	#PCI_MIN_GNT
+ 0x3ê
+
+	)
+
+116 
+	#PCI_MAX_LAT
+ 0x3‡
+
+	)
+
+119 
+	#PCI_PRIMARY_BUS
+ 0x18
+
+	)
+
+120 
+	#PCI_SECONDARY_BUS
+ 0x19
+
+	)
+
+121 
+	#PCI_SUBORDINATE_BUS
+ 0x1®
+
+	)
+
+122 
+	#PCI_SEC_LATENCY_TIMER
+ 0x1b
+
+	)
+
+123 
+	#PCI_IO_BASE
+ 0x1¯
+
+	)
+
+124 
+	#PCI_IO_LIMIT
+ 0x1d
+
+	)
+
+125 
+	#PCI_IO_RANGE_TYPE_MASK
+ 0x0fUL
+
+	)
+
+126 
+	#PCI_IO_RANGE_TYPE_16
+ 0x00
+
+	)
+
+127 
+	#PCI_IO_RANGE_TYPE_32
+ 0x01
+
+	)
+
+128 
+	#PCI_IO_RANGE_MASK
+ (~0x0fUL)
+
+	)
+
+129 
+	#PCI_SEC_STATUS
+ 0x1ê
+
+	)
+
+130 
+	#PCI_MEMORY_BASE
+ 0x20
+
+	)
+
+131 
+	#PCI_MEMORY_LIMIT
+ 0x22
+
+	)
+
+132 
+	#PCI_MEMORY_RANGE_TYPE_MASK
+ 0x0fUL
+
+	)
+
+133 
+	#PCI_MEMORY_RANGE_MASK
+ (~0x0fUL)
+
+	)
+
+134 
+	#PCI_PREF_MEMORY_BASE
+ 0x24
+
+	)
+
+135 
+	#PCI_PREF_MEMORY_LIMIT
+ 0x26
+
+	)
+
+136 
+	#PCI_PREF_RANGE_TYPE_MASK
+ 0x0fUL
+
+	)
+
+137 
+	#PCI_PREF_RANGE_TYPE_32
+ 0x00
+
+	)
+
+138 
+	#PCI_PREF_RANGE_TYPE_64
+ 0x01
+
+	)
+
+139 
+	#PCI_PREF_RANGE_MASK
+ (~0x0fUL)
+
+	)
+
+140 
+	#PCI_PREF_BASE_UPPER32
+ 0x28
+
+	)
+
+141 
+	#PCI_PREF_LIMIT_UPPER32
+ 0x2c
+
+	)
+
+142 
+	#PCI_IO_BASE_UPPER16
+ 0x30
+
+	)
+
+143 
+	#PCI_IO_LIMIT_UPPER16
+ 0x32
+
+	)
+
+146 
+	#PCI_ROM_ADDRESS1
+ 0x38
+
+	)
+
+148 
+	#PCI_BRIDGE_CONTROL
+ 0x3e
+
+	)
+
+149 
+	#PCI_BRIDGE_CTL_PARITY
+ 0x01
+
+	)
+
+150 
+	#PCI_BRIDGE_CTL_SERR
+ 0x02
+
+	)
+
+151 
+	#PCI_BRIDGE_CTL_ISA
+ 0x04
+
+	)
+
+152 
+	#PCI_BRIDGE_CTL_VGA
+ 0x08
+
+	)
+
+153 
+	#PCI_BRIDGE_CTL_MASTER_ABORT
+ 0x20
+
+	)
+
+154 
+	#PCI_BRIDGE_CTL_BUS_RESET
+ 0x40
+
+	)
+
+155 
+	#PCI_BRIDGE_CTL_FAST_BACK
+ 0x80
+
+	)
+
+158 
+	#PCI_CB_CAPABILITY_LIST
+ 0x14
+
+	)
+
+160 
+	#PCI_CB_SEC_STATUS
+ 0x16
+
+	)
+
+161 
+	#PCI_CB_PRIMARY_BUS
+ 0x18
+
+	)
+
+162 
+	#PCI_CB_CARD_BUS
+ 0x19
+
+	)
+
+163 
+	#PCI_CB_SUBORDINATE_BUS
+ 0x1®
+
+	)
+
+164 
+	#PCI_CB_LATENCY_TIMER
+ 0x1b
+
+	)
+
+165 
+	#PCI_CB_MEMORY_BASE_0
+ 0x1c
+
+	)
+
+166 
+	#PCI_CB_MEMORY_LIMIT_0
+ 0x20
+
+	)
+
+167 
+	#PCI_CB_MEMORY_BASE_1
+ 0x24
+
+	)
+
+168 
+	#PCI_CB_MEMORY_LIMIT_1
+ 0x28
+
+	)
+
+169 
+	#PCI_CB_IO_BASE_0
+ 0x2c
+
+	)
+
+170 
+	#PCI_CB_IO_BASE_0_HI
+ 0x2e
+
+	)
+
+171 
+	#PCI_CB_IO_LIMIT_0
+ 0x30
+
+	)
+
+172 
+	#PCI_CB_IO_LIMIT_0_HI
+ 0x32
+
+	)
+
+173 
+	#PCI_CB_IO_BASE_1
+ 0x34
+
+	)
+
+174 
+	#PCI_CB_IO_BASE_1_HI
+ 0x36
+
+	)
+
+175 
+	#PCI_CB_IO_LIMIT_1
+ 0x38
+
+	)
+
+176 
+	#PCI_CB_IO_LIMIT_1_HI
+ 0x3a
+
+	)
+
+177 
+	#PCI_CB_IO_RANGE_MASK
+ (~0x03UL)
+
+	)
+
+179 
+	#PCI_CB_BRIDGE_CONTROL
+ 0x3e
+
+	)
+
+180 
+	#PCI_CB_BRIDGE_CTL_PARITY
+ 0x01
+
+	)
+
+181 
+	#PCI_CB_BRIDGE_CTL_SERR
+ 0x02
+
+	)
+
+182 
+	#PCI_CB_BRIDGE_CTL_ISA
+ 0x04
+
+	)
+
+183 
+	#PCI_CB_BRIDGE_CTL_VGA
+ 0x08
+
+	)
+
+184 
+	#PCI_CB_BRIDGE_CTL_MASTER_ABORT
+ 0x20
+
+	)
+
+185 
+	#PCI_CB_BRIDGE_CTL_CB_RESET
+ 0x40
+
+	)
+
+186 
+	#PCI_CB_BRIDGE_CTL_16BIT_INT
+ 0x80
+
+	)
+
+187 
+	#PCI_CB_BRIDGE_CTL_PREFETCH_MEM0
+ 0x100
+
+	)
+
+188 
+	#PCI_CB_BRIDGE_CTL_PREFETCH_MEM1
+ 0x200
+
+	)
+
+189 
+	#PCI_CB_BRIDGE_CTL_POST_WRITES
+ 0x400
+
+	)
+
+190 
+	#PCI_CB_SUBSYSTEM_VENDOR_ID
+ 0x40
+
+	)
+
+191 
+	#PCI_CB_SUBSYSTEM_ID
+ 0x42
+
+	)
+
+192 
+	#PCI_CB_LEGACY_MODE_BASE
+ 0x44
+
+	)
+
+197 
+	#PCI_CAP_LIST_ID
+ 0
+
+	)
+
+198 
+	#PCI_CAP_ID_PM
+ 0x01
+
+	)
+
+199 
+	#PCI_CAP_ID_AGP
+ 0x02
+
+	)
+
+200 
+	#PCI_CAP_ID_VPD
+ 0x03
+
+	)
+
+201 
+	#PCI_CAP_ID_SLOTID
+ 0x04
+
+	)
+
+202 
+	#PCI_CAP_ID_MSI
+ 0x05
+
+	)
+
+203 
+	#PCI_CAP_ID_CHSWP
+ 0x06
+
+	)
+
+204 
+	#PCI_CAP_ID_PCIX
+ 0x07
+
+	)
+
+205 
+	#PCI_CAP_ID_HT
+ 0x08
+
+	)
+
+206 
+	#PCI_CAP_ID_VNDR
+ 0x09
+
+	)
+
+207 
+	#PCI_CAP_ID_DBG
+ 0x0A
+
+	)
+
+208 
+	#PCI_CAP_ID_CCRC
+ 0x0B
+
+	)
+
+209 
+	#PCI_CAP_ID_SHPC
+ 0x0C
+
+	)
+
+210 
+	#PCI_CAP_ID_SSVID
+ 0x0D
+
+	)
+
+211 
+	#PCI_CAP_ID_AGP3
+ 0x0E
+
+	)
+
+212 
+	#PCI_CAP_ID_EXP
+ 0x10
+
+	)
+
+213 
+	#PCI_CAP_ID_MSIX
+ 0x11
+
+	)
+
+214 
+	#PCI_CAP_ID_AF
+ 0x13
+
+	)
+
+215 
+	#PCI_CAP_LIST_NEXT
+ 1
+
+	)
+
+216 
+	#PCI_CAP_FLAGS
+ 2
+
+	)
+
+217 
+	#PCI_CAP_SIZEOF
+ 4
+
+	)
+
+221 
+	#PCI_PM_PMC
+ 2
+
+	)
+
+222 
+	#PCI_PM_CAP_VER_MASK
+ 0x0007
+
+	)
+
+223 
+	#PCI_PM_CAP_PME_CLOCK
+ 0x0008
+
+	)
+
+224 
+	#PCI_PM_CAP_RESERVED
+ 0x0010
+
+	)
+
+225 
+	#PCI_PM_CAP_DSI
+ 0x0020
+
+	)
+
+226 
+	#PCI_PM_CAP_AUX_POWER
+ 0x01C0
+
+	)
+
+227 
+	#PCI_PM_CAP_D1
+ 0x0200
+
+	)
+
+228 
+	#PCI_PM_CAP_D2
+ 0x0400
+
+	)
+
+229 
+	#PCI_PM_CAP_PME
+ 0x0800
+
+	)
+
+230 
+	#PCI_PM_CAP_PME_MASK
+ 0xF800
+
+	)
+
+231 
+	#PCI_PM_CAP_PME_D0
+ 0x0800
+
+	)
+
+232 
+	#PCI_PM_CAP_PME_D1
+ 0x1000
+
+	)
+
+233 
+	#PCI_PM_CAP_PME_D2
+ 0x2000
+
+	)
+
+234 
+	#PCI_PM_CAP_PME_D3
+ 0x4000
+
+	)
+
+235 
+	#PCI_PM_CAP_PME_D3cﬁd
+ 0x8000
+
+	)
+
+236 
+	#PCI_PM_CAP_PME_SHIFT
+ 11
+
+	)
+
+237 
+	#PCI_PM_CTRL
+ 4
+
+	)
+
+238 
+	#PCI_PM_CTRL_STATE_MASK
+ 0x0003
+
+	)
+
+239 
+	#PCI_PM_CTRL_NO_SOFT_RESET
+ 0x0008
+
+	)
+
+240 
+	#PCI_PM_CTRL_PME_ENABLE
+ 0x0100
+
+	)
+
+241 
+	#PCI_PM_CTRL_DATA_SEL_MASK
+ 0x1e00
+
+	)
+
+242 
+	#PCI_PM_CTRL_DATA_SCALE_MASK
+ 0x6000
+
+	)
+
+243 
+	#PCI_PM_CTRL_PME_STATUS
+ 0x8000
+
+	)
+
+244 
+	#PCI_PM_PPB_EXTENSIONS
+ 6
+
+	)
+
+245 
+	#PCI_PM_PPB_B2_B3
+ 0x40
+
+	)
+
+246 
+	#PCI_PM_BPCC_ENABLE
+ 0x80
+
+	)
+
+247 
+	#PCI_PM_DATA_REGISTER
+ 7
+
+	)
+
+248 
+	#PCI_PM_SIZEOF
+ 8
+
+	)
+
+252 
+	#PCI_AGP_VERSION
+ 2
+
+	)
+
+253 
+	#PCI_AGP_RFU
+ 3
+
+	)
+
+254 
+	#PCI_AGP_STATUS
+ 4
+
+	)
+
+255 
+	#PCI_AGP_STATUS_RQ_MASK
+ 0xff000000
+
+	)
+
+256 
+	#PCI_AGP_STATUS_SBA
+ 0x0200
+
+	)
+
+257 
+	#PCI_AGP_STATUS_64BIT
+ 0x0020
+
+	)
+
+258 
+	#PCI_AGP_STATUS_FW
+ 0x0010
+
+	)
+
+259 
+	#PCI_AGP_STATUS_RATE4
+ 0x0004
+
+	)
+
+260 
+	#PCI_AGP_STATUS_RATE2
+ 0x0002
+
+	)
+
+261 
+	#PCI_AGP_STATUS_RATE1
+ 0x0001
+
+	)
+
+262 
+	#PCI_AGP_COMMAND
+ 8
+
+	)
+
+263 
+	#PCI_AGP_COMMAND_RQ_MASK
+ 0xff000000
+
+	)
+
+264 
+	#PCI_AGP_COMMAND_SBA
+ 0x0200
+
+	)
+
+265 
+	#PCI_AGP_COMMAND_AGP
+ 0x0100
+
+	)
+
+266 
+	#PCI_AGP_COMMAND_64BIT
+ 0x0020
+
+	)
+
+267 
+	#PCI_AGP_COMMAND_FW
+ 0x0010
+
+	)
+
+268 
+	#PCI_AGP_COMMAND_RATE4
+ 0x0004
+
+	)
+
+269 
+	#PCI_AGP_COMMAND_RATE2
+ 0x0002
+
+	)
+
+270 
+	#PCI_AGP_COMMAND_RATE1
+ 0x0001
+
+	)
+
+271 
+	#PCI_AGP_SIZEOF
+ 12
+
+	)
+
+275 
+	#PCI_VPD_ADDR
+ 2
+
+	)
+
+276 
+	#PCI_VPD_ADDR_MASK
+ 0x7ff‡
+
+	)
+
+277 
+	#PCI_VPD_ADDR_F
+ 0x8000
+
+	)
+
+278 
+	#PCI_VPD_DATA
+ 4
+
+	)
+
+282 
+	#PCI_SID_ESR
+ 2
+
+	)
+
+283 
+	#PCI_SID_ESR_NSLOTS
+ 0x1‡
+
+	)
+
+284 
+	#PCI_SID_ESR_FIC
+ 0x20
+
+	)
+
+285 
+	#PCI_SID_CHASSIS_NR
+ 3
+
+	)
+
+289 
+	#PCI_MSI_FLAGS
+ 2
+
+	)
+
+290 
+	#PCI_MSI_FLAGS_64BIT
+ 0x80
+
+	)
+
+291 
+	#PCI_MSI_FLAGS_QSIZE
+ 0x70
+
+	)
+
+292 
+	#PCI_MSI_FLAGS_QMASK
+ 0x0ê
+
+	)
+
+293 
+	#PCI_MSI_FLAGS_ENABLE
+ 0x01
+
+	)
+
+294 
+	#PCI_MSI_FLAGS_MASKBIT
+ 0x100
+
+	)
+
+295 
+	#PCI_MSI_RFU
+ 3
+
+	)
+
+296 
+	#PCI_MSI_ADDRESS_LO
+ 4
+
+	)
+
+297 
+	#PCI_MSI_ADDRESS_HI
+ 8
+
+	)
+
+298 
+	#PCI_MSI_DATA_32
+ 8
+
+	)
+
+299 
+	#PCI_MSI_MASK_32
+ 12
+
+	)
+
+300 
+	#PCI_MSI_DATA_64
+ 12
+
+	)
+
+301 
+	#PCI_MSI_MASK_64
+ 16
+
+	)
+
+304 
+	#PCI_MSIX_FLAGS
+ 2
+
+	)
+
+305 
+	#PCI_MSIX_FLAGS_QSIZE
+ 0x7FF
+
+	)
+
+306 
+	#PCI_MSIX_FLAGS_ENABLE
+ (1 << 15)
+
+	)
+
+307 
+	#PCI_MSIX_FLAGS_MASKALL
+ (1 << 14)
+
+	)
+
+308 
+	#PCI_MSIX_FLAGS_BIRMASK
+ (7 << 0)
+
+	)
+
+312 
+	#PCI_CHSWP_CSR
+ 2
+
+	)
+
+313 
+	#PCI_CHSWP_DHA
+ 0x01
+
+	)
+
+314 
+	#PCI_CHSWP_EIM
+ 0x02
+
+	)
+
+315 
+	#PCI_CHSWP_PIE
+ 0x04
+
+	)
+
+316 
+	#PCI_CHSWP_LOO
+ 0x08
+
+	)
+
+317 
+	#PCI_CHSWP_PI
+ 0x30
+
+	)
+
+318 
+	#PCI_CHSWP_EXT
+ 0x40
+
+	)
+
+319 
+	#PCI_CHSWP_INS
+ 0x80
+
+	)
+
+323 
+	#PCI_AF_LENGTH
+ 2
+
+	)
+
+324 
+	#PCI_AF_CAP
+ 3
+
+	)
+
+325 
+	#PCI_AF_CAP_TP
+ 0x01
+
+	)
+
+326 
+	#PCI_AF_CAP_FLR
+ 0x02
+
+	)
+
+327 
+	#PCI_AF_CTRL
+ 4
+
+	)
+
+328 
+	#PCI_AF_CTRL_FLR
+ 0x01
+
+	)
+
+329 
+	#PCI_AF_STATUS
+ 5
+
+	)
+
+330 
+	#PCI_AF_STATUS_TP
+ 0x01
+
+	)
+
+334 
+	#PCI_X_CMD
+ 2
+
+	)
+
+335 
+	#PCI_X_CMD_DPERR_E
+ 0x0001
+
+	)
+
+336 
+	#PCI_X_CMD_ERO
+ 0x0002
+
+	)
+
+337 
+	#PCI_X_CMD_READ_512
+ 0x0000
+
+	)
+
+338 
+	#PCI_X_CMD_READ_1K
+ 0x0004
+
+	)
+
+339 
+	#PCI_X_CMD_READ_2K
+ 0x0008
+
+	)
+
+340 
+	#PCI_X_CMD_READ_4K
+ 0x000¯
+
+	)
+
+341 
+	#PCI_X_CMD_MAX_READ
+ 0x000¯
+
+	)
+
+343 
+	#PCI_X_CMD_SPLIT_1
+ 0x0000
+
+	)
+
+344 
+	#PCI_X_CMD_SPLIT_2
+ 0x0010
+
+	)
+
+345 
+	#PCI_X_CMD_SPLIT_3
+ 0x0020
+
+	)
+
+346 
+	#PCI_X_CMD_SPLIT_4
+ 0x0030
+
+	)
+
+347 
+	#PCI_X_CMD_SPLIT_8
+ 0x0040
+
+	)
+
+348 
+	#PCI_X_CMD_SPLIT_12
+ 0x0050
+
+	)
+
+349 
+	#PCI_X_CMD_SPLIT_16
+ 0x0060
+
+	)
+
+350 
+	#PCI_X_CMD_SPLIT_32
+ 0x0070
+
+	)
+
+351 
+	#PCI_X_CMD_MAX_SPLIT
+ 0x0070
+
+	)
+
+352 
+	#PCI_X_CMD_VERSION
+(
+x
+Ë(((xË>> 12Ë& 3Ë
+
+	)
+
+353 
+	#PCI_X_STATUS
+ 4
+
+	)
+
+354 
+	#PCI_X_STATUS_DEVFN
+ 0x000000f‡
+
+	)
+
+355 
+	#PCI_X_STATUS_BUS
+ 0x0000ff00
+
+	)
+
+356 
+	#PCI_X_STATUS_64BIT
+ 0x00010000
+
+	)
+
+357 
+	#PCI_X_STATUS_133MHZ
+ 0x00020000
+
+	)
+
+358 
+	#PCI_X_STATUS_SPL_DISC
+ 0x00040000
+
+	)
+
+359 
+	#PCI_X_STATUS_UNX_SPL
+ 0x00080000
+
+	)
+
+360 
+	#PCI_X_STATUS_COMPLEX
+ 0x00100000
+
+	)
+
+361 
+	#PCI_X_STATUS_MAX_READ
+ 0x00600000
+
+	)
+
+362 
+	#PCI_X_STATUS_MAX_SPLIT
+ 0x03800000
+
+	)
+
+363 
+	#PCI_X_STATUS_MAX_CUM
+ 0x1c000000
+
+	)
+
+364 
+	#PCI_X_STATUS_SPL_ERR
+ 0x20000000
+
+	)
+
+365 
+	#PCI_X_STATUS_266MHZ
+ 0x40000000
+
+	)
+
+366 
+	#PCI_X_STATUS_533MHZ
+ 0x80000000
+
+	)
+
+370 
+	#PCI_EXP_FLAGS
+ 2
+
+	)
+
+371 
+	#PCI_EXP_FLAGS_VERS
+ 0x000‡
+
+	)
+
+372 
+	#PCI_EXP_FLAGS_TYPE
+ 0x00f0
+
+	)
+
+373 
+	#PCI_EXP_TYPE_ENDPOINT
+ 0x0
+
+	)
+
+374 
+	#PCI_EXP_TYPE_LEG_END
+ 0x1
+
+	)
+
+375 
+	#PCI_EXP_TYPE_ROOT_PORT
+ 0x4
+
+	)
+
+376 
+	#PCI_EXP_TYPE_UPSTREAM
+ 0x5
+
+	)
+
+377 
+	#PCI_EXP_TYPE_DOWNSTREAM
+ 0x6
+
+	)
+
+378 
+	#PCI_EXP_TYPE_PCI_BRIDGE
+ 0x7
+
+	)
+
+379 
+	#PCI_EXP_TYPE_PCIE_BRIDGE
+ 0x8
+
+	)
+
+380 
+	#PCI_EXP_TYPE_RC_END
+ 0x9
+
+	)
+
+381 
+	#PCI_EXP_TYPE_RC_EC
+ 0x10
+
+	)
+
+382 
+	#PCI_EXP_FLAGS_SLOT
+ 0x0100
+
+	)
+
+383 
+	#PCI_EXP_FLAGS_IRQ
+ 0x3e00
+
+	)
+
+384 
+	#PCI_EXP_DEVCAP
+ 4
+
+	)
+
+385 
+	#PCI_EXP_DEVCAP_PAYLOAD
+ 0x00000007
+
+	)
+
+386 
+	#PCI_EXP_DEVCAP_PHANTOM
+ 0x00000018
+
+	)
+
+387 
+	#PCI_EXP_DEVCAP_EXT_TAG
+ 0x00000020
+
+	)
+
+388 
+	#PCI_EXP_DEVCAP_L0S
+ 0x000001c0
+
+	)
+
+389 
+	#PCI_EXP_DEVCAP_L1
+ 0x00000e00
+
+	)
+
+390 
+	#PCI_EXP_DEVCAP_ATN_BUT
+ 0x00001000
+
+	)
+
+391 
+	#PCI_EXP_DEVCAP_ATN_IND
+ 0x00002000
+
+	)
+
+392 
+	#PCI_EXP_DEVCAP_PWR_IND
+ 0x00004000
+
+	)
+
+393 
+	#PCI_EXP_DEVCAP_RBER
+ 0x00008000
+
+	)
+
+394 
+	#PCI_EXP_DEVCAP_PWR_VAL
+ 0x03fc0000
+
+	)
+
+395 
+	#PCI_EXP_DEVCAP_PWR_SCL
+ 0x0c000000
+
+	)
+
+396 
+	#PCI_EXP_DEVCAP_FLR
+ 0x10000000
+
+	)
+
+397 
+	#PCI_EXP_DEVCTL
+ 8
+
+	)
+
+398 
+	#PCI_EXP_DEVCTL_CERE
+ 0x0001
+
+	)
+
+399 
+	#PCI_EXP_DEVCTL_NFERE
+ 0x0002
+
+	)
+
+400 
+	#PCI_EXP_DEVCTL_FERE
+ 0x0004
+
+	)
+
+401 
+	#PCI_EXP_DEVCTL_URRE
+ 0x0008
+
+	)
+
+402 
+	#PCI_EXP_DEVCTL_RELAX_EN
+ 0x0010
+
+	)
+
+403 
+	#PCI_EXP_DEVCTL_PAYLOAD
+ 0x00e0
+
+	)
+
+404 
+	#PCI_EXP_DEVCTL_EXT_TAG
+ 0x0100
+
+	)
+
+405 
+	#PCI_EXP_DEVCTL_PHANTOM
+ 0x0200
+
+	)
+
+406 
+	#PCI_EXP_DEVCTL_AUX_PME
+ 0x0400
+
+	)
+
+407 
+	#PCI_EXP_DEVCTL_NOSNOOP_EN
+ 0x0800
+
+	)
+
+408 
+	#PCI_EXP_DEVCTL_READRQ
+ 0x7000
+
+	)
+
+409 
+	#PCI_EXP_DEVCTL_BCR_FLR
+ 0x8000
+
+	)
+
+410 
+	#PCI_EXP_DEVSTA
+ 10
+
+	)
+
+411 
+	#PCI_EXP_DEVSTA_CED
+ 0x0001
+
+	)
+
+412 
+	#PCI_EXP_DEVSTA_NFED
+ 0x0002
+
+	)
+
+413 
+	#PCI_EXP_DEVSTA_FED
+ 0x0004
+
+	)
+
+414 
+	#PCI_EXP_DEVSTA_URD
+ 0x0008
+
+	)
+
+415 
+	#PCI_EXP_DEVSTA_AUXPD
+ 0x0010
+
+	)
+
+416 
+	#PCI_EXP_DEVSTA_TRPND
+ 0x0020
+
+	)
+
+417 
+	#PCI_EXP_LNKCAP
+ 12
+
+	)
+
+418 
+	#PCI_EXP_LNKCAP_SLS
+ 0x0000000‡
+
+	)
+
+419 
+	#PCI_EXP_LNKCAP_SLS_2_5GB
+ 0x00000001
+
+	)
+
+420 
+	#PCI_EXP_LNKCAP_SLS_5_0GB
+ 0x00000002
+
+	)
+
+421 
+	#PCI_EXP_LNKCAP_MLW
+ 0x000003f0
+
+	)
+
+422 
+	#PCI_EXP_LNKCAP_ASPMS
+ 0x00000c00
+
+	)
+
+423 
+	#PCI_EXP_LNKCAP_L0SEL
+ 0x00007000
+
+	)
+
+424 
+	#PCI_EXP_LNKCAP_L1EL
+ 0x00038000
+
+	)
+
+425 
+	#PCI_EXP_LNKCAP_CLKPM
+ 0x00040000
+
+	)
+
+426 
+	#PCI_EXP_LNKCAP_SDERC
+ 0x00080000
+
+	)
+
+427 
+	#PCI_EXP_LNKCAP_DLLLARC
+ 0x00100000
+
+	)
+
+428 
+	#PCI_EXP_LNKCAP_LBNC
+ 0x00200000
+
+	)
+
+429 
+	#PCI_EXP_LNKCAP_PN
+ 0xff000000
+
+	)
+
+430 
+	#PCI_EXP_LNKCTL
+ 16
+
+	)
+
+431 
+	#PCI_EXP_LNKCTL_ASPMC
+ 0x0003
+
+	)
+
+432 
+	#PCI_EXP_LNKCTL_ASPM_L0S
+ 0x0001
+
+	)
+
+433 
+	#PCI_EXP_LNKCTL_ASPM_L1
+ 0x0002
+
+	)
+
+434 
+	#PCI_EXP_LNKCTL_RCB
+ 0x0008
+
+	)
+
+435 
+	#PCI_EXP_LNKCTL_LD
+ 0x0010
+
+	)
+
+436 
+	#PCI_EXP_LNKCTL_RL
+ 0x0020
+
+	)
+
+437 
+	#PCI_EXP_LNKCTL_CCC
+ 0x0040
+
+	)
+
+438 
+	#PCI_EXP_LNKCTL_ES
+ 0x0080
+
+	)
+
+439 
+	#PCI_EXP_LNKCTL_CLKREQ_EN
+ 0x0100
+
+	)
+
+440 
+	#PCI_EXP_LNKCTL_HAWD
+ 0x0200
+
+	)
+
+441 
+	#PCI_EXP_LNKCTL_LBMIE
+ 0x0400
+
+	)
+
+442 
+	#PCI_EXP_LNKCTL_LABIE
+ 0x0800
+
+	)
+
+443 
+	#PCI_EXP_LNKSTA
+ 18
+
+	)
+
+444 
+	#PCI_EXP_LNKSTA_CLS
+ 0x000‡
+
+	)
+
+445 
+	#PCI_EXP_LNKSTA_CLS_2_5GB
+ 0x0001
+
+	)
+
+446 
+	#PCI_EXP_LNKSTA_CLS_5_0GB
+ 0x0002
+
+	)
+
+447 
+	#PCI_EXP_LNKSTA_CLS_8_0GB
+ 0x0003
+
+	)
+
+448 
+	#PCI_EXP_LNKSTA_NLW
+ 0x03f0
+
+	)
+
+449 
+	#PCI_EXP_LNKSTA_NLW_X1
+ 0x0010
+
+	)
+
+450 
+	#PCI_EXP_LNKSTA_NLW_X2
+ 0x0020
+
+	)
+
+451 
+	#PCI_EXP_LNKSTA_NLW_X4
+ 0x0040
+
+	)
+
+452 
+	#PCI_EXP_LNKSTA_NLW_X8
+ 0x0080
+
+	)
+
+453 
+	#PCI_EXP_LNKSTA_NLW_SHIFT
+ 4
+
+	)
+
+454 
+	#PCI_EXP_LNKSTA_LT
+ 0x0800
+
+	)
+
+455 
+	#PCI_EXP_LNKSTA_SLC
+ 0x1000
+
+	)
+
+456 
+	#PCI_EXP_LNKSTA_DLLLA
+ 0x2000
+
+	)
+
+457 
+	#PCI_EXP_LNKSTA_LBMS
+ 0x4000
+
+	)
+
+458 
+	#PCI_EXP_LNKSTA_LABS
+ 0x8000
+
+	)
+
+459 
+	#PCI_EXP_SLTCAP
+ 20
+
+	)
+
+460 
+	#PCI_EXP_SLTCAP_ABP
+ 0x00000001
+
+	)
+
+461 
+	#PCI_EXP_SLTCAP_PCP
+ 0x00000002
+
+	)
+
+462 
+	#PCI_EXP_SLTCAP_MRLSP
+ 0x00000004
+
+	)
+
+463 
+	#PCI_EXP_SLTCAP_AIP
+ 0x00000008
+
+	)
+
+464 
+	#PCI_EXP_SLTCAP_PIP
+ 0x00000010
+
+	)
+
+465 
+	#PCI_EXP_SLTCAP_HPS
+ 0x00000020
+
+	)
+
+466 
+	#PCI_EXP_SLTCAP_HPC
+ 0x00000040
+
+	)
+
+467 
+	#PCI_EXP_SLTCAP_SPLV
+ 0x00007f80
+
+	)
+
+468 
+	#PCI_EXP_SLTCAP_SPLS
+ 0x00018000
+
+	)
+
+469 
+	#PCI_EXP_SLTCAP_EIP
+ 0x00020000
+
+	)
+
+470 
+	#PCI_EXP_SLTCAP_NCCS
+ 0x00040000
+
+	)
+
+471 
+	#PCI_EXP_SLTCAP_PSN
+ 0xfff80000
+
+	)
+
+472 
+	#PCI_EXP_SLTCTL
+ 24
+
+	)
+
+473 
+	#PCI_EXP_SLTCTL_ABPE
+ 0x0001
+
+	)
+
+474 
+	#PCI_EXP_SLTCTL_PFDE
+ 0x0002
+
+	)
+
+475 
+	#PCI_EXP_SLTCTL_MRLSCE
+ 0x0004
+
+	)
+
+476 
+	#PCI_EXP_SLTCTL_PDCE
+ 0x0008
+
+	)
+
+477 
+	#PCI_EXP_SLTCTL_CCIE
+ 0x0010
+
+	)
+
+478 
+	#PCI_EXP_SLTCTL_HPIE
+ 0x0020
+
+	)
+
+479 
+	#PCI_EXP_SLTCTL_AIC
+ 0x00c0
+
+	)
+
+480 
+	#PCI_EXP_SLTCTL_PIC
+ 0x0300
+
+	)
+
+481 
+	#PCI_EXP_SLTCTL_PCC
+ 0x0400
+
+	)
+
+482 
+	#PCI_EXP_SLTCTL_EIC
+ 0x0800
+
+	)
+
+483 
+	#PCI_EXP_SLTCTL_DLLSCE
+ 0x1000
+
+	)
+
+484 
+	#PCI_EXP_SLTSTA
+ 26
+
+	)
+
+485 
+	#PCI_EXP_SLTSTA_ABP
+ 0x0001
+
+	)
+
+486 
+	#PCI_EXP_SLTSTA_PFD
+ 0x0002
+
+	)
+
+487 
+	#PCI_EXP_SLTSTA_MRLSC
+ 0x0004
+
+	)
+
+488 
+	#PCI_EXP_SLTSTA_PDC
+ 0x0008
+
+	)
+
+489 
+	#PCI_EXP_SLTSTA_CC
+ 0x0010
+
+	)
+
+490 
+	#PCI_EXP_SLTSTA_MRLSS
+ 0x0020
+
+	)
+
+491 
+	#PCI_EXP_SLTSTA_PDS
+ 0x0040
+
+	)
+
+492 
+	#PCI_EXP_SLTSTA_EIS
+ 0x0080
+
+	)
+
+493 
+	#PCI_EXP_SLTSTA_DLLSC
+ 0x0100
+
+	)
+
+494 
+	#PCI_EXP_RTCTL
+ 28
+
+	)
+
+495 
+	#PCI_EXP_RTCTL_SECEE
+ 0x0001
+
+	)
+
+496 
+	#PCI_EXP_RTCTL_SENFEE
+ 0x0002
+
+	)
+
+497 
+	#PCI_EXP_RTCTL_SEFEE
+ 0x0004
+
+	)
+
+498 
+	#PCI_EXP_RTCTL_PMEIE
+ 0x0008
+
+	)
+
+499 
+	#PCI_EXP_RTCTL_CRSSVE
+ 0x0010
+
+	)
+
+500 
+	#PCI_EXP_RTCAP
+ 30
+
+	)
+
+501 
+	#PCI_EXP_RTSTA
+ 32
+
+	)
+
+510 
+	#PCI_EXP_DEVCAP2
+ 36
+
+	)
+
+511 
+	#PCI_EXP_DEVCAP2_ARI
+ 0x00000020
+
+	)
+
+512 
+	#PCI_EXP_DEVCAP2_LTR
+ 0x00000800
+
+	)
+
+513 
+	#PCI_EXP_DEVCAP2_OBFF_MASK
+ 0x000c0000
+
+	)
+
+514 
+	#PCI_EXP_DEVCAP2_OBFF_MSG
+ 0x00040000
+
+	)
+
+515 
+	#PCI_EXP_DEVCAP2_OBFF_WAKE
+ 0x00080000
+
+	)
+
+516 
+	#PCI_EXP_DEVCTL2
+ 40
+
+	)
+
+517 
+	#PCI_EXP_DEVCTL2_ARI
+ 0x20
+
+	)
+
+518 
+	#PCI_EXP_DEVCTL2_IDO_REQ_EN
+ 0x0100
+
+	)
+
+519 
+	#PCI_EXP_DEVCTL2_IDO_CMP_EN
+ 0x0200
+
+	)
+
+520 
+	#PCI_EXP_DEVCTL2_LTR_EN
+ 0x0400
+
+	)
+
+521 
+	#PCI_EXP_DEVCTL2_OBFF_MSGA_EN
+ 0x2000
+
+	)
+
+522 
+	#PCI_EXP_DEVCTL2_OBFF_MSGB_EN
+ 0x4000
+
+	)
+
+523 
+	#PCI_EXP_DEVCTL2_OBFF_WAKE_EN
+ 0x6000
+
+	)
+
+524 
+	#PCI_EXP_DEVSTA2
+ 42
+
+	)
+
+525 
+	#PCI_EXP_LNKCAP2
+ 44
+
+	)
+
+526 
+	#PCI_EXP_LNKCAP2_SLS_2_5GB
+ 0x00000002
+
+	)
+
+527 
+	#PCI_EXP_LNKCAP2_SLS_5_0GB
+ 0x00000004
+
+	)
+
+528 
+	#PCI_EXP_LNKCAP2_SLS_8_0GB
+ 0x00000008
+
+	)
+
+529 
+	#PCI_EXP_LNKCAP2_CROSSLINK
+ 0x00000100
+
+	)
+
+530 
+	#PCI_EXP_LNKCTL2
+ 48
+
+	)
+
+531 
+	#PCI_EXP_LNKSTA2
+ 50
+
+	)
+
+532 
+	#PCI_EXP_SLTCAP2
+ 52
+
+	)
+
+533 
+	#PCI_EXP_SLTCTL2
+ 56
+
+	)
+
+534 
+	#PCI_EXP_SLTSTA2
+ 58
+
+	)
+
+537 
+	#PCI_EXT_CAP_ID
+(
+hódî
+Ë(hódî & 0x0000ffff)
+
+	)
+
+538 
+	#PCI_EXT_CAP_VER
+(
+hódî
+Ë((hódî >> 16Ë& 0xf)
+
+	)
+
+539 
+	#PCI_EXT_CAP_NEXT
+(
+hódî
+Ë((hódî >> 20Ë& 0xffc)
+
+	)
+
+541 
+	#PCI_EXT_CAP_ID_ERR
+ 1
+
+	)
+
+542 
+	#PCI_EXT_CAP_ID_VC
+ 2
+
+	)
+
+543 
+	#PCI_EXT_CAP_ID_DSN
+ 3
+
+	)
+
+544 
+	#PCI_EXT_CAP_ID_PWR
+ 4
+
+	)
+
+545 
+	#PCI_EXT_CAP_ID_ACS
+ 13
+
+	)
+
+546 
+	#PCI_EXT_CAP_ID_ARI
+ 14
+
+	)
+
+547 
+	#PCI_EXT_CAP_ID_ATS
+ 15
+
+	)
+
+548 
+	#PCI_EXT_CAP_ID_SRIOV
+ 16
+
+	)
+
+549 
+	#PCI_EXT_CAP_ID_LTR
+ 24
+
+	)
+
+552 
+	#PCI_ERR_UNCOR_STATUS
+ 4
+
+	)
+
+553 
+	#PCI_ERR_UNC_TRAIN
+ 0x00000001
+
+	)
+
+554 
+	#PCI_ERR_UNC_DLP
+ 0x00000010
+
+	)
+
+555 
+	#PCI_ERR_UNC_POISON_TLP
+ 0x00001000
+
+	)
+
+556 
+	#PCI_ERR_UNC_FCP
+ 0x00002000
+
+	)
+
+557 
+	#PCI_ERR_UNC_COMP_TIME
+ 0x00004000
+
+	)
+
+558 
+	#PCI_ERR_UNC_COMP_ABORT
+ 0x00008000
+
+	)
+
+559 
+	#PCI_ERR_UNC_UNX_COMP
+ 0x00010000
+
+	)
+
+560 
+	#PCI_ERR_UNC_RX_OVER
+ 0x00020000
+
+	)
+
+561 
+	#PCI_ERR_UNC_MALF_TLP
+ 0x00040000
+
+	)
+
+562 
+	#PCI_ERR_UNC_ECRC
+ 0x00080000
+
+	)
+
+563 
+	#PCI_ERR_UNC_UNSUP
+ 0x00100000
+
+	)
+
+564 
+	#PCI_ERR_UNCOR_MASK
+ 8
+
+	)
+
+566 
+	#PCI_ERR_UNCOR_SEVER
+ 12
+
+	)
+
+568 
+	#PCI_ERR_COR_STATUS
+ 16
+
+	)
+
+569 
+	#PCI_ERR_COR_RCVR
+ 0x00000001
+
+	)
+
+570 
+	#PCI_ERR_COR_BAD_TLP
+ 0x00000040
+
+	)
+
+571 
+	#PCI_ERR_COR_BAD_DLLP
+ 0x00000080
+
+	)
+
+572 
+	#PCI_ERR_COR_REP_ROLL
+ 0x00000100
+
+	)
+
+573 
+	#PCI_ERR_COR_REP_TIMER
+ 0x00001000
+
+	)
+
+574 
+	#PCI_ERR_COR_MASK
+ 20
+
+	)
+
+576 
+	#PCI_ERR_CAP
+ 24
+
+	)
+
+577 
+	#PCI_ERR_CAP_FEP
+(
+x
+Ë((xË& 31Ë
+
+	)
+
+578 
+	#PCI_ERR_CAP_ECRC_GENC
+ 0x00000020
+
+	)
+
+579 
+	#PCI_ERR_CAP_ECRC_GENE
+ 0x00000040
+
+	)
+
+580 
+	#PCI_ERR_CAP_ECRC_CHKC
+ 0x00000080
+
+	)
+
+581 
+	#PCI_ERR_CAP_ECRC_CHKE
+ 0x00000100
+
+	)
+
+582 
+	#PCI_ERR_HEADER_LOG
+ 28
+
+	)
+
+583 
+	#PCI_ERR_ROOT_COMMAND
+ 44
+
+	)
+
+585 
+	#PCI_ERR_ROOT_CMD_COR_EN
+ 0x00000001
+
+	)
+
+587 
+	#PCI_ERR_ROOT_CMD_NONFATAL_EN
+ 0x00000002
+
+	)
+
+589 
+	#PCI_ERR_ROOT_CMD_FATAL_EN
+ 0x00000004
+
+	)
+
+590 
+	#PCI_ERR_ROOT_STATUS
+ 48
+
+	)
+
+591 
+	#PCI_ERR_ROOT_COR_RCV
+ 0x00000001
+
+	)
+
+593 
+	#PCI_ERR_ROOT_MULTI_COR_RCV
+ 0x00000002
+
+	)
+
+595 
+	#PCI_ERR_ROOT_UNCOR_RCV
+ 0x00000004
+
+	)
+
+597 
+	#PCI_ERR_ROOT_MULTI_UNCOR_RCV
+ 0x00000008
+
+	)
+
+598 
+	#PCI_ERR_ROOT_FIRST_FATAL
+ 0x00000010
+
+	)
+
+599 
+	#PCI_ERR_ROOT_NONFATAL_RCV
+ 0x00000020
+
+	)
+
+600 
+	#PCI_ERR_ROOT_FATAL_RCV
+ 0x00000040
+
+	)
+
+601 
+	#PCI_ERR_ROOT_ERR_SRC
+ 52
+
+	)
+
+604 
+	#PCI_VC_PORT_REG1
+ 4
+
+	)
+
+605 
+	#PCI_VC_PORT_REG2
+ 8
+
+	)
+
+606 
+	#PCI_VC_PORT_CTRL
+ 12
+
+	)
+
+607 
+	#PCI_VC_PORT_STATUS
+ 14
+
+	)
+
+608 
+	#PCI_VC_RES_CAP
+ 16
+
+	)
+
+609 
+	#PCI_VC_RES_CTRL
+ 20
+
+	)
+
+610 
+	#PCI_VC_RES_STATUS
+ 26
+
+	)
+
+613 
+	#PCI_PWR_DSR
+ 4
+
+	)
+
+614 
+	#PCI_PWR_DATA
+ 8
+
+	)
+
+615 
+	#PCI_PWR_DATA_BASE
+(
+x
+Ë((xË& 0xffË
+
+	)
+
+616 
+	#PCI_PWR_DATA_SCALE
+(
+x
+Ë(((xË>> 8Ë& 3Ë
+
+	)
+
+617 
+	#PCI_PWR_DATA_PM_SUB
+(
+x
+Ë(((xË>> 10Ë& 7Ë
+
+	)
+
+618 
+	#PCI_PWR_DATA_PM_STATE
+(
+x
+Ë(((xË>> 13Ë& 3Ë
+
+	)
+
+619 
+	#PCI_PWR_DATA_TYPE
+(
+x
+Ë(((xË>> 15Ë& 7Ë
+
+	)
+
+620 
+	#PCI_PWR_DATA_RAIL
+(
+x
+Ë(((xË>> 18Ë& 7Ë
+
+	)
+
+621 
+	#PCI_PWR_CAP
+ 12
+
+	)
+
+622 
+	#PCI_PWR_CAP_BUDGET
+(
+x
+Ë((xË& 1Ë
+
+	)
+
+632 
+	#HT_3BIT_CAP_MASK
+ 0xE0
+
+	)
+
+633 
+	#HT_CAPTYPE_SLAVE
+ 0x00
+
+	)
+
+634 
+	#HT_CAPTYPE_HOST
+ 0x20
+
+	)
+
+636 
+	#HT_5BIT_CAP_MASK
+ 0xF8
+
+	)
+
+637 
+	#HT_CAPTYPE_IRQ
+ 0x80
+
+	)
+
+638 
+	#HT_CAPTYPE_REMAPPING_40
+ 0xA0
+
+	)
+
+639 
+	#HT_CAPTYPE_REMAPPING_64
+ 0xA2
+
+	)
+
+640 
+	#HT_CAPTYPE_UNITID_CLUMP
+ 0x90
+
+	)
+
+641 
+	#HT_CAPTYPE_EXTCONF
+ 0x98
+
+	)
+
+642 
+	#HT_CAPTYPE_MSI_MAPPING
+ 0xA8
+
+	)
+
+643 
+	#HT_MSI_FLAGS
+ 0x02
+
+	)
+
+644 
+	#HT_MSI_FLAGS_ENABLE
+ 0x1
+
+	)
+
+645 
+	#HT_MSI_FLAGS_FIXED
+ 0x2
+
+	)
+
+646 
+	#HT_MSI_FIXED_ADDR
+ 0x00000000FEE00000ULL
+
+	)
+
+647 
+	#HT_MSI_ADDR_LO
+ 0x04
+
+	)
+
+648 
+	#HT_MSI_ADDR_LO_MASK
+ 0xFFF00000
+
+	)
+
+649 
+	#HT_MSI_ADDR_HI
+ 0x08
+
+	)
+
+650 
+	#HT_CAPTYPE_DIRECT_ROUTE
+ 0xB0
+
+	)
+
+651 
+	#HT_CAPTYPE_VCSET
+ 0xB8
+
+	)
+
+652 
+	#HT_CAPTYPE_ERROR_RETRY
+ 0xC0
+
+	)
+
+653 
+	#HT_CAPTYPE_GEN3
+ 0xD0
+
+	)
+
+654 
+	#HT_CAPTYPE_PM
+ 0xE0
+
+	)
+
+657 
+	#PCI_ARI_CAP
+ 0x04
+
+	)
+
+658 
+	#PCI_ARI_CAP_MFVC
+ 0x0001
+
+	)
+
+659 
+	#PCI_ARI_CAP_ACS
+ 0x0002
+
+	)
+
+660 
+	#PCI_ARI_CAP_NFN
+(
+x
+Ë(((xË>> 8Ë& 0xffË
+
+	)
+
+661 
+	#PCI_ARI_CTRL
+ 0x06
+
+	)
+
+662 
+	#PCI_ARI_CTRL_MFVC
+ 0x0001
+
+	)
+
+663 
+	#PCI_ARI_CTRL_ACS
+ 0x0002
+
+	)
+
+664 
+	#PCI_ARI_CTRL_FG
+(
+x
+Ë(((xË>> 4Ë& 7Ë
+
+	)
+
+667 
+	#PCI_ATS_CAP
+ 0x04
+
+	)
+
+668 
+	#PCI_ATS_CAP_QDEP
+(
+x
+Ë((xË& 0x1fË
+
+	)
+
+669 
+	#PCI_ATS_MAX_QDEP
+ 32
+
+	)
+
+670 
+	#PCI_ATS_CTRL
+ 0x06
+
+	)
+
+671 
+	#PCI_ATS_CTRL_ENABLE
+ 0x8000
+
+	)
+
+672 
+	#PCI_ATS_CTRL_STU
+(
+x
+Ë((xË& 0x1fË
+
+	)
+
+673 
+	#PCI_ATS_MIN_STU
+ 12
+
+	)
+
+676 
+	#PCI_SRIOV_CAP
+ 0x04
+
+	)
+
+677 
+	#PCI_SRIOV_CAP_VFM
+ 0x01
+
+	)
+
+678 
+	#PCI_SRIOV_CAP_INTR
+(
+x
+Ë((xË>> 21Ë
+
+	)
+
+679 
+	#PCI_SRIOV_CTRL
+ 0x08
+
+	)
+
+680 
+	#PCI_SRIOV_CTRL_VFE
+ 0x01
+
+	)
+
+681 
+	#PCI_SRIOV_CTRL_VFM
+ 0x02
+
+	)
+
+682 
+	#PCI_SRIOV_CTRL_INTR
+ 0x04
+
+	)
+
+683 
+	#PCI_SRIOV_CTRL_MSE
+ 0x08
+
+	)
+
+684 
+	#PCI_SRIOV_CTRL_ARI
+ 0x10
+
+	)
+
+685 
+	#PCI_SRIOV_STATUS
+ 0x0®
+
+	)
+
+686 
+	#PCI_SRIOV_STATUS_VFM
+ 0x01
+
+	)
+
+687 
+	#PCI_SRIOV_INITIAL_VF
+ 0x0¯
+
+	)
+
+688 
+	#PCI_SRIOV_TOTAL_VF
+ 0x0ê
+
+	)
+
+689 
+	#PCI_SRIOV_NUM_VF
+ 0x10
+
+	)
+
+690 
+	#PCI_SRIOV_FUNC_LINK
+ 0x12
+
+	)
+
+691 
+	#PCI_SRIOV_VF_OFFSET
+ 0x14
+
+	)
+
+692 
+	#PCI_SRIOV_VF_STRIDE
+ 0x16
+
+	)
+
+693 
+	#PCI_SRIOV_VF_DID
+ 0x1®
+
+	)
+
+694 
+	#PCI_SRIOV_SUP_PGSIZE
+ 0x1¯
+
+	)
+
+695 
+	#PCI_SRIOV_SYS_PGSIZE
+ 0x20
+
+	)
+
+696 
+	#PCI_SRIOV_BAR
+ 0x24
+
+	)
+
+697 
+	#PCI_SRIOV_NUM_BARS
+ 6
+
+	)
+
+698 
+	#PCI_SRIOV_VFM
+ 0x3¯
+
+	)
+
+699 
+	#PCI_SRIOV_VFM_BIR
+(
+x
+Ë((xË& 7Ë
+
+	)
+
+700 
+	#PCI_SRIOV_VFM_OFFSET
+(
+x
+Ë((xË& ~7Ë
+
+	)
+
+701 
+	#PCI_SRIOV_VFM_UA
+ 0x0
+
+	)
+
+702 
+	#PCI_SRIOV_VFM_MI
+ 0x1
+
+	)
+
+703 
+	#PCI_SRIOV_VFM_MO
+ 0x2
+
+	)
+
+704 
+	#PCI_SRIOV_VFM_AV
+ 0x3
+
+	)
+
+706 
+	#PCI_LTR_MAX_SNOOP_LAT
+ 0x4
+
+	)
+
+707 
+	#PCI_LTR_MAX_NOSNOOP_LAT
+ 0x6
+
+	)
+
+708 
+	#PCI_LTR_VALUE_MASK
+ 0x000003ff
+
+	)
+
+709 
+	#PCI_LTR_SCALE_MASK
+ 0x00001c00
+
+	)
+
+710 
+	#PCI_LTR_SCALE_SHIFT
+ 10
+
+	)
+
+713 
+	#PCI_ACS_CAP
+ 0x04
+
+	)
+
+714 
+	#PCI_ACS_SV
+ 0x01
+
+	)
+
+715 
+	#PCI_ACS_TB
+ 0x02
+
+	)
+
+716 
+	#PCI_ACS_RR
+ 0x04
+
+	)
+
+717 
+	#PCI_ACS_CR
+ 0x08
+
+	)
+
+718 
+	#PCI_ACS_UF
+ 0x10
+
+	)
+
+719 
+	#PCI_ACS_EC
+ 0x20
+
+	)
+
+720 
+	#PCI_ACS_DT
+ 0x40
+
+	)
+
+721 
+	#PCI_ACS_CTRL
+ 0x06
+
+	)
+
+722 
+	#PCI_ACS_EGRESS_CTL_V
+ 0x08
+
+	)
+
+	@/usr/include/linux/types.h
+
+1 #i‚de‡
+_LINUX_TYPES_H
+
+
+2 
+	#_LINUX_TYPES_H
+
+
+	)
+
+4 
+	~<asm/ty≥s.h
+>
+
+6 #i‚de‡
+__ASSEMBLY__
+
+
+8 
+	~<löux/posix_ty≥s.h
+>
+
+16 #ifde‡
+__CHECKER__
+
+
+17 
+	#__bôwi£__
+ 
+	`__©åibuã__
+((
+bôwi£
+))
+
+	)
+
+19 
+	#__bôwi£__
+
+
+	)
+
+21 #ifde‡
+__CHECK_ENDIAN__
+
+
+22 
+	#__bôwi£
+ 
+__bôwi£__
+
+
+	)
+
+24 
+	#__bôwi£
+
+
+	)
+
+27 
+__u16
+ 
+	t__bôwi£
+ 
+	t__À16
+;
+
+28 
+__u16
+ 
+	t__bôwi£
+ 
+	t__be16
+;
+
+29 
+__u32
+ 
+	t__bôwi£
+ 
+	t__À32
+;
+
+30 
+__u32
+ 
+	t__bôwi£
+ 
+	t__be32
+;
+
+31 
+__u64
+ 
+	t__bôwi£
+ 
+	t__À64
+;
+
+32 
+__u64
+ 
+	t__bôwi£
+ 
+	t__be64
+;
+
+34 
+__u16
+ 
+	t__bôwi£
+ 
+	t__sum16
+;
+
+35 
+__u32
+ 
+	t__bôwi£
+ 
+	t__wsum
+;
+
+38 
+	#__Æig√d_u64
+ 
+__u64
+ 
+	`__©åibuã__
+((
+	`Æig√d
+(8)))
+
+	)
+
+39 
+	#__Æig√d_be64
+ 
+__be64
+ 
+	`__©åibuã__
+((
+	`Æig√d
+(8)))
+
+	)
+
+40 
+	#__Æig√d_À64
+ 
+__À64
+ 
+	`__©åibuã__
+((
+	`Æig√d
+(8)))
+
+	)
+
+	@/usr/include/asm-generic/errno.h
+
+1 #i‚de‡
+_ASM_GENERIC_ERRNO_H
+
+
+2 
+	#_ASM_GENERIC_ERRNO_H
+
+
+	)
+
+4 
+	~<asm-gíîic/î∫o-ba£.h
+>
+
+6 
+	#EDEADLK
+ 35
+
+	)
+
+7 
+	#ENAMETOOLONG
+ 36
+
+	)
+
+8 
+	#ENOLCK
+ 37
+
+	)
+
+9 
+	#ENOSYS
+ 38
+
+	)
+
+10 
+	#ENOTEMPTY
+ 39
+
+	)
+
+11 
+	#ELOOP
+ 40
+
+	)
+
+12 
+	#EWOULDBLOCK
+ 
+EAGAIN
+
+
+	)
+
+13 
+	#ENOMSG
+ 42
+
+	)
+
+14 
+	#EIDRM
+ 43
+
+	)
+
+15 
+	#ECHRNG
+ 44
+
+	)
+
+16 
+	#EL2NSYNC
+ 45
+
+	)
+
+17 
+	#EL3HLT
+ 46
+
+	)
+
+18 
+	#EL3RST
+ 47
+
+	)
+
+19 
+	#ELNRNG
+ 48
+
+	)
+
+20 
+	#EUNATCH
+ 49
+
+	)
+
+21 
+	#ENOCSI
+ 50
+
+	)
+
+22 
+	#EL2HLT
+ 51
+
+	)
+
+23 
+	#EBADE
+ 52
+
+	)
+
+24 
+	#EBADR
+ 53
+
+	)
+
+25 
+	#EXFULL
+ 54
+
+	)
+
+26 
+	#ENOANO
+ 55
+
+	)
+
+27 
+	#EBADRQC
+ 56
+
+	)
+
+28 
+	#EBADSLT
+ 57
+
+	)
+
+30 
+	#EDEADLOCK
+ 
+EDEADLK
+
+
+	)
+
+32 
+	#EBFONT
+ 59
+
+	)
+
+33 
+	#ENOSTR
+ 60
+
+	)
+
+34 
+	#ENODATA
+ 61
+
+	)
+
+35 
+	#ETIME
+ 62
+
+	)
+
+36 
+	#ENOSR
+ 63
+
+	)
+
+37 
+	#ENONET
+ 64
+
+	)
+
+38 
+	#ENOPKG
+ 65
+
+	)
+
+39 
+	#EREMOTE
+ 66
+
+	)
+
+40 
+	#ENOLINK
+ 67
+
+	)
+
+41 
+	#EADV
+ 68
+
+	)
+
+42 
+	#ESRMNT
+ 69
+
+	)
+
+43 
+	#ECOMM
+ 70
+
+	)
+
+44 
+	#EPROTO
+ 71
+
+	)
+
+45 
+	#EMULTIHOP
+ 72
+
+	)
+
+46 
+	#EDOTDOT
+ 73
+
+	)
+
+47 
+	#EBADMSG
+ 74
+
+	)
+
+48 
+	#EOVERFLOW
+ 75
+
+	)
+
+49 
+	#ENOTUNIQ
+ 76
+
+	)
+
+50 
+	#EBADFD
+ 77
+
+	)
+
+51 
+	#EREMCHG
+ 78
+
+	)
+
+52 
+	#ELIBACC
+ 79
+
+	)
+
+53 
+	#ELIBBAD
+ 80
+
+	)
+
+54 
+	#ELIBSCN
+ 81
+
+	)
+
+55 
+	#ELIBMAX
+ 82
+
+	)
+
+56 
+	#ELIBEXEC
+ 83
+
+	)
+
+57 
+	#EILSEQ
+ 84
+
+	)
+
+58 
+	#ERESTART
+ 85
+
+	)
+
+59 
+	#ESTRPIPE
+ 86
+
+	)
+
+60 
+	#EUSERS
+ 87
+
+	)
+
+61 
+	#ENOTSOCK
+ 88
+
+	)
+
+62 
+	#EDESTADDRREQ
+ 89
+
+	)
+
+63 
+	#EMSGSIZE
+ 90
+
+	)
+
+64 
+	#EPROTOTYPE
+ 91
+
+	)
+
+65 
+	#ENOPROTOOPT
+ 92
+
+	)
+
+66 
+	#EPROTONOSUPPORT
+ 93
+
+	)
+
+67 
+	#ESOCKTNOSUPPORT
+ 94
+
+	)
+
+68 
+	#EOPNOTSUPP
+ 95
+
+	)
+
+69 
+	#EPFNOSUPPORT
+ 96
+
+	)
+
+70 
+	#EAFNOSUPPORT
+ 97
+
+	)
+
+71 
+	#EADDRINUSE
+ 98
+
+	)
+
+72 
+	#EADDRNOTAVAIL
+ 99
+
+	)
+
+73 
+	#ENETDOWN
+ 100
+
+	)
+
+74 
+	#ENETUNREACH
+ 101
+
+	)
+
+75 
+	#ENETRESET
+ 102
+
+	)
+
+76 
+	#ECONNABORTED
+ 103
+
+	)
+
+77 
+	#ECONNRESET
+ 104
+
+	)
+
+78 
+	#ENOBUFS
+ 105
+
+	)
+
+79 
+	#EISCONN
+ 106
+
+	)
+
+80 
+	#ENOTCONN
+ 107
+
+	)
+
+81 
+	#ESHUTDOWN
+ 108
+
+	)
+
+82 
+	#ETOOMANYREFS
+ 109
+
+	)
+
+83 
+	#ETIMEDOUT
+ 110
+
+	)
+
+84 
+	#ECONNREFUSED
+ 111
+
+	)
+
+85 
+	#EHOSTDOWN
+ 112
+
+	)
+
+86 
+	#EHOSTUNREACH
+ 113
+
+	)
+
+87 
+	#EALREADY
+ 114
+
+	)
+
+88 
+	#EINPROGRESS
+ 115
+
+	)
+
+89 
+	#ESTALE
+ 116
+
+	)
+
+90 
+	#EUCLEAN
+ 117
+
+	)
+
+91 
+	#ENOTNAM
+ 118
+
+	)
+
+92 
+	#ENAVAIL
+ 119
+
+	)
+
+93 
+	#EISNAM
+ 120
+
+	)
+
+94 
+	#EREMOTEIO
+ 121
+
+	)
+
+95 
+	#EDQUOT
+ 122
+
+	)
+
+97 
+	#ENOMEDIUM
+ 123
+
+	)
+
+98 
+	#EMEDIUMTYPE
+ 124
+
+	)
+
+99 
+	#ECANCELED
+ 125
+
+	)
+
+100 
+	#ENOKEY
+ 126
+
+	)
+
+101 
+	#EKEYEXPIRED
+ 127
+
+	)
+
+102 
+	#EKEYREVOKED
+ 128
+
+	)
+
+103 
+	#EKEYREJECTED
+ 129
+
+	)
+
+106 
+	#EOWNERDEAD
+ 130
+
+	)
+
+107 
+	#ENOTRECOVERABLE
+ 131
+
+	)
+
+109 
+	#ERFKILL
+ 132
+
+	)
+
+111 
+	#EHWPOISON
+ 133
+
+	)
+
+	@/usr/include/asm/ioctl.h
+
+1 
+	~<asm-gíîic/io˘l.h
+>
+
+	@/usr/include/asm/types.h
+
+1 #i‚de‡
+_ASM_X86_TYPES_H
+
+
+2 
+	#_ASM_X86_TYPES_H
+
+
+	)
+
+4 
+	~<asm-gíîic/ty≥s.h
+>
+
+	@/usr/include/linux/posix_types.h
+
+1 #i‚de‡
+_LINUX_POSIX_TYPES_H
+
+
+2 
+	#_LINUX_POSIX_TYPES_H
+
+
+	)
+
+4 
+	~<löux/°ddef.h
+>
+
+21 #unde‡
+__NFDBITS
+
+
+22 
+	#__NFDBITS
+ (8 * ())
+
+	)
+
+24 #unde‡
+__FD_SETSIZE
+
+
+25 
+	#__FD_SETSIZE
+ 1024
+
+	)
+
+27 #unde‡
+__FDSET_LONGS
+
+
+28 
+	#__FDSET_LONGS
+ (
+__FD_SETSIZE
+/
+__NFDBITS
+)
+
+	)
+
+30 #unde‡
+__FDELT
+
+
+31 
+	#__FDELT
+(
+d
+Ë((dË/ 
+__NFDBITS
+)
+
+	)
+
+33 #unde‡
+__FDMASK
+
+
+34 
+	#__FDMASK
+(
+d
+Ë(1UL << ((dË% 
+__NFDBITS
+))
+
+	)
+
+37 
+	mfds_bôs
+ [
+__FDSET_LONGS
+];
+
+38 } 
+	t__kî√l_fd_£t
+;
+
+41 (*
+	t__kî√l_sigh™dÀr_t
+)();
+
+44 
+	t__kî√l_key_t
+;
+
+45 
+	t__kî√l_mqd_t
+;
+
+47 
+	~<asm/posix_ty≥s.h
+>
+
+	@/usr/include/asm-generic/errno-base.h
+
+1 #i‚de‡
+_ASM_GENERIC_ERRNO_BASE_H
+
+
+2 
+	#_ASM_GENERIC_ERRNO_BASE_H
+
+
+	)
+
+4 
+	#EPERM
+ 1
+
+	)
+
+5 
+	#ENOENT
+ 2
+
+	)
+
+6 
+	#ESRCH
+ 3
+
+	)
+
+7 
+	#EINTR
+ 4
+
+	)
+
+8 
+	#EIO
+ 5
+
+	)
+
+9 
+	#ENXIO
+ 6
+
+	)
+
+10 
+	#E2BIG
+ 7
+
+	)
+
+11 
+	#ENOEXEC
+ 8
+
+	)
+
+12 
+	#EBADF
+ 9
+
+	)
+
+13 
+	#ECHILD
+ 10
+
+	)
+
+14 
+	#EAGAIN
+ 11
+
+	)
+
+15 
+	#ENOMEM
+ 12
+
+	)
+
+16 
+	#EACCES
+ 13
+
+	)
+
+17 
+	#EFAULT
+ 14
+
+	)
+
+18 
+	#ENOTBLK
+ 15
+
+	)
+
+19 
+	#EBUSY
+ 16
+
+	)
+
+20 
+	#EEXIST
+ 17
+
+	)
+
+21 
+	#EXDEV
+ 18
+
+	)
+
+22 
+	#ENODEV
+ 19
+
+	)
+
+23 
+	#ENOTDIR
+ 20
+
+	)
+
+24 
+	#EISDIR
+ 21
+
+	)
+
+25 
+	#EINVAL
+ 22
+
+	)
+
+26 
+	#ENFILE
+ 23
+
+	)
+
+27 
+	#EMFILE
+ 24
+
+	)
+
+28 
+	#ENOTTY
+ 25
+
+	)
+
+29 
+	#ETXTBSY
+ 26
+
+	)
+
+30 
+	#EFBIG
+ 27
+
+	)
+
+31 
+	#ENOSPC
+ 28
+
+	)
+
+32 
+	#ESPIPE
+ 29
+
+	)
+
+33 
+	#EROFS
+ 30
+
+	)
+
+34 
+	#EMLINK
+ 31
+
+	)
+
+35 
+	#EPIPE
+ 32
+
+	)
+
+36 
+	#EDOM
+ 33
+
+	)
+
+37 
+	#ERANGE
+ 34
+
+	)
+
+	@/usr/include/asm-generic/ioctl.h
+
+1 #i‚de‡
+_ASM_GENERIC_IOCTL_H
+
+
+2 
+	#_ASM_GENERIC_IOCTL_H
+
+
+	)
+
+22 
+	#_IOC_NRBITS
+ 8
+
+	)
+
+23 
+	#_IOC_TYPEBITS
+ 8
+
+	)
+
+30 #i‚de‡
+_IOC_SIZEBITS
+
+
+31 
+	#_IOC_SIZEBITS
+ 14
+
+	)
+
+34 #i‚de‡
+_IOC_DIRBITS
+
+
+35 
+	#_IOC_DIRBITS
+ 2
+
+	)
+
+38 
+	#_IOC_NRMASK
+ ((1 << 
+_IOC_NRBITS
+)-1)
+
+	)
+
+39 
+	#_IOC_TYPEMASK
+ ((1 << 
+_IOC_TYPEBITS
+)-1)
+
+	)
+
+40 
+	#_IOC_SIZEMASK
+ ((1 << 
+_IOC_SIZEBITS
+)-1)
+
+	)
+
+41 
+	#_IOC_DIRMASK
+ ((1 << 
+_IOC_DIRBITS
+)-1)
+
+	)
+
+43 
+	#_IOC_NRSHIFT
+ 0
+
+	)
+
+44 
+	#_IOC_TYPESHIFT
+ (
+_IOC_NRSHIFT
++
+_IOC_NRBITS
+)
+
+	)
+
+45 
+	#_IOC_SIZESHIFT
+ (
+_IOC_TYPESHIFT
++
+_IOC_TYPEBITS
+)
+
+	)
+
+46 
+	#_IOC_DIRSHIFT
+ (
+_IOC_SIZESHIFT
++
+_IOC_SIZEBITS
+)
+
+	)
+
+53 #i‚de‡
+_IOC_NONE
+
+
+54 
+	#_IOC_NONE
+ 0U
+
+	)
+
+57 #i‚de‡
+_IOC_WRITE
+
+
+58 
+	#_IOC_WRITE
+ 1U
+
+	)
+
+61 #i‚de‡
+_IOC_READ
+
+
+62 
+	#_IOC_READ
+ 2U
+
+	)
+
+65 
+	#_IOC
+(
+dú
+,
+ty≥
+,
+ƒ
+,
+size
+) \
+
+66 (((
+dú
+Ë<< 
+_IOC_DIRSHIFT
+) | \
+
+67 ((
+ty≥
+Ë<< 
+_IOC_TYPESHIFT
+) | \
+
+68 ((
+ƒ
+Ë<< 
+_IOC_NRSHIFT
+) | \
+
+69 ((
+size
+Ë<< 
+_IOC_SIZESHIFT
+))
+
+	)
+
+71 
+	#_IOC_TYPECHECK
+(
+t
+Ë(—))
+
+	)
+
+74 
+	#_IO
+(
+ty≥
+,
+ƒ
+Ë
+	`_IOC
+(
+_IOC_NONE
+,—y≥),“r),0)
+
+	)
+
+75 
+	#_IOR
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_READ
+,—y≥),“r),(
+	`_IOC_TYPECHECK
+(size)))
+
+	)
+
+76 
+	#_IOW
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_WRITE
+,—y≥),“r),(
+	`_IOC_TYPECHECK
+(size)))
+
+	)
+
+77 
+	#_IOWR
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_READ
+|
+_IOC_WRITE
+,—y≥),“r),(
+	`_IOC_TYPECHECK
+(size)))
+
+	)
+
+78 
+	#_IOR_BAD
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_READ
+,—y≥),“r),(size))
+
+	)
+
+79 
+	#_IOW_BAD
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_WRITE
+,—y≥),“r),(size))
+
+	)
+
+80 
+	#_IOWR_BAD
+(
+ty≥
+,
+ƒ
+,
+size
+Ë
+	`_IOC
+(
+_IOC_READ
+|
+_IOC_WRITE
+,—y≥),“r),(size))
+
+	)
+
+83 
+	#_IOC_DIR
+(
+ƒ
+Ë((“rË>> 
+_IOC_DIRSHIFT
+Ë& 
+_IOC_DIRMASK
+)
+
+	)
+
+84 
+	#_IOC_TYPE
+(
+ƒ
+Ë((“rË>> 
+_IOC_TYPESHIFT
+Ë& 
+_IOC_TYPEMASK
+)
+
+	)
+
+85 
+	#_IOC_NR
+(
+ƒ
+Ë((“rË>> 
+_IOC_NRSHIFT
+Ë& 
+_IOC_NRMASK
+)
+
+	)
+
+86 
+	#_IOC_SIZE
+(
+ƒ
+Ë((“rË>> 
+_IOC_SIZESHIFT
+Ë& 
+_IOC_SIZEMASK
+)
+
+	)
+
+90 
+	#IOC_IN
+ (
+_IOC_WRITE
+ << 
+_IOC_DIRSHIFT
+)
+
+	)
+
+91 
+	#IOC_OUT
+ (
+_IOC_READ
+ << 
+_IOC_DIRSHIFT
+)
+
+	)
+
+92 
+	#IOC_INOUT
+ ((
+_IOC_WRITE
+|
+_IOC_READ
+Ë<< 
+_IOC_DIRSHIFT
+)
+
+	)
+
+93 
+	#IOCSIZE_MASK
+ (
+_IOC_SIZEMASK
+ << 
+_IOC_SIZESHIFT
+)
+
+	)
+
+94 
+	#IOCSIZE_SHIFT
+ (
+_IOC_SIZESHIFT
+)
+
+	)
+
+	@/usr/include/asm-generic/types.h
+
+1 #i‚de‡
+_ASM_GENERIC_TYPES_H
+
+
+2 
+	#_ASM_GENERIC_TYPES_H
+
+
+	)
+
+7 
+	~<asm-gíîic/öt-Œ64.h
+>
+
+9 #i‚de‡
+__ASSEMBLY__
+
+
+11 
+	tumode_t
+;
+
+	@/usr/include/asm/posix_types.h
+
+1 #ifde‡
+__i386__
+
+
+2 
+	~"posix_ty≥s_32.h
+"
+
+4 
+	~"posix_ty≥s_64.h
+"
+
+	@/usr/include/linux/stddef.h
+
+1 #i‚de‡
+_LINUX_STDDEF_H
+
+
+2 
+	#_LINUX_STDDEF_H
+
+
+	)
+
+6 #unde‡
+NULL
+
+
+7 #i‡
+deföed
+(
+__˝lu•lus
+)
+
+8 
+	#NULL
+ 0
+
+	)
+
+10 
+	#NULL
+ ((*)0)
+
+	)
+
+	@/usr/include/asm-generic/int-ll64.h
+
+8 #i‚de‡
+_ASM_GENERIC_INT_LL64_H
+
+
+9 
+	#_ASM_GENERIC_INT_LL64_H
+
+
+	)
+
+11 
+	~<asm/bô•îl⁄g.h
+>
+
+13 #i‚de‡
+__ASSEMBLY__
+
+
+19 
+__sig√d__
+ 
+	t__s8
+;
+
+20 
+	t__u8
+;
+
+22 
+__sig√d__
+ 
+	t__s16
+;
+
+23 
+	t__u16
+;
+
+25 
+__sig√d__
+ 
+	t__s32
+;
+
+26 
+	t__u32
+;
+
+28 #ifde‡
+__GNUC__
+
+
+29 
+__exãnsi⁄__
+ 
+__sig√d__
+ 
+	t__s64
+;
+
+30 
+__exãnsi⁄__
+ 
+	t__u64
+;
+
+32 
+__sig√d__
+ 
+	t__s64
+;
+
+33 
+	t__u64
+;
+
+	@/usr/include/asm/bitsperlong.h
+
+1 #i‚de‡
+__ASM_X86_BITSPERLONG_H
+
+
+2 
+	#__ASM_X86_BITSPERLONG_H
+
+
+	)
+
+4 #ifde‡
+__x86_64__
+
+
+5 
+	#__BITS_PER_LONG
+ 64
+
+	)
+
+7 
+	#__BITS_PER_LONG
+ 32
+
+	)
+
+10 
+	~<asm-gíîic/bô•îl⁄g.h
+>
+
+	@/usr/include/asm-generic/bitsperlong.h
+
+1 #i‚de‡
+__ASM_GENERIC_BITS_PER_LONG
+
+
+2 
+	#__ASM_GENERIC_BITS_PER_LONG
+
+
+	)
+
+11 #i‚de‡
+__BITS_PER_LONG
+
+
+12 
+	#__BITS_PER_LONG
+ 32
+
+	)
+
+	@
+1
+.
+1
+/usr/include
+34
+1900
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/average.h
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/debug_kernel_error.txt
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/debug_kernel_error1.txt
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/l3-dma-trace.h
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/pcitest.c
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/pcitest.mod.c
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/pcitest_orig.c
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/see_dma_map_unmap_par_el1_dump.txt
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/testzone.c
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/testzone.mod.c
+/workspace/sw/mbykowsx/lionfish/perf/nuevo/peripherals/pcie/axm6732/asic-1.1/gpdma_to_l3_locked/uboot_l3_lock.txt
+/usr/include/linux/errno.h
+/usr/include/linux/kernel.h
+/usr/include/linux/pci.h
+/usr/include/linux/random.h
+average.h
+l3-dma-trace.h
+/usr/include/asm/errno.h
+/usr/include/linux/ioctl.h
+/usr/include/linux/irqnr.h
+/usr/include/linux/pci_regs.h
+/usr/include/linux/types.h
+/usr/include/asm-generic/errno.h
+/usr/include/asm/ioctl.h
+/usr/include/asm/types.h
+/usr/include/linux/posix_types.h
+/usr/include/asm-generic/errno-base.h
+/usr/include/asm-generic/ioctl.h
+/usr/include/asm-generic/types.h
+/usr/include/asm/posix_types.h
+/usr/include/linux/stddef.h
+/usr/include/asm-generic/int-ll64.h
+/usr/include/asm/bitsperlong.h
+/usr/include/asm-generic/bitsperlong.h

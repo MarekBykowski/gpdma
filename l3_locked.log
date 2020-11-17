@@ -1,0 +1,48 @@
+test dma_write burst 5 size 4k thr 2097152
+ dmatest_full.sh-3772  [018] .......   895.498798: l3_dma_duration: cpu=18 (0.000022781) avg(0.000019274)
+ dmatest_full.sh-3772  [018] .......   911.626795: l3_dma_duration: cpu=18 (0.000022070) avg(0.000021955)
+ dmatest_full.sh-3772  [018] .......   145.938172: l3_dma_duration: cpu=18 (0.000031953) avg(0.000025400)
+ dmatest_full.sh-3772  [018] .......   169.586104: l3_dma_duration: cpu=18 (0.000030707) avg(0.000037349)
+ dmatest_full.sh-3772  [018] .......   204.974203: l3_dma_duration: cpu=18 (0.000060597) avg(0.000053683)
+ dmatest_full.sh-3772  [018] .......   262.882247: l3_dma_duration: cpu=18 (0.000089566) avg(0.000084152)
+ dmatest_full.sh-3772  [018] .......   446.690526: l3_dma_duration: cpu=18 (0.000321832) avg(0.000243539)
+ dmatest_full.sh-3772  [018] .......   820.674983: l3_dma_duration: cpu=18 (0.000652586) avg(0.000496235)
+ dmatest_full.sh-3772  [018] .......  1600.451735: l3_dma_duration: cpu=18 (0.001259520) avg(0.000980085)
+test mem2mem burst 5 size 4k thr 2097152
+ dmatest_full.sh-3772  [018] .......   862.222727: l3_dma_duration: cpu=18 (0.000011617) avg(0.000017633)
+ dmatest_full.sh-3772  [018] .......   878.314704: l3_dma_duration: cpu=18 (0.000017144) avg(0.000019479)
+ dmatest_full.sh-3772  [018] .......  1650.666123: l3_dma_duration: cpu=18 (0.000024633) avg(0.000070365)
+ dmatest_full.sh-3772  [018] .......  1667.002206: l3_dma_duration: cpu=18 (0.000029511) avg(0.000044240)
+ dmatest_full.sh-3772  [018] .......  1683.378129: l3_dma_duration: cpu=18 (0.000039914) avg(0.000043401)
+ dmatest_full.sh-3772  [018] .......  1699.782210: l3_dma_duration: cpu=18 (0.000067207) avg(0.000054684)
+ dmatest_full.sh-3772  [018] .......  1716.186529: l3_dma_duration: cpu=18 (0.000220359) avg(0.000151289)
+ dmatest_full.sh-3772  [018] .......  1736.623012: l3_dma_duration: cpu=18 (0.000398257) avg(0.000314766)
+ dmatest_full.sh-3772  [018] .......  1765.087745: l3_dma_duration: cpu=18 (0.000790422) avg(0.000599714)
+test dma_write burst 7 size 4k thr 2097152
+ dmatest_full.sh-3772  [018] .......  2096.986769: l3_dma_duration: cpu=18 (0.000023122) avg(0.000020032)
+ dmatest_full.sh-3772  [018] .......  2113.134690: l3_dma_duration: cpu=18 (0.000018265) avg(0.000020117)
+ dmatest_full.sh-3772  [018] .......  1818.570104: l3_dma_duration: cpu=18 (0.000030097) avg(0.000055292)
+ dmatest_full.sh-3772  [018] .......  1846.086147: l3_dma_duration: cpu=18 (0.000031113) avg(0.000042325)
+ dmatest_full.sh-3772  [018] .......  1884.818146: l3_dma_duration: cpu=18 (0.000054801) avg(0.000050415)
+ dmatest_full.sh-3772  [018] .......  1949.650218: l3_dma_duration: cpu=18 (0.000099062) avg(0.000078355)
+ dmatest_full.sh-3772  [018] .......  2157.610528: l3_dma_duration: cpu=18 (0.000322098) avg(0.000237309)
+ dmatest_full.sh-3772  [018] .......  2554.274983: l3_dma_duration: cpu=18 (0.000643047) avg(0.000492613)
+ dmatest_full.sh-3772  [018] .......  3339.123842: l3_dma_duration: cpu=18 (0.001256231) avg(0.000980166)
+test mem2mem burst 7 size 4k thr 2097152
+ dmatest_full.sh-3772  [018] .......  2064.278797: l3_dma_duration: cpu=18 (0.000019872) avg(0.000016133)
+ dmatest_full.sh-3772  [018] .......  2080.370743: l3_dma_duration: cpu=18 (0.000015406) avg(0.000017461)
+ dmatest_full.sh-3772  [018] .......  3390.246107: l3_dma_duration: cpu=18 (0.000022183) avg(0.000067388)
+ dmatest_full.sh-3772  [018] .......  3406.890178: l3_dma_duration: cpu=18 (0.000037352) avg(0.000044511)
+ dmatest_full.sh-3772  [018] .......  3423.502152: l3_dma_duration: cpu=18 (0.000034464) avg(0.000042509)
+ dmatest_full.sh-3772  [018] .......  3440.114258: l3_dma_duration: cpu=18 (0.000059871) avg(0.000053290)
+ dmatest_full.sh-3772  [018] .......  3456.726479: l3_dma_duration: cpu=18 (0.000215074) avg(0.000158395)
+ dmatest_full.sh-3772  [018] .......  3477.338804: l3_dma_duration: cpu=18 (0.000390906) avg(0.000308881)
+ dmatest_full.sh-3772  [018] .......  3505.959570: l3_dma_duration: cpu=18 (0.000784688) avg(0.000603369)
+
+#####################################3
+tests for JayJ
+#####################################3
+test mem2mem burst 7 8M
+test mem2mem burst 7 8M
+test mem2mem burst 7 8M
+ dmatest_full.sh-3778  [018] .......   241.406498: l3_dma_duration: cpu=18 (0.011154891) avg(0.010827558)

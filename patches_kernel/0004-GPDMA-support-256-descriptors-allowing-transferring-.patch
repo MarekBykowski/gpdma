@@ -1,0 +1,26 @@
+From c8a0a1ed62800633aa21186f9a29bd8bf22120d4 Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Mon, 3 Dec 2018 05:13:38 -0600
+Subject: [PATCH 4/4] GPDMA: support 256 descriptors allowing transferring 16G
+ of data. 	Each descriptor carries over 64K of data. 256*64K = 16G
+
+---
+ drivers/dma/lsi-dma32.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/dma/lsi-dma32.h b/drivers/dma/lsi-dma32.h
+index c5a2701aa0fc..bfe6c99f7e82 100644
+--- a/drivers/dma/lsi-dma32.h
++++ b/drivers/dma/lsi-dma32.h
+@@ -22,7 +22,7 @@
+ #include "virt-dma.h"
+ 
+ #define MAX_GPDMA_CHANNELS      4
+-#define GPDMA_MAX_DESCRIPTORS  128
++#define GPDMA_MAX_DESCRIPTORS  256
+ #define GPDMA_MAGIC            0xABCD1234UL
+ 
+ #define DMA_X_SRC_COUNT				0x00
+-- 
+2.16.2
+

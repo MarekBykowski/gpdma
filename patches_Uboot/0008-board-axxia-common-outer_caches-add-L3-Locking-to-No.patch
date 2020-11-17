@@ -1,0 +1,56 @@
+From d4e4992b02d4e3073becc561c0e047b269fa495b Mon Sep 17 00:00:00 2001
+From: Marek Bykowski <marek.bykowski@gmail.com>
+Date: Tue, 28 Aug 2018 07:42:58 -0500
+Subject: [PATCH 08/13] board/axxia/common/outer_caches: add L3 Locking to
+ Nokia's Uboot.
+
+Signed-off-by: Marek Bykowski <marek.bykowski@gmail.com>
+---
+ board/axxia/common/spl.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/board/axxia/common/spl.c b/board/axxia/common/spl.c
+index 1223ea01dd..bd52e7cd55 100755
+--- a/board/axxia/common/spl.c
++++ b/board/axxia/common/spl.c
+@@ -903,6 +903,13 @@ extern int set_cluster_coherency(unsigned cluster, unsigned state);
+ extern void ncr_l3tags(ncp_uint32_t address);
+ extern void l3_init_dma(ncp_uint32_t addr);
+ void (*l3_validate)(ncp_uint32_t address);
++#include "../axc6700/ncp_l3lock_region.h"
++#include "../../../include/configs/axxia.h"
++extern ncp_st_t
++ncp_l3lock_region_init (ncp_dev_hdl_t dev,
++            ncp_l3lock_region_info_t *l3lock_params,
++            ncp_bool_t isFPGA);
++
+ 
+ static void
+ load_image(void)
+@@ -1722,6 +1729,23 @@ board_init_f(ulong dummy)
+ 		asm volatile("adr x24, l3_validate\n"
+ 			"ldr x25, [x24]\n");
+ 
++{
++#define NO_L3_LOCK
++		/* Permits a Non-secure access request to access Secure registers */
++		writel(1, 0x4000000000);
++
++		ncp_l3lock_region_info_t ncp_l3lock_region_info = {0x00000010, 
++#ifdef NO_L3_LOCK
++			{0x00000899, 0x0000089d, 0x000008a1, 0x000008a5}};
++#elif defined(16M_L3_LOCK)
++			{0x80000899, 0x8000089d, 0x800008a1, 0x800008a5}};
++#endif
++
++		if (0 != ncp_l3lock_region_init(NULL, &ncp_l3lock_region_info, 0)) {
++			printf("mb: failed to L3 Lock\n");
++			acp_failure(__FILE__, __func__, __LINE__);
++		}
++}
+ 		/*
+ 		   Do not enforce HW coherency.
+ 		   Rely soley on SW Cache Maintenance Operations.
+-- 
+2.16.2
+
