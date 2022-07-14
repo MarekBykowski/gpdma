@@ -1,0 +1,9 @@
+interrupt
+x EL3:0xFFD11028
+newvar $wdt
+set variable $wdt=*(unsigned int*)(EL3:0xFFD11028)
+set variable $wdt=$wdt|0xf 
+set variable (*(unsigned int*)(EL3:0xFFD11028))=$wdt
+x EL3:0xFFD11028
+continue
+#quit
